@@ -1,0 +1,10 @@
+root = true
+
+[*]
+indent_style = space
+
+[*.html]
+indent_size = 2
+
+[*.{py,js,css}]
+indent_size = 4
