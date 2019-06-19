@@ -11,10 +11,12 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from getenv import env
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+PROJECT_DIR = os.path.dirname(__file__)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -23,9 +25,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'st01(u#nzl5*%ypoo@%*sh1x3nrz(3e!t0^iiixi1p432s^mqn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG', True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -37,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'gallery',
+    'backend',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +73,26 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'fotogalleri.wsgi.application'
 
+# Logging
+if not DEBUG:
+    logging = {
+        'version': 1,
+        'disable_existing_loggers': false,
+        'handlers': {
+            'file': {
+                'level': 'info',
+                'class': 'logging.filehandler',
+                'filename': '/var/log/fotogalleri/info.log',
+            },
+        },
+        'loggers': {
+            'django': {
+                'handlers': ['file'],
+                'level': 'info',
+                'propagate': true,
+            },
+        },
+    }
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -105,7 +129,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Helsinki'
 
 USE_I18N = True
 
@@ -118,3 +142,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
+
+# REST Framework settings
+# TODO: provide GET access to certain users for non-admins
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAdminUser',
+    ),
+}
+
+# Confs necessary for ajax-select
+AJAX_SELECT_INLINES = 'staticfiles'
+STATIC_ROOT = env("STATIC_ROOT", None)
