@@ -1,13 +1,48 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
   <head>
-    {% load static %}
+
+    <!-- Root CSS -->
+    <link href="{% static 'css/root.css' %}" rel="stylesheet">
+    <!-- Base CSS -->
+    <link href="{% static 'css/base.css' %}" rel="stylesheet">
+    <!-- CSS for header -->
+    <link href="{% static 'css/header.css' %}" rel="stylesheet">
+    <!-- Bootstrap v4.3.1 CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    >
+
+    {# Import all derived extra CSS files #}
+    {% block css %}
+    {% endblock %}
+
+    <!-- TF's widely used font: Montserrat -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
     <title>{% block title %}TFs Fotogalleri{% endblock %}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {# TODO: add favicon #}
   </head>
   <body>
-    {% include "header.html" %}
+    <div class="container-fluid">
+      <div class="col-sm-12 col-md-8 offset-md-2">
+        {% include "header.html" %}
 
-    {% block content %}
-    {% endblock %}
+        {% block content %}
+          <hr class="page-divide mb-4" />
+
+          <h3>
+            Valkommen till Teknologforeningens fotogalleri!
+          </h3>
+        {% endblock %}
+      </div>
+    </div>
   </body>
 </html>
