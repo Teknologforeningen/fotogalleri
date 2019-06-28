@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        {% load static %}
-        <title>{% block title %}TFs Fotogalleri{% endblock %}</title>
-    </head>
-    <body>
-        {% block content %}
-        {% endblock %}
-    </body>
+  <head>
+    {% load static %}
+    <title>{% block title %}TFs Fotogalleri{% endblock %}</title>
+  </head>
+  <body>
+    {% include "header.html" %}
+
+    {% block content %}
+    {% endblock %}
+  </body>
 </html>
