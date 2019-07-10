@@ -1,0 +1,12 @@
+/* Root CSS file for colors and globally shared variables/styles. */
+
+:root {
+    --teknolog-rod: #b20738;
+    --dark-red: #490318;
+    --black: #000;
+}
+
+/* Set Montserrat font to whole page. */
+* {
+    font-family: 'Montserrat', sans-serif;
+}

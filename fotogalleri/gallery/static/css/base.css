@@ -1,0 +1,6 @@
+@import "css/root.css";
+
+
+hr.page-divide {
+    border-top: 8px solid var(--teknolog-rod);
+}

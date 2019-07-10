@@ -1,0 +1,16 @@
+@import "css/root.css";
+
+
+:root {
+    --header-height: 70px;
+}
+
+#header-top {
+    max-height: var(--header-height);
+    display: flex;
+    align-items: center;
+}
+
+img#header-tf-logo {
+    height: var(--header-height);
+}
