@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'fotogalleri.wsgi.application'
 if not DEBUG:
     logging = {
         'version': 1,
-        'disable_existing_loggers': false,
+        'disable_existing_loggers': False,
         'handlers': {
             'file': {
                 'level': 'info',
@@ -89,7 +89,7 @@ if not DEBUG:
             'django': {
                 'handlers': ['file'],
                 'level': 'info',
-                'propagate': true,
+                'propagate': True,
             },
         },
     }
