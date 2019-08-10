@@ -1,8 +1,5 @@
 from PIL import Image
-import glob
 import os
-import base64
-from io import BytesIO
 
 
 def generate_thumbnails(img_path, minsizes=[], maxsizes=[]):
