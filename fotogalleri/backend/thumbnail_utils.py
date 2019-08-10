@@ -21,7 +21,7 @@ def generate_thumbnails(img_path, minsizes=[], maxsizes=[]):
     if not minsizes and not maxsizes:
         raise ValueError(
             "This function needs at least one minsize or maxsize for thumbnail")
-    img = Image.open(infile)
+    img = Image.open(img_path)
 
     sizes = maxsizes
     for s in minsizes:
@@ -32,21 +32,22 @@ def generate_thumbnails(img_path, minsizes=[], maxsizes=[]):
     thumbnails = []
     for s in sizes:
         # Only generate thumbnail if it would be smaller than the original image
-        if needs_thumbnail(img, s):
-            thumbnails.append(img.copy().thumbnail((s, s)))
+        w, h = img.size
+        if w > s and h > s:
+            temp = img.copy()
+            temp.thumbnail((s, s))
+            thumbnails.append(temp)
     return thumbnails
 
 
-def pil_to_base64(image):
+def save_to_path(image, name, img_path):
     """
-    :param image: PIL Image object
-    returns: base64 string
+    Converts PIL Image to jpg and saves it to img_path
     """
-    buffered = BytesIO()
-    image.save(buffered, format="JPEG")
-    return base64.b64encode(buffered.getvalue())
-
-
-def needs_thumbnail(image, maxsize):
+    if not os.path.exists(img_path):
+        os.makedirs(img_path)
     w, h = image.size
-    return w > maxsize and h > maxsize
+    name += f"{w}x{h}"
+    # Some image formats (PNG) are in RGBA, which jpeg doesn't support
+    rgb_image = image.convert('RGB')
+    rgb_image.save(img_path + name + ".jpg", format="JPEG")
