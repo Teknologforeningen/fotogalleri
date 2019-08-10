@@ -9,9 +9,10 @@ def generate_thumbnails(img_path, minsizes=[], maxsizes=[]):
     """
     Resizes given image to specified sizes, either define the length of 
     the shorter side (minsizes) or longer side (maxsizes). Generates a thumbnail
-    for each element in either list.
+    for each element in either list. No thumbnail will be generated if the generated
+    thumbnail would be bigger than the original image.
 
-    Returns a list (length len(minsizes) + len(maxsizes)) of PIL Image objects
+    Returns a list of PIL Image objects.
 
     :param img_path: path to source image
     :param minsizes: list of integers (sizes) for "short side" resizing
@@ -22,16 +23,17 @@ def generate_thumbnails(img_path, minsizes=[], maxsizes=[]):
             "This function needs at least one minsize or maxsize for thumbnail")
     img = Image.open(infile)
 
-    thumbnails = []
+    sizes = maxsizes
     for s in minsizes:
-        # Calculate the max size, from min size
+        # Calculate the max size from min size
         w, h = img.size
-        s = s * (w/h) if w > h else s * (h/w)
-        thumbnails.append(img.copy().thumbnail((s, s)))
+        sizes.append(s * (w/h) if w > h else s * (h/w))
 
-    for s in maxsizes:
-        thumbnails.append(img.copy().thumbnail((s, s)))
-
+    thumbnails = []
+    for s in sizes:
+        # Only generate thumbnail if it would be smaller than the original image
+        if needs_thumbnail(img, s):
+            thumbnails.append(img.copy().thumbnail((s, s)))
     return thumbnails
 
 
@@ -43,3 +45,8 @@ def pil_to_base64(image):
     buffered = BytesIO()
     image.save(buffered, format="JPEG")
     return base64.b64encode(buffered.getvalue())
+
+
+def needs_thumbnail(image, maxsize):
+    w, h = image.size
+    return w > maxsize and h > maxsize
