@@ -19,7 +19,8 @@ class ImageMetadata(models.Model):
     image_path = models.ImageField(upload_to=new_image_path)
     upload_time = models.DateTimeField(auto_now_add=True, blank=True)
 
-    def __init__(self, img_width_field=None, img_height_field=None, *args, **kwargs):
+    def __init__(self, input_dirs, img_width_field=None, img_height_field=None, *args, **kwargs):
+        self.input_dirs = input_dirs
         self.width_field = img_width_field
         self.height_field = img_height_field
         super(ImageMetadata, self).__init__(*args, **kwargs)
