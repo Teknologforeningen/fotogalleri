@@ -28,7 +28,7 @@ class ImageMetadata(models.Model):
         if not width:
             try:
                 width = self.image_path.width_field
-            except Exception as e:
+            except Exception:
                 raise ValueError(
                         'Save ImageMetadata object for getting width. Alternatively provide <img_width_field>')
         return width
@@ -38,7 +38,7 @@ class ImageMetadata(models.Model):
         if not height:
             try:
                 height = self.image_path.height_field
-            except Exception as e:
+            except Exception:
                 raise ValueError(
                         'Save ImageMetadata object for getting height. Alternatively provide <img_height_field>')
         return height
