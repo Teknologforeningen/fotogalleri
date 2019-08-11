@@ -1,11 +1,12 @@
 from django.db import models
+from os import path
 
 
 def new_image_path(instance, filename):
     '''
     Image will be uploaded to MEDIA_ROOT/<input_dirs>/<filename>
     '''
-    return '{input_dirs}/{filename}'.format(input_dirs=instance.input_dirs, filename=filename)
+    return path.join(instance.input_dirs, filename)
 
 
 class ImageMetadata(models.Model):
