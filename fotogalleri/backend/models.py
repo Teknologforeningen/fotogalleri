@@ -2,9 +2,9 @@ from django.db import models
 
 
 def new_image_path(instance, filename):
-    """
+    '''
     Image will be uploaded to MEDIA_ROOT/<input_dirs>/<filename>
-    """
+    '''
     return '{input_dirs}/{filename}'.format(input_dirs=instance.input_dirs, filename=filename)
 
 
