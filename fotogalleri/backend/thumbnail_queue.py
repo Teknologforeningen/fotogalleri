@@ -7,7 +7,7 @@ import time
 class _ThumbWorker():
     def __init__(self, thumb_queue):
         self._queue = thumb_queue
-        self._work_queue = []
+        self._pool = []
 
     def work(self):
         while True:
@@ -25,10 +25,10 @@ class _ThumbWorker():
             self._queue.task_done()
 
     def append(self, work):
-        self._work_queue.append(work)
+        self._pool.append(work)
 
     def stop(self):
-        for thread in self._work_queue:
+        for thread in self._pool:
             thread.join()
 
 
