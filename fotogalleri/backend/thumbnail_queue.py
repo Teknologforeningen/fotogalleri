@@ -28,7 +28,7 @@ class _ThumbWorker():
         self._work_queue.append(work)
 
     def stop(self):
-        for thread in self._queue:
+        for thread in self._work_queue:
             thread.join()
 
 
