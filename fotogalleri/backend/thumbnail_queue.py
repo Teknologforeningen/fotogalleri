@@ -11,12 +11,7 @@ class _ThumbWorker():
 
     def work(self):
         while True:
-            try:
-                image_obj = self._queue.get_nowait()  # noqa
-            except queue.Empty:
-                # TODO: find method to put thread to sleep when no upload
-                time.sleep(1)
-                continue
+            image_obj = self._queue.get()
 
             if image_obj is None:
                 break
