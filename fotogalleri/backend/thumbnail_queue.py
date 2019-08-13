@@ -1,7 +1,6 @@
 from django.conf.settings import THUMB_QUEUE_THREAD_COUNT
-import queue
-import threading
-import time
+from queue import Queue, Full
+from threading import Thread
 
 
 class _ThumbWorker():
@@ -28,17 +27,21 @@ class _ThumbWorker():
 
 
 class ThumbQueue():
-    _THUMB_QUEUE = queue.Queue(maxsize=THUMB_QUEUE_THREAD_COUNT)
+    _THUMB_QUEUE = Queue()
     _WORKER = _ThumbWorker(_THUMB_QUEUE)
 
     for _ in range(THUMB_QUEUE_THREAD_COUNT):
-        thread = threading.Thread(target=worker.work)
+        thread = Thread(target=_WORKER.work)
         thread.start()
         _WORKER.add(thread)
 
     @staticmethod
     def add_image_obj(image_obj):
-        ThumbQueue._THUMB_QUEUE.put(image_obj)
+        try:
+            ThumbQueue._THUMB_QUEUE.put_nowait(image_obj)
+        except Full:
+            # TODO: log or raise an exception in case of error
+            pass
 
     @staticmethod
     def stop():
