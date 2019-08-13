@@ -12,6 +12,7 @@ class _ThumbWorker():
         while True:
             image_obj = self._queue.get()
 
+            # None indicates that the thread should die
             if image_obj is None:
                 break
 
@@ -47,6 +48,7 @@ class ThumbQueue():
     def stop():
         ThumbQueue._THUMB_QUEUE.join()
 
+        # Notify threads in thread-pool in _WORKER of death
         for _ in range(THUMB_QUEUE_THREAD_COUNT):
             ThumbQueue._THUMB_QUEUE.put(None)
 
