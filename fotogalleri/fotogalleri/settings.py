@@ -75,20 +75,20 @@ WSGI_APPLICATION = 'fotogalleri.wsgi.application'
 
 # Logging
 if not DEBUG:
-    logging = {
+    LOGGING = {
         'version': 1,
         'disable_existing_loggers': False,
         'handlers': {
             'file': {
-                'level': 'info',
-                'class': 'logging.filehandler',
+                'level': 'INFO',
+                'class': 'logging.FileHandler',
                 'filename': '/var/log/fotogalleri/info.log',
             },
         },
         'loggers': {
             'django': {
                 'handlers': ['file'],
-                'level': 'info',
+                'level': 'INFO',
                 'propagate': True,
             },
         },
