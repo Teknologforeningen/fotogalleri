@@ -1,6 +1,10 @@
 from django.conf.settings import THUMB_QUEUE_THREAD_COUNT
 from queue import Queue, Full
 from threading import Thread
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 
 class _ThumbWorker():
@@ -41,8 +45,8 @@ class ThumbQueue():
         try:
             ThumbQueue._THUMB_QUEUE.put_nowait(image_obj)
         except Full:
-            # TODO: log or raise an exception in case of error
-            pass
+            logger.error('ThumbQueue FULL, not able to append new task')
+            # TODO: update image object for noting failed thumbnail generation
 
     @staticmethod
     def is_empty():
