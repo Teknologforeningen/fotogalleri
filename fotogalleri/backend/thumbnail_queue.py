@@ -45,6 +45,10 @@ class ThumbQueue():
             pass
 
     @staticmethod
+    def is_empty():
+        return ThumbQueue._THUMB_QUEUE.empty()
+
+    @staticmethod
     def stop():
         ThumbQueue._THUMB_QUEUE.join()
 
