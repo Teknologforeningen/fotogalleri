@@ -19,7 +19,7 @@ class _ThumbWorker():
             # TODO: add actual thumbnail generation
             self._queue.task_done()
 
-    def append(self, work):
+    def add(self, work):
         self._pool.append(work)
 
     def stop(self):
@@ -29,12 +29,12 @@ class _ThumbWorker():
 
 class ThumbQueue():
     _THUMB_QUEUE = queue.Queue(maxsize=THUMB_QUEUE_THREAD_COUNT)
-    worker = _ThumbWorker(_THUMB_QUEUE)
+    _WORKER = _ThumbWorker(_THUMB_QUEUE)
 
     for _ in range(THUMB_QUEUE_THREAD_COUNT):
         thread = threading.Thread(target=worker.work)
         thread.start()
-        worker.append(thread)
+        _WORKER.add(thread)
 
     @staticmethod
     def add_image_obj(image_obj):
@@ -47,4 +47,4 @@ class ThumbQueue():
         for _ in range(THUMB_QUEUE_THREAD_COUNT):
             ThumbQueue._THUMB_QUEUE.put(None)
 
-        ThumbQueue.worker.stop()
+        ThumbQueue._WORKER.stop()
