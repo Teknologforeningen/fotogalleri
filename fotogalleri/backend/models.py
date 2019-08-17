@@ -15,7 +15,7 @@ class ImageMetadata(models.Model):
 
     Stores simple metadata such as file name, path, and time and date of upload.
     '''
-    filename = models.CharField(max_length=255)
+    filename = models.CharField(max_length=256)
     image_path = models.ImageField(upload_to=new_image_path)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
 
