@@ -70,3 +70,6 @@ class ThumbQueueImageObject():
         '''
         image_path = self.get_full_image_path()
         return split(image_path)
+
+    def __str__(self):
+        return self.metadata.__str__()

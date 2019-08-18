@@ -55,7 +55,7 @@ class ThumbQueue():
         try:
             ThumbQueue._THUMB_QUEUE.put_nowait(image_obj)
         except Full:
-            logger.error('ThumbQueue FULL, not able to append new task')
+            logger.error('ThumbQueue FULL, not able to append new task: {}'.format(image_obj))
             # TODO: update image object for noting failed thumbnail generation
 
     @staticmethod
