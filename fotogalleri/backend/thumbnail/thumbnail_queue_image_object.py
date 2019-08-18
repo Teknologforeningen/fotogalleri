@@ -1,6 +1,10 @@
 from backend.models import ImageMetadata
 from backend.thumbnail.thumbnail_utils import generate_thumbnails, save_to_path
 from ntpath import split
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 
 class _ThumbnailObject():
@@ -40,6 +44,7 @@ class ThumbQueueImageObject():
                 save_to_path(thumbnail_object.thumbnail, filename, path)
             # TODO: set specific exception
             except Exception:
+                logger.error('Could not save thumbnail for {}'.format(thumbnail_object.thumbnail))
                 return False
             thumbnail_object.set_done()
             return True
