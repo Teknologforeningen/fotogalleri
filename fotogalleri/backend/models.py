@@ -25,7 +25,8 @@ class ImageMetadata(models.Model):
         self.height_field = img_height_field
         super(ImageMetadata, self).__init__(*args, **kwargs)
 
-    def _get_dimension(self, attribute):
+    def _get_dimension(self, dimension):
+        attribute = '{}_field'.format(dimension)
         dimension = getattr(self, attribute)
         if not dimension:
             try:
@@ -33,15 +34,15 @@ class ImageMetadata(models.Model):
             except Exception:
                 raise ValueError(
                     'Save ImageMetadata object for getting {dimension}. '
-                    'Alternatively provide <img_{attribute}>'.format(dimension=attribute.split('_')[0],
+                    'Alternatively provide <img_{attribute}>'.format(dimension=dimension,
                                                                      attribute=attribute))
         return dimension
 
     def _get_width(self):
-        return self._get_dimension('width_field')
+        return self._get_dimension('width')
 
     def _get_height(self):
-        return self._get_dimension('height_field')
+        return self._get_dimension('height')
 
     width = property(_get_width)
     height = property(_get_height)
