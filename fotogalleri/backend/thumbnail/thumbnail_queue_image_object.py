@@ -22,7 +22,7 @@ class _ThumbnailObject():
 
 class ThumbQueueImageObject():
     # TODO: defined sizes, perhaps specified in the environment?
-    _DEFAULT_MINSIZES = []
+    _DEFAULT_MINSIZES = [300]
     _DEFAULT_MAXSIZES = []
 
     def __init__(self, image_metadata: ImageMetadata):
