@@ -1,5 +1,6 @@
 from django.db import models
 from os import path
+import json
 
 
 def new_image_path(instance, filename):
@@ -17,7 +18,9 @@ class ImageMetadata(models.Model):
     '''
     filename = models.CharField(max_length=256)
     image_path = models.ImageField(upload_to=new_image_path)
-    created_at = models.DateTimeField(auto_now_add=True, blank=True)
+    upload_time = models.DateTimeField(auto_now_add=True, blank=True)
+    # JSON array formatted as a string for containing all thumbnails
+    thumbnails_json = models.CharField(max_length=256, blank=True, null=True, default=None)
 
     def __init__(self, input_dirs, img_width_field=None, img_height_field=None, *args, **kwargs):
         self.input_dirs = input_dirs
@@ -46,6 +49,18 @@ class ImageMetadata(models.Model):
 
     width = property(_get_width)
     height = property(_get_height)
+
+    def set_thumbnails(self, new_thumbnails):
+        thumbnails = self.thumbnails + list(new_thumbnails)
+        # Setting separators will give the most compact JSON representation
+        thumbnails_json = json.dumps(thumbnails, separators=(',', ':'))
+        self.thumbnails_json = thumbnails_json
+        self.save()
+
+    def _get_thumbnails(self):
+        return json.loads(self.thumbnails_json)
+
+    thumbnails = property(_get_thumbnails)
 
     def __str__(self):
         return '{name};{path};{w}x{h};{time}'.format(name=self.filename,
