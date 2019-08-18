@@ -34,15 +34,26 @@ class ThumbQueueImageObject():
                 ThumbQueueImageObject._DEFAULT_MAXSIZES)
         ]
 
+    def _init_save_thumbnail(self, filename, path):
+        def save_thumbnail(thumbnail_object):
+            try:
+                save_to_path(thumbnail_object.thumbnail, filename, path)
+            # TODO: set specific exception
+            except Exception:
+                return False
+            thumbnail_object.set_done()
+            return True
+        return save_thumbnail
+
     def _save_thumbnails(self, thumbnail_objects):
         filename, path = self.get_image_name_and_path()
-        for thumbnail_object in thumbnail_objects:
-            save_to_path(thumbnail_object.thumbnail, filename, path)
-            thumbnail_object.set_done()
+        save_thumbnail_to_path = self._init_save_thumbnail(filename, path)
+        return filter(lambda thumbnail_object: save_thumbnail_to_path(thumbnail_object), thumbnail_objects)
 
     def generate_thumbnails(self):
         thumbnail_objects = self._create_thumbnail_objects()
-        self._save_thumbnails(thumbnail_objects)
+        saved_thumbnails = self._save_thumbnails(thumbnail_objects)
+        self.metadata.set_thumbnails(saved_thumbnails)
 
     def get_full_image_path(self):
         return self.metadata.image_path.image_url.url
