@@ -44,7 +44,7 @@ def save_to_path(image, name, img_path):
     if not os.path.exists(img_path):
         os.makedirs(img_path)
     w, h = image.size
-    name += f"{w}x{h}"
+    name += "{w}x{h}".format(w=w, h=h)
     # Some image formats (PNG) are in RGBA, which jpeg doesn't support
     rgb_image = image.convert('RGB')
     rgb_image.save(img_path + name + ".jpg", format="JPEG")
