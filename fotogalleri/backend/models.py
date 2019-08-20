@@ -17,7 +17,7 @@ class ImageMetadata(models.Model):
     '''
     filename = models.CharField(max_length=255)
     image_path = models.ImageField(upload_to=new_image_path)
-    upload_time = models.DateTimeField(auto_now_add=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True)
 
     def __init__(self, input_dirs, img_width_field=None, img_height_field=None, *args, **kwargs):
         self.input_dirs = input_dirs
@@ -53,4 +53,4 @@ class ImageMetadata(models.Model):
                                                      path=self.image_path,
                                                      w=self.width,
                                                      h=self.height,
-                                                     time=self.upload_time)
+                                                     time=self.created_at)
