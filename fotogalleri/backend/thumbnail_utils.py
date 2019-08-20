@@ -6,8 +6,8 @@ def generate_thumbnails(img_path, minsizes=[], maxsizes=[]):
     """
     Resizes given image to specified sizes, either define the length of 
     the shorter side (minsizes) or longer side (maxsizes). Generates a thumbnail
-    for each element in either list. No thumbnail will be generated if the generated
-    thumbnail would be bigger than the original image.
+    for each size in both lists. If the generated thumbnail would be as big as or
+    bigger than the original image, returns the original image instead.
 
     Returns a list of PIL Image objects.
 
@@ -22,18 +22,20 @@ def generate_thumbnails(img_path, minsizes=[], maxsizes=[]):
 
     sizes = maxsizes
     for s in minsizes:
-        # Calculate the max size from min size
+        # Calculate the max size from min size, since the 
+        # thumbnail function only scales to max size
         w, h = img.size
         sizes.append(s * (w/h) if w > h else s * (h/w))
 
     thumbnails = []
     for s in sizes:
-        # Only generate thumbnail if it would be smaller than the original image
         w, h = img.size
+        temp = img.copy()
         if w > s and h > s:
-            temp = img.copy()
+            # Thumbnail will retain its aspect ratio, but be scaled down to fit
+            # inside a s x s square. 
             temp.thumbnail((s, s))
-            thumbnails.append(temp)
+        thumbnails.append(temp)
     return thumbnails
 
 
