@@ -22,7 +22,7 @@ def generate_thumbnails(img_path, minsizes=[], maxsizes=[]):
 
     sizes = maxsizes
     for s in minsizes:
-        # Calculate the max size from min size, since the 
+        # Calculate the max size from min size, since the
         # thumbnail function only scales to max size
         w, h = img.size
         sizes.append(s * (w/h) if w > h else s * (h/w))
@@ -33,20 +33,24 @@ def generate_thumbnails(img_path, minsizes=[], maxsizes=[]):
         temp = img.copy()
         if w > s and h > s:
             # Thumbnail will retain its aspect ratio, but be scaled down to fit
-            # inside a s x s square. 
+            # inside a s x s square.
             temp.thumbnail((s, s))
         thumbnails.append(temp)
     return thumbnails
 
 
-def save_to_path(image, name, img_path):
+def save_img_to_path(image, filename, img_path):
     """
-    Converts PIL Image to jpg and saves it to img_path
+    Converts PIL Image to jpg and saves it to img_path.
+    This function will overwrite an existing image with the same filename
     """
     if not os.path.exists(img_path):
         os.makedirs(img_path)
     w, h = image.size
+    # Remove possible file extension from name
+    name, _ = os.path.splitext(filename)
     name += "{w}x{h}".format(w=w, h=h)
-    # Some image formats (PNG) are in RGBA, which jpeg doesn't support
+
+    # Some image formats (PNG) are in RGBA, which jpg doesn't support
     rgb_image = image.convert('RGB')
     rgb_image.save(img_path + name + ".jpg", format="JPEG")
