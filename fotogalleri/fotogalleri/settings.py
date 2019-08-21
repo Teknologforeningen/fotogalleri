@@ -150,6 +150,9 @@ STATIC_URL = '/static/'
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 
+MEDIA_URL = '/images/'
+MEDIA_ROOT = env('MEDIA_ROOT', '')
+
 # REST Framework settings
 # TODO: provide GET access to certain users for non-admins
 REST_FRAMEWORK = {
