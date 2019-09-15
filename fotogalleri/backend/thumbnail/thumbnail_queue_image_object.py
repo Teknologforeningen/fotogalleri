@@ -61,7 +61,7 @@ class ThumbQueueImageObject():
         self.metadata.set_thumbnails(saved_thumbnails)
 
     def get_full_image_path(self):
-        return self.metadata.image_path.image_url.url
+        return self.metadata.image.image_url.url
 
     def _get_image_name_and_path(self):
         '''
