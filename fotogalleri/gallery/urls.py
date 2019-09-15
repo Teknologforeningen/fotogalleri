@@ -5,6 +5,8 @@ from . import views
 
 urlpatterns = [
     path('', views.HomeView.as_view(), name='home'),
+    path('view/', views.ImageView.as_view(), name='view'),
+    path('upload/', views.ImageUploadView.as_view(), name='upload'),
 ]
 
 if settings.DEBUG:  # Serve media files in development
