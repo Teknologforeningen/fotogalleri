@@ -3,6 +3,7 @@
 # Virtualenv
 bin/
 include/
+pip-selfcheck.json
 
 ### OSX ###
 .DS_Store
