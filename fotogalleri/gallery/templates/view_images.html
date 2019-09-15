@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<ul>
+  {% for image in object_list %}
+    <h3>{{ image.filename }}<h3>
+    <img src="{{ image.image.url }}" alt="{{ image.filename }}">
+  {% endfor %}
+</ul>
+
+{% endblock %}
