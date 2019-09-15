@@ -1,4 +1,4 @@
-VENV=venv
+VENV=.
 
 install: $(VENV)/bin/python
 
