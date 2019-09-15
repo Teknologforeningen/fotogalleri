@@ -1,10 +1,10 @@
 from backend.models import ImageMetadata
 from backend.thumbnail.thumbnail_utils import generate_thumbnails, save_to_path
 from ntpath import split
-import logging
+from logging import getLogger
 
 
-logger = logging.getLogger(__name__)
+logger = getLogger(__name__)
 
 
 class _ThumbnailObject():
