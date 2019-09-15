@@ -17,4 +17,4 @@ deploy: bin/python
 	touch fotogalleri/fotogalleri/wsgi.py
 
 clean:
-	rm -rf build/ dist/ *.egg-info/ local/ $(VENV)/
+	rm -rf build/ dist/ *.egg-info/ local/ $(VENV)/bin $(VENV)/lib $(VENV)/include
