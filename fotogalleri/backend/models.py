@@ -36,9 +36,10 @@ class ImageMetadata(models.Model):
         return '{}000'.format(subfolder)
 
     def save(self, *args, **kwargs):
+        is_saved = self.pk is not None
         super(ImageMetadata, self).save(*args, **kwargs)
 
-        if self.image:
+        if not is_saved and self.image:
             oldfile = self.image.name
             subfolder = self._get_subfolder()
             newfile = join(subfolder, oldfile)

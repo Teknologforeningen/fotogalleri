@@ -47,4 +47,4 @@ def save_img_to_path(image, name, img_path):
     name += f"{w}x{h}"
     # Some image formats (PNG) are in RGBA, which jpeg doesn't support
     rgb_image = image.convert('RGB')
-    rgb_image.save(img_path + name + ".jpg", format="JPEG")
+    rgb_image.save(os.path.join(img_path, name) + ".jpg", format="JPEG")
