@@ -151,7 +151,7 @@ LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 
 MEDIA_URL = '/images/'
-MEDIA_ROOT = env('MEDIA_ROOT', '')
+MEDIA_ROOT = env('MEDIA_ROOT', os.path.join(BASE_DIR, 'images/'))
 
 # REST Framework settings
 # TODO: provide GET access to certain users for non-admins

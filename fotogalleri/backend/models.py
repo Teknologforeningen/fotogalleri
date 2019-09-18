@@ -1,12 +1,10 @@
 from django.db import models
-from os import path
+from json import dumps, loads
+from os.path import join
 
 
 def new_image_path(instance, filename):
-    '''
-    Image will be uploaded to MEDIA_ROOT/<input_dirs>/<filename>
-    '''
-    return path.join(instance.input_dirs, filename)
+    return filename
 
 
 class ImageMetadata(models.Model):
@@ -15,42 +13,42 @@ class ImageMetadata(models.Model):
 
     Stores simple metadata such as file name, path, and time and date of upload.
     '''
-    filename = models.CharField(max_length=255)
-    image_path = models.ImageField(upload_to=new_image_path)
-    created_at = models.DateTimeField(auto_now_add=True, blank=True)
+    filename = models.CharField(max_length=256)
+    image = models.ImageField(upload_to=new_image_path)
+    upload_time = models.DateTimeField(auto_now_add=True, blank=True)
+    # JSON array formatted as a string for containing all thumbnails
+    thumbnails_json = models.CharField(max_length=256, blank=True, null=True, default='[]')
 
-    def __init__(self, input_dirs, img_width_field=None, img_height_field=None, *args, **kwargs):
-        self.input_dirs = input_dirs
-        self.width_field = img_width_field
-        self.height_field = img_height_field
-        super(ImageMetadata, self).__init__(*args, **kwargs)
+    def set_thumbnails(self, new_thumbnails):
+        thumbnails = self.thumbnails + list(new_thumbnails)
+        # Setting separators will give the most compact JSON representation
+        thumbnails_json = dumps(thumbnails, separators=(',', ':'))
+        self.thumbnails_json = thumbnails_json
+        self.save()
 
-    def _get_width(self):
-        width = self.width_field
-        if not width:
-            try:
-                width = self.image_path.width_field
-            except Exception:
-                raise ValueError(
-                        'Save ImageMetadata object for getting width. Alternatively provide <img_width_field>')
-        return width
+    def _get_thumbnails(self):
+        return loads(self.thumbnails_json)
 
-    def _get_height(self):
-        height = self.height_field
-        if not height:
-            try:
-                height = self.image_path.height_field
-            except Exception:
-                raise ValueError(
-                        'Save ImageMetadata object for getting height. Alternatively provide <img_height_field>')
-        return height
+    thumbnails = property(_get_thumbnails)
 
-    width = property(_get_width)
-    height = property(_get_height)
+    def _get_subfolder(self):
+        subfolder = str(self.pk // 1000)
+        return '{}000'.format(subfolder)
+
+    def save(self, *args, **kwargs):
+        super(ImageMetadata, self).save(*args, **kwargs)
+
+        if self.image:
+            oldfile = self.image.name
+            subfolder = self._get_subfolder()
+            newfile = join(subfolder, oldfile)
+
+            self.image.storage.save(newfile, self.image)
+            self.image.name = newfile
+            self.image.close()
+            self.image.storage.delete(oldfile)
 
     def __str__(self):
-        return '{name};{path};{w}x{h};{time}'.format(name=self.filename,
-                                                     path=self.image_path,
-                                                     w=self.width,
-                                                     h=self.height,
-                                                     time=self.created_at)
+        return '{name};{path};{time}'.format(name=self.filename,
+                                             path=self.image,
+                                             time=self.upload_time)

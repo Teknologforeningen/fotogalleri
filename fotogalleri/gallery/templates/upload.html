@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <form method="POST">
+    {% csrf_token %}
+    <input type="file" name="upload-image">
+    <button type="submit">Upload</button>
+  </form>
+{% endblock %}
