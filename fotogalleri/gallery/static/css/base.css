@@ -1,11 +1,31 @@
 @import "css/root.css";
 
+.img-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.img-grid::after {
+  content: '';
+  flex-grow: 999999999;
+}
+
+a.img-link {
+  margin: 2px;
+  background-color: violet;
+  position: relative;
+}
 
 img.thumbnail-small {
-    width: 300px;
-    height: 300px;
-    object-fit: cover;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  vertical-align: bottom;
   }
+
+i{
+  display: block;
+}
 
 img.thumbnail-large {
     width: 1920px;

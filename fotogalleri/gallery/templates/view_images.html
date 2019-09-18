@@ -2,11 +2,15 @@
 {% load static %}
 
 {% block content %}
-<div class="columns is-multiline">
+<div class="img-grid">
   {% for image in object_list %}
-  <div class="column is-one-quarter-desktop is-half-tablet">
-    <a href="{{ image.id }}"><img class="thumbnail-small" src="{{ image.image.url }}" alt="{{ image.filename }}" /></a>
-  </div>
+  <a href="{{ image.id }}" class="img-link"
+    style="width:{% widthratio image.image.width image.image.height 200 %}px;flex-grow:{% widthratio image.image.width image.image.height 200 %}">
+    <i style="padding-bottom:{% widthratio image.image.height image.image.width 100 %}%"></i>
+    <img class="thumbnail-small" src="{{ image.image.url }}" alt="{{ image.filename }}" />
+  </a>
+
+
   {% endfor %}
 </div>
 {% endblock %}
