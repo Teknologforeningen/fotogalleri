@@ -37,7 +37,7 @@ def generate_thumbnails(img_path, minsizes=[], maxsizes=[]):
     return thumbnails
 
 
-def save_to_path(image, name, img_path):
+def save_img_to_path(image, name, img_path):
     """
     Converts PIL Image to jpg and saves it to img_path
     """
