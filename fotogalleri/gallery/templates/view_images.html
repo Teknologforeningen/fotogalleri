@@ -5,35 +5,8 @@
 <div class="columns is-multiline">
   {% for image in object_list %}
   <div class="column is-one-quarter-desktop is-half-tablet">
-    <a href="{{ image.id }}"><img class="thumbnail-small open-modal" data-img-url="{{ image.image.url }}"
-        data-modal-id="#my-modal" src="{{ image.image.url }}" alt="{{ image.filename }}" /></a>
+    <a href="{{ image.id }}"><img class="thumbnail-small" src="{{ image.image.url }}" alt="{{ image.filename }}" /></a>
   </div>
   {% endfor %}
 </div>
-<div class="modal" id="my-modal">
-  <div class="modal-background close-modal" data-modal-id="#my-modal"></div>
-  <div class="modal-content">
-    <p class="">
-      <img class="thumbnail-large" id="modal-img" src="https://bulma.io/images/placeholders/1280x960.png" alt="">
-    </p>
-  </div>
-  <button aria-label="close" class="delete close-modal" data-modal-id="#my-modal"></button>
-</div>
-
-<script>
-  function toggleModalClasses(event) {
-    var modalId = event.currentTarget.dataset.modalId;
-    var imgUrl = event.currentTarget.dataset.imgUrl;
-    console.log(imgUrl)
-    var modal = $(modalId);
-    $("#modal-img").attr("src", imgUrl);
-    modal.toggleClass('is-active');
-    $('html').toggleClass('is-clipped');
-  };
-
-  $('.open-modal').click(toggleModalClasses);
-
-  $('.close-modal').click(toggleModalClasses);
-</script>
-
 {% endblock %}
