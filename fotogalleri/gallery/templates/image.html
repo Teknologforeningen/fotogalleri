@@ -1,0 +1,12 @@
+{% extends "root.html" %}
+{% load static %}
+
+{% block base %}
+<link href="{% static 'css/image.css' %}" rel="stylesheet">
+<div class="columns">
+    <div class="column is-full is-vcentered is-centered">
+        <img id="imgcontainer" src="{{ image.image.url }}" alt="{{ image.filename }}" />
+    </div>
+</div>
+
+{% endblock %}

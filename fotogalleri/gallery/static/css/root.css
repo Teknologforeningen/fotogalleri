@@ -10,3 +10,12 @@
 * {
     font-family: 'Montserrat', sans-serif;
 }
+
+html {
+    height: 100%;
+}
+
+body {
+    background-color: #f4f4f4;
+    min-height: 100%;
+}

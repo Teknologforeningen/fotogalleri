@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <!-- Root CSS -->
+    <link href="{% static 'css/root.css' %}" rel="stylesheet">
+    <!-- Base CSS -->
+    <link href="{% static 'css/base.css' %}" rel="stylesheet">
+    <!-- CSS for header -->
+    <link href="{% static 'css/header.css' %}" rel="stylesheet">
+    <!-- Bootstrap v4.3.1 CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+
+    {# Import all derived extra CSS files #}
+    {% block css %}
+    {% endblock %}
+
+    <!-- TF's widely used font: Montserrat -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600&display=swap" rel="stylesheet">
+    <title>{% block title %}TFs Fotogalleri{% endblock %}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
+        </script>
+
+    {# TODO: add favicon #}
+</head>
+
+<body>
+    {% block base %}
+    {% endblock %}
+</body>
+
+</html>

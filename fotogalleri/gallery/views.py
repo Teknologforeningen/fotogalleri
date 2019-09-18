@@ -14,9 +14,22 @@ class HomeView(View):
         return render(request, self.template, context)
 
 
-class ImageView(ListView):
+class ImageGalleryView(ListView):
     model = ImageMetadata
-    template_name = 'view_images.html'
+    template = 'view_images.html'
+
+    def get(self, request):
+        context = {'object_list': self.model.objects.all()}
+        return render(request, self.template, context)
+
+
+class ImageView(View):
+    template = 'image.html'
+    model = ImageMetadata
+
+    def get(self, request, img_id):
+        context = {'image': self.model.objects.get(pk=img_id)}
+        return render(request, self.template, context)
 
 
 class ImageUploadView(CreateView):

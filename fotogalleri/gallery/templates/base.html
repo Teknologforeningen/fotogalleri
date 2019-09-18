@@ -1,47 +1,16 @@
+{% extends "root.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html>
 
-<head>
+{% block base %}
+{% include "header.html" %}
+<div class="columns">
+  <div class="column is-8 is-offset-2">
 
-  <!-- Root CSS -->
-  <link href="{% static 'css/root.css' %}" rel="stylesheet">
-  <!-- Base CSS -->
-  <link href="{% static 'css/base.css' %}" rel="stylesheet">
-  <!-- CSS for header -->
-  <link href="{% static 'css/header.css' %}" rel="stylesheet">
-  <!-- Bootstrap v4.3.1 CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-  {# Import all derived extra CSS files #}
-  {% block css %}
-  {% endblock %}
-
-  <!-- TF's widely used font: Montserrat -->
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-
-  <title>{% block title %}TFs Fotogalleri{% endblock %}</title>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  {# TODO: add favicon #}
-</head>
-
-<body>
-  <div class="container-fluid">
-    <div class="col-sm-12 col-md-8 offset-md-2">
-      {% include "header.html" %}
-
-      {% block content %}
-      <hr class="page-divide mb-4" />
-
-      <h3>
-        Valkommen till Teknologforeningens fotogalleri!
-      </h3>
-      {% endblock %}
-    </div>
+    {% block content %}
+    <h3 class="is-size-3">
+      Valkommen till Teknologforeningens fotogalleri!
+    </h3>
+    {% endblock %}
   </div>
-</body>
-
-</html>
+</div>
+{% endblock %}

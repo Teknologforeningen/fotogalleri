@@ -6,11 +6,34 @@
 }
 
 #header-top {
+    padding-left: 20%;
+    padding-top: 20px;
+    padding-bottom: 15px;
     max-height: var(--header-height);
     display: flex;
     align-items: center;
+    background-color: #fff;
 }
 
 img#header-tf-logo {
     height: var(--header-height);
+    padding: 10px;
+    margin-right: 10px;
+}
+
+#header-text {
+    font-size: 2em;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+}
+
+hr.page-divide {
+    border-top: 4px solid var(--teknolog-rod);
+    width: 100vw;
+    position: relative;
+    margin-top: 0px;
+    margin-bottom: 50px;
+    margin-right: 0px;
+    margin-left: -50vw;
+    left: 50%;
 }

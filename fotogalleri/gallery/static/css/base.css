@@ -1,6 +1,14 @@
 @import "css/root.css";
 
 
-hr.page-divide {
-    border-top: 8px solid var(--teknolog-rod);
-}
+img.thumbnail-small {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+  }
+
+img.thumbnail-large {
+    width: 1920px;
+    height: 1080px;
+    object-fit: cover;
+  }
