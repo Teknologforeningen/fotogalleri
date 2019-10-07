@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import CreateView, ListView
 from django.views import View
-from django.urls import reverse_lazy
+from django.http import JsonResponse
 from backend.models import ImageMetadata
 from gallery.forms import ImageUploadForm
 
@@ -36,4 +36,13 @@ class ImageUploadView(CreateView):
     model = ImageMetadata
     form_class = ImageUploadForm
     template_name = 'upload_image.html'
-    success_url = reverse_lazy('view')
+
+    def post(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        if form.is_valid():
+            image = form.save()
+            data = {'is_valid': True, 'name': image.image.name, 'url': image.image.url}
+        else:
+            data = {'is_valid': False}
+        return JsonResponse(data)
