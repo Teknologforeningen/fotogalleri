@@ -1,5 +1,5 @@
 *.swp
-fotogalleri/images/*
+fotogalleri/images
 !fotogalleri/images/.keep
 
 # Virtualenv
