@@ -8,18 +8,25 @@
 
   <script src="{% static 'javascript/upload.js' %}"></script>
 
-  <button type="button" class="js-upload-photos">
-    Upload
-  </button>
+  <form id="upload-form" method="POST">
+    <!-- Send the CSRF Middelware Token as a part of the POST form -->
+    <input name="csrfmiddlewaretoken" value="{{ csrf_token }}" style="display: none;">
 
-  <input
-    id="fileupload"
-    type="file"
-    name="image"
-    multiple
-    style="display: none;"
-    data-url="{% url 'upload' %}"
-    data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'
-  >
+    <input id="{{ form.year.id_for_label }}" name="{{ form.year.name }}" autocomplete="off">
+    <input id="{{ form.event.id_for_label }}" name="{{ form.event.name }}" autocomplete="off">
+
+    <button type="button" class="js-upload-photos">
+      Upload
+    </button>
+
+    <input
+      id="fileupload"
+      type="file"
+      name="image"
+      multiple
+      style="display: none;"
+      data-url="{% url 'upload' %}"
+    >
+  </form>
 
 {% endblock %}
