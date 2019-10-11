@@ -11,8 +11,6 @@ class ImageMetadata(Model):
     '''
     Metadata model for uploaded images.
     Stores simple metadata such as file name, path, and time and date of upload.
-
-    Images are stored in the following manner /<year>/<event_name>/<image_name>
     '''
     # FIXME: refactor on_delete
     path = ForeignKey('ImagePath', on_delete=CASCADE, blank=True, null=True)
