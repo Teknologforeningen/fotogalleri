@@ -16,7 +16,7 @@ class ImageUploadForm(ModelForm):
         if commit:
             instance.save()
             thumbnail_generator = ThumbQueueImageObject(instance)
-            thumbnail_generator.generate_thumbnails()
+            thumbnail_generator.generate_image_thumbnails()
 
         return instance
 
