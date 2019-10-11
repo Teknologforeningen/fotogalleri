@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 from getenv import env
+from ldap import SCOPE_SUBTREE, OPT_X_TLS_REQUIRE_CERT, OPT_X_TLS_NEVER
+from dj_database_url import parse as dj_database_parse
+from django_auth_ldap.config import LDAPSearch, PosixGroupType
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -102,10 +105,7 @@ if not DEBUG:
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default': dj_database_parse(env('DATABASE', 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')))
 }
 
 
@@ -127,6 +127,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGIN_REDIRECT_URL = 'home'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
@@ -171,3 +172,51 @@ STATIC_ROOT = env("STATIC_ROOT", None)
 
 # Conf for thumbnail queue
 THUMB_QUEUE_THREAD_COUNT = env('THUMB_QUEUE_THREAD_COUNT', 4)
+
+# LDAP Stuff
+
+# Baseline configuration.
+AUTH_LDAP_SERVER_URI = env("LDAP_SERVER_URI", "ldaps://localhost:45671")
+
+AUTH_LDAP_USER_DN_TEMPLATE = env("LDAP_USER_DN_TEMPLATE", "uid=%(user)s,dc=example,dc=com")
+
+# Set up the basic group parameters.
+AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
+    env("LDAP_GROUP_DN", "ou=group,dc=example,dc=com"),
+    SCOPE_SUBTREE,
+    "(objectClass=posixGroup)"
+)
+AUTH_LDAP_GROUP_TYPE = PosixGroupType(name_attr="cn")
+
+# Populate the Django user from the LDAP directory.
+AUTH_LDAP_USER_ATTR_MAP = {
+    "username": "uid",
+    "first_name": "givenName",
+    "last_name": "sn",
+    "email": "mail"
+}
+
+# Map LDAP group to is_staff property in Member model
+# this restricts all is_staff required views to those that are members of the specified LDAP group
+AUTH_LDAP_USER_FLAGS_BY_GROUP = {
+    "is_staff": env("LDAP_SUPERUSER_GROUP_DN", "cn=superuser,ou=group,dc=example,dc=com"),
+    "is_superuser": env("LDAP_SUPERUSER_GROUP_DN", "cn=superuser,ou=group,dc=example,dc=com"),
+}
+
+# This is the default, but I like to be explicit.
+AUTH_LDAP_ALWAYS_UPDATE_USER = True
+
+# Mirror LDAP groups
+AUTH_LDAP_MIRROR_GROUPS = True
+
+# Keep ModelBackend around for per-user permissions and maybe a local
+# superuser.
+AUTHENTICATION_BACKENDS = (
+    'django_auth_ldap.backend.LDAPBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+# Never require cert
+AUTH_LDAP_GLOBAL_OPTIONS = {
+    OPT_X_TLS_REQUIRE_CERT: OPT_X_TLS_NEVER
+}
