@@ -10,7 +10,7 @@
 
   <form id="upload-form" method="POST">
     <!-- Send the CSRF Middelware Token as a part of the POST form -->
-    <input name="csrfmiddlewaretoken" value="{{ csrf_token }}" style="display: none;">
+    <input name="csrfmiddlewaretoken" value="{{ csrf_token }}" type="hidden">
 
     <input id="{{ form.year.id_for_label }}" name="{{ form.year.name }}" autocomplete="off">
     <input id="{{ form.event.id_for_label }}" name="{{ form.event.name }}" autocomplete="off">
