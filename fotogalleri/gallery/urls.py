@@ -1,13 +1,13 @@
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from . import views
+from .views import HomeView, ImageGalleryView, ImageView, ImageUploadView
 
 urlpatterns = [
-    path('', views.HomeView.as_view(), name='home'),
-    path('view/', views.ImageGalleryView.as_view(), name='view'),
-    path('view/<int:img_id>', views.ImageView.as_view(), name='image'),
-    path('upload/', views.ImageUploadView.as_view(), name='upload'),
+    path('', HomeView.as_view(), name='home'),
+    path('view/', ImageGalleryView.as_view(), name='view'),
+    path('view/<int:img_id>', ImageView.as_view(), name='image'),
+    path('upload/', ImageUploadView.as_view(), name='upload'),
 ]
 
 if settings.DEBUG:  # Serve media files in development
