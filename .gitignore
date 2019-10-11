@@ -1,4 +1,6 @@
 *.swp
+fotogalleri/images/*
+!fotogalleri/images/.keep
 
 # Virtualenv
 bin/
