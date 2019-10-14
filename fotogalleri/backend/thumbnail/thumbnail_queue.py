@@ -2,10 +2,10 @@ from django.conf import settings
 from queue import Queue, Full
 from threading import Thread
 from backend.thumbnail.thumbnail_queue_image_object import ThumbQueueImageObject
-import logging
+from logging import getLogger
 
 
-logger = logging.getLogger(__name__)
+logger = getLogger(__name__)
 
 
 class _ThumbWorker():
