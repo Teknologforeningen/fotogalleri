@@ -93,7 +93,13 @@ class ImageUploadView(CreateView):
         form = self.get_form(form_class)
         if form.is_valid():
             image = form.save()
-            data = {'is_valid': True, 'name': image.image.name, 'url': image.image.url}
+            data = {
+                'is_valid': True,
+                'name': image.image.name,
+                'url': image.image.url,
+                'width': form.width,
+                'height': form.height,
+            }
         else:
             data = {'is_valid': False}
         return JsonResponse(data)
