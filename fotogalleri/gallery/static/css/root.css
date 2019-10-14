@@ -4,6 +4,11 @@
     --teknolog-rod: #b20738;
     --dark-red: #490318;
     --black: #000;
+    --grey: #ddd;
+    --white: #f4f4f4;
+
+    --transition-time: 0.4s;
+    --rounding-radius: 10px;
 }
 
 /* Set Montserrat font to whole page. */
@@ -16,6 +21,6 @@ html {
 }
 
 body {
-    background-color: #f4f4f4;
+    background-color: var(--white);
     min-height: 100%;
 }
