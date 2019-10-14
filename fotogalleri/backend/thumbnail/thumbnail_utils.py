@@ -20,7 +20,7 @@ def generate_thumbnails(img_path, minsizes=[], maxsizes=[]):
             "This function needs at least one minsize or maxsize for thumbnail")
     img = Image.open(img_path)
 
-    sizes = maxsizes
+    sizes = maxsizes.copy()
     for s in minsizes:
         # Calculate the max size from min size
         w, h = img.size
@@ -37,6 +37,10 @@ def generate_thumbnails(img_path, minsizes=[], maxsizes=[]):
     return thumbnails
 
 
+def create_thumbnail_name(name, w, h):
+    return '{name}__{w}x{h}.jpg'.format(name=name, w=w, h=h)
+
+
 def save_img_to_path(image, name, img_path):
     """
     Converts PIL Image to jpg and saves it to img_path
@@ -44,7 +48,7 @@ def save_img_to_path(image, name, img_path):
     if not os.path.exists(img_path):
         os.makedirs(img_path)
     w, h = image.size
-    name += f"{w}x{h}"
+    name = create_thumbnail_name(name, w, h)
     # Some image formats (PNG) are in RGBA, which jpeg doesn't support
     rgb_image = image.convert('RGB')
-    rgb_image.save(os.path.join(img_path, name) + ".jpg", format="JPEG")
+    rgb_image.save(os.path.join(img_path, name), format="JPEG")
