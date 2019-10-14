@@ -7,21 +7,6 @@ from logging import getLogger
 logger = getLogger(__name__)
 
 
-class _ThumbnailObject():
-    def __init__(self, thumbnail):
-        self.thumbnail = thumbnail
-        self._done = False
-
-    def set_done(self):
-        self._done = True
-
-    def is_done(self):
-        return self._done
-
-    def get_dimensions(self):
-        return self.thumbnail.size
-
-
 class ThumbQueueImageObject():
     # TODO: defined sizes, perhaps specified in the environment?
     _DEFAULT_MINSIZES = [300]
@@ -32,7 +17,7 @@ class ThumbQueueImageObject():
 
     def _create_thumbnail_objects(self):
         return [
-            _ThumbnailObject(thumbnail)
+            thumbnail
             for thumbnail in
             generate_thumbnails(
                 self.metadata.image.path,
@@ -43,12 +28,11 @@ class ThumbQueueImageObject():
     def _init_save_thumbnail(self, filename, path):
         def save_thumbnail(thumbnail_object):
             try:
-                save_img_to_path(thumbnail_object.thumbnail, filename, path)
+                save_img_to_path(thumbnail_object, filename, path)
             # TODO: set specific exception
             except Exception as error:
                 logger.error('Could not save thumbnail for {}, reason: {}'.format(thumbnail_object.thumbnail, error))
                 return False
-            thumbnail_object.set_done()
             return True
         return save_thumbnail
 
@@ -62,7 +46,7 @@ class ThumbQueueImageObject():
     def generate_image_thumbnails(self):
         thumbnail_objects = self._create_thumbnail_objects()
         saved_thumbnails = self._save_thumbnails(thumbnail_objects)
-        self.metadata.set_thumbnails([saved_thumbnail.get_dimensions() for saved_thumbnail in saved_thumbnails])
+        self.metadata.set_thumbnails([saved_thumbnail.size for saved_thumbnail in saved_thumbnails])
 
     def get_full_image_path(self):
         return self.metadata.image.path
