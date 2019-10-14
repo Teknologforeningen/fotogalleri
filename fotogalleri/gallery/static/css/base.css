@@ -31,3 +31,7 @@ img.thumbnail-large {
     height: 1080px;
     object-fit: cover;
 }
+
+a {
+    color: var(--teknolog-rod);
+}
