@@ -3,6 +3,7 @@ from django.forms.widgets import TextInput, PasswordInput
 from django.contrib.auth.forms import AuthenticationForm
 from backend.models import ImageMetadata, ImagePath
 from backend.thumbnail.thumbnail_queue_image_object import ThumbQueueImageObject
+from backend.thumbnail.thumbnail_queue import ThumbQueue
 
 
 class ImageUploadForm(ModelForm):
@@ -20,7 +21,7 @@ class ImageUploadForm(ModelForm):
             instance.path = self._create_image_path()
             instance.save()
             thumbnail_generator = ThumbQueueImageObject(instance)
-            thumbnail_generator.generate_image_thumbnails()
+            ThumbQueue.add_image_obj(thumbnail_generator)
 
         return instance
 
