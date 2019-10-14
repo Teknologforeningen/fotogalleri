@@ -42,7 +42,7 @@
         style="width:{% widthratio image.image.width image.image.height 300 %}px;flex-grow:{% widthratio image.image.width image.image.height 300 %};"
       >
         <i style="padding-bottom:{% widthratio image.image.height image.image.width 100 %}%"></i>
-        <img class="thumbnail-small" src="{{ image.image.url }}" alt="{{ image.image.name }}" />
+        <img class="thumbnail-small" src="{{ image.preview }}" alt="{{ image.image.name }}" />
       </a>
     {% endfor %}
   </div>
