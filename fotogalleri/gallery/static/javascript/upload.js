@@ -5,6 +5,7 @@ $(function() {
 
     $("#fileupload").fileupload({
         dataType: 'json',
+        sequentialUploads: true,
         formData: function() {
             return $('#upload-form').serializeArray()
         },
