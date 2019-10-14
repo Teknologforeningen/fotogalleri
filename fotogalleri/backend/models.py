@@ -1,4 +1,6 @@
-from django.db.models import Model, CharField, ImageField, DateTimeField, ForeignKey, CASCADE
+from django.db.models import Model, CASCADE
+from django.db.models import CharField, ImageField, DateTimeField
+from django.db.models import ForeignKey, OneToOneField
 from json import dumps, loads
 from os.path import join
 
@@ -44,8 +46,17 @@ class ImageMetadata(Model):
                 self.image.close()
                 self.image.storage.delete(oldfile)
 
+            if not self.path:
+                root_image, created = RootImage.objects.get_or_create(image_metadata=self)
+                if created:
+                    root_image.save()
+
     def __str__(self):
         return '{path};{time}'.format(path=self.image, time=self.upload_time)
+
+
+class RootImage(Model):
+    image_metadata = OneToOneField(ImageMetadata, on_delete=CASCADE, primary_key=True)
 
 
 class ImagePath(Model):
@@ -58,19 +69,17 @@ class ImagePath(Model):
 
     full_path = property(_get_full_path)
 
-    def _is_root_child(self):
-        '''
-        Returns true if this ImagePath is a first descendant of the root (i.e. empty parent).
-        '''
-        return not self.parent
-
-    is_root_child = property(_is_root_child)
+    def save(self, *args, **kwargs):
+        is_saved = self.pk is not None
+        super(ImagePath, self).save(*args, **kwargs)
+        if not is_saved and not self.parent:
+            root_path, created = RootPath.objects.get_or_create(image_path=self)
+            if created:
+                root_path.save()
 
     def __str__(self):
         return self.full_path
 
-    @staticmethod
-    def create(path, parent):
-        new_image_path = ImagePath(path=path, parent=parent)
-        new_image_path.save()
-        return new_image_path
+
+class RootPath(Model):
+    image_path = OneToOneField(ImagePath, on_delete=CASCADE, primary_key=True)
