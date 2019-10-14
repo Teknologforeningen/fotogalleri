@@ -24,8 +24,9 @@ class _ThumbWorker():
             try:
                 image_obj.generate_image_thumbnails()
             # TODO: add specific exception
-            except Exception:
-                logger.error('Could not generate thumbnail for {}'.format(image_obj.get_full_image_path()))
+            except Exception as error:
+                logger.error('Could not generate thumbnail for {}, reason: {}'.format(image_obj.get_full_image_path(),
+                                                                                      error))
             finally:
                 self._queue.task_done()
 
