@@ -1,4 +1,10 @@
 $(function() {
+    $('#new-path').keyup(function(e) {
+        if (e.keyCode === 13) { // Enter
+            $('#new-folder-button').click();
+        }
+    });
+
     $('#new-folder-button').click(function() {
         if (!!$('#new-path').val()) {
             const formData = $('#new-folder-form').serialize();
@@ -23,6 +29,8 @@ $(function() {
                 .fail(function() {
                     alert('Creating new path failed.');
                 });
+
+            $('#new-path').val('');
         }
     });
 });
