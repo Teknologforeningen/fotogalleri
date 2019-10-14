@@ -1,3 +1,4 @@
+from django.conf import settings
 from backend.thumbnail.thumbnail_utils import generate_thumbnails, save_img_to_path
 from ntpath import split
 from os.path import join, splitext
@@ -38,7 +39,7 @@ class ThumbQueueImageObject():
 
     def _save_thumbnails(self, thumbnail_objects):
         raw_path, raw_filename = self._get_image_name_and_path()
-        path = join(raw_path, 'thumbnails')
+        path = join(raw_path, settings.THUMBNAILS_NAME)
         filename, _ = splitext(raw_filename)
         save_thumbnail_to_path = self._init_save_thumbnail(filename, path)
         return filter(lambda thumbnail_object: save_thumbnail_to_path(thumbnail_object), thumbnail_objects)
