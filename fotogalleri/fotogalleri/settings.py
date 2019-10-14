@@ -154,6 +154,8 @@ LOGIN_REDIRECT_URL = '/'
 MEDIA_URL = '/images/'
 MEDIA_ROOT = env('MEDIA_ROOT', os.path.join(BASE_DIR, 'images/'))
 
+THUMBNAILS_NAME = env('THUMBNAILS_NAME', '__thumbnails')
+
 # REST Framework settings
 # TODO: provide GET access to certain users for non-admins
 REST_FRAMEWORK = {
