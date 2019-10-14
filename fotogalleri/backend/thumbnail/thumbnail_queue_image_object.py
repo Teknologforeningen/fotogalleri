@@ -1,4 +1,3 @@
-from backend.models import ImageMetadata
 from backend.thumbnail.thumbnail_utils import generate_thumbnails, save_img_to_path
 from ntpath import split
 from os.path import join, splitext
@@ -28,7 +27,7 @@ class ThumbQueueImageObject():
     _DEFAULT_MINSIZES = [300]
     _DEFAULT_MAXSIZES = []
 
-    def __init__(self, image_metadata: ImageMetadata):
+    def __init__(self, image_metadata):
         self.metadata = image_metadata
 
     def _create_thumbnail_objects(self):
