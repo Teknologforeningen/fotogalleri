@@ -6,7 +6,7 @@ from backend.thumbnail.thumbnail_queue_image_object import ThumbQueueImageObject
 class ImageUploadForm(ModelForm):
     class Meta:
         model = ImageMetadata
-        fields = ['image']
+        fields = ['year', 'event', 'image']
 
     def save(self, commit=True):
         instance = super(ImageUploadForm, self).save(commit=False)
