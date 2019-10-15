@@ -1,8 +1,11 @@
 *.swp
+fotogalleri/images
+!fotogalleri/images/.keep
 
 # Virtualenv
 bin/
 include/
+pip-selfcheck.json
 
 ### OSX ###
 .DS_Store

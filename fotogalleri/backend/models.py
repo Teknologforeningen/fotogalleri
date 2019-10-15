@@ -13,11 +13,10 @@ class ImageMetadata(models.Model):
 
     Stores simple metadata such as file name, path, and time and date of upload.
     '''
-    filename = models.CharField(max_length=256)
     image = models.ImageField(upload_to=new_image_path)
     upload_time = models.DateTimeField(auto_now_add=True, blank=True)
     # JSON array formatted as a string for containing all thumbnails
-    thumbnails_json = models.CharField(max_length=256, blank=True, null=True, default='[]')
+    thumbnails_json = models.CharField(max_length=256, blank=False, null=False, default='[]')
 
     def set_thumbnails(self, new_thumbnails):
         thumbnails = self.thumbnails + list(new_thumbnails)
@@ -50,6 +49,5 @@ class ImageMetadata(models.Model):
             self.image.storage.delete(oldfile)
 
     def __str__(self):
-        return '{name};{path};{time}'.format(name=self.filename,
-                                             path=self.image,
-                                             time=self.upload_time)
+        return '{path};{time}'.format(path=self.image,
+                                      time=self.upload_time)

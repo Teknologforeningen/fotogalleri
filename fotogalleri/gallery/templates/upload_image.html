@@ -2,11 +2,24 @@
 {% load static %}
 
 {% block content %}
+  <script src="{% static 'javascript/jquery.ui.widget.js' %}"></script>
+  <script src="{% static 'javascript/jquery.fileupload.js' %}"></script>
+  <script src="{% static 'javascript/jquery.iframe-transport.js' %}"></script>
 
-<form method="POST" enctype="multipart/form-data">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Submit</button>
-</form>
+  <script src="{% static 'javascript/upload.js' %}"></script>
+
+  <button type="button" class="js-upload-photos">
+    Upload
+  </button>
+
+  <input
+    id="fileupload"
+    type="file"
+    name="image"
+    multiple
+    style="display: none;"
+    data-url="{% url 'upload' %}"
+    data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'
+  >
 
 {% endblock %}

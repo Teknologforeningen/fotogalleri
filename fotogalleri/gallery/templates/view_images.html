@@ -2,12 +2,15 @@
 {% load static %}
 
 {% block content %}
-
-<ul>
+<div class="img-grid">
   {% for image in object_list %}
-    <h3>{{ image.filename }}<h3>
-    <img src="{{ image.image.url }}" alt="{{ image.filename }}">
-  {% endfor %}
-</ul>
+  <a href="{{ image.id }}" class="img-link"
+    style="width:{% widthratio image.image.width image.image.height 300 %}px;flex-grow:{% widthratio image.image.width image.image.height 300 %}">
+    <i style="padding-bottom:{% widthratio image.image.height image.image.width 100 %}%"></i>
+    <img class="thumbnail-small" src="{{ image.image.url }}" alt="{{ image.filename }}" />
+  </a>
 
+
+  {% endfor %}
+</div>
 {% endblock %}
