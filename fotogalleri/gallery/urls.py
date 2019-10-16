@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import LoginView, LogoutView
@@ -7,8 +7,8 @@ from .forms import CustomLoginForm
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
-    path('view/', ImageGalleryView.as_view(), name='view'),
-    path('view/<int:img_id>', ImageView.as_view(), name='image'),
+    re_path(r'^view/', ImageGalleryView.as_view(), name='view'),
+    path('image/<int:img_id>', ImageView.as_view(), name='image'),
     path('upload/', ImageUploadView.as_view(), name='upload'),
     path('login/',
          LoginView.as_view(template_name='login.html', authentication_form=CustomLoginForm),

@@ -1,0 +1,16 @@
+.folder-link {
+    font-size: 200%;
+    font-weight: bold;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+i.fa-folder {
+    font-size: 300%;
+    margin-bottom: 10px;
+}

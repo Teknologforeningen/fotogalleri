@@ -4,38 +4,47 @@
 <html>
 
 <head>
+  <!-- Bulma CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+  <!-- Root CSS -->
+  <link href="{% static 'css/root.css' %}" rel="stylesheet">
+  <!-- Base CSS -->
+  <link href="{% static 'css/base.css' %}" rel="stylesheet">
+  <!-- CSS for header -->
+  <link href="{% static 'css/header.css' %}" rel="stylesheet">
 
-    <!-- Root CSS -->
-    <link href="{% static 'css/root.css' %}" rel="stylesheet">
-    <!-- Base CSS -->
-    <link href="{% static 'css/base.css' %}" rel="stylesheet">
-    <!-- CSS for header -->
-    <link href="{% static 'css/header.css' %}" rel="stylesheet">
-    <!-- Bulma CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+  {# Import all derived extra CSS files #}
+  {% block css %}
+  {% endblock %}
 
-    {# Import all derived extra CSS files #}
-    {% block css %}
-    {% endblock %}
+  <!-- TF's widely used font: Montserrat -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600&display=swap" rel="stylesheet">
 
-    <!-- TF's widely used font: Montserrat -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600&display=swap" rel="stylesheet">
-    <title>{% block title %}TFs Fotogalleri{% endblock %}</title>
+  <!-- FontAwesome -->
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+    integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"
+  >
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}TFs Fotogalleri{% endblock %}</title>
 
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  {% block javascript %}
     <script
       src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
       crossorigin="anonymous"
     ></script>
+  {% endblock %}
 
-    {# TODO: add favicon #}
+  {# TODO: add favicon #}
 </head>
 
 <body>
-    {% block base %}
-    {% endblock %}
+  {% block base %}
+  {% endblock %}
 </body>
 
 </html>
