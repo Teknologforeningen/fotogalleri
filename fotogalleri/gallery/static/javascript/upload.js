@@ -5,6 +5,7 @@ $(function() {
 
     $("#fileupload").fileupload({
         dataType: 'json',
+        sequentialUploads: true,
         formData: function() {
             return $('#upload-form').serializeArray()
         },
@@ -12,6 +13,7 @@ $(function() {
         done: function(e, data) {
             if (data.result.is_valid) {
                 const { url, name, width, height } = data.result;
+                // 300 is the default thumbnail size that we use
                 const widthratio = width / height * 300;
                 const padding = height / width * 100;
 

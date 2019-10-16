@@ -1,11 +1,11 @@
-from django.conf.settings import THUMB_QUEUE_THREAD_COUNT
+from django.conf import settings
 from queue import Queue, Full
 from threading import Thread
 from backend.thumbnail.thumbnail_queue_image_object import ThumbQueueImageObject
-import logging
+from logging import getLogger
 
 
-logger = logging.getLogger(__name__)
+logger = getLogger(__name__)
 
 
 class _ThumbWorker():
@@ -22,10 +22,11 @@ class _ThumbWorker():
                 break
 
             try:
-                image_obj.generate_thumbnails()
+                image_obj.generate_image_thumbnails()
             # TODO: add specific exception
-            except Exception:
-                logger.error('Could not generate thumbnail for {}'.format(image_obj.get_full_image_path()))
+            except Exception as error:
+                logger.error('Could not generate thumbnail for {}, reason: {}'.format(image_obj.get_full_image_path(),
+                                                                                      error))
             finally:
                 self._queue.task_done()
 
@@ -41,7 +42,7 @@ class ThumbQueue():
     _THUMB_QUEUE = Queue()
     _WORKER = _ThumbWorker(_THUMB_QUEUE)
 
-    for _ in range(THUMB_QUEUE_THREAD_COUNT):
+    for _ in range(settings.THUMB_QUEUE_THREAD_COUNT):
         thread = Thread(target=_WORKER.work)
         thread.start()
         _WORKER.add(thread)
@@ -76,7 +77,7 @@ class ThumbQueue():
         ThumbQueue._THUMB_QUEUE.join()
 
         # Notify threads in thread-pool in _WORKER of death
-        for _ in range(THUMB_QUEUE_THREAD_COUNT):
+        for _ in range(settings.THUMB_QUEUE_THREAD_COUNT):
             ThumbQueue._THUMB_QUEUE.put(None)
 
         ThumbQueue._WORKER.stop()

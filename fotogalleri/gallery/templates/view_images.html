@@ -18,7 +18,6 @@
       <div class="view-card">
         {% include "upload_image.html" %}
       </div>
-
       <div class="view-card">
         {% include "new_folder.html" %}
       </div>
@@ -36,7 +35,15 @@
       </div>
     {% endfor %}
 
-
-  {% endfor %}
-</div>
+    {% for image in images %}
+      <a
+        href="{{ image.image.url }}"
+        class="img-link"
+        style="width:{% widthratio image.image.width image.image.height 300 %}px;flex-grow:{% widthratio image.image.width image.image.height 300 %};"
+      >
+        <i style="padding-bottom:{% widthratio image.image.height image.image.width 100 %}%"></i>
+        <img class="thumbnail-small" src="{{ image.preview }}" alt="{{ image.image.name }}" />
+      </a>
+    {% endfor %}
+  </div>
 {% endblock %}

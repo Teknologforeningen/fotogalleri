@@ -1,6 +1,11 @@
-from django.db.models import Model, CharField, ImageField, DateTimeField, ForeignKey, CASCADE
+from django.db.models import Model, CASCADE
+from django.db.models import CharField, ImageField, DateTimeField
+from django.db.models import ForeignKey, OneToOneField
+from django.conf import settings
 from json import dumps, loads
-from os.path import join
+from os.path import join, splitext, normpath
+from os import sep
+from backend.thumbnail.thumbnail_utils import create_thumbnail_name
 
 
 def new_image_path(instance, filename):
@@ -30,6 +35,28 @@ class ImageMetadata(Model):
         return loads(self.thumbnails_json)
 
     thumbnails = property(_get_thumbnails)
+
+    def _find_preview_thumbnail(self):
+        thumbnails = self._get_thumbnails()
+        for thumbnail in thumbnails:
+            w, h = thumbnail
+            if 300 - 5 <= w <= 300 + 5:
+                return thumbnail
+            if 300 - 5 <= h <= 300 + 5:
+                return thumbnail
+        return None
+
+    def _get_preview_thumbnail(self):
+        thumbnail = self._find_preview_thumbnail()
+        if thumbnail is None:
+            return self.image.url
+
+        raw_filepath, _ = splitext(self.image.name)
+        raw_filename = normpath(raw_filepath).split(sep)[-1]
+        thumbnail_filename = create_thumbnail_name(raw_filename, *thumbnail)
+        return join(settings.MEDIA_URL, self.path.path, settings.THUMBNAILS_NAME, thumbnail_filename)
+
+    preview = property(_get_preview_thumbnail)
 
     def save(self, *args, **kwargs):
         is_saved = self.pk is not None
