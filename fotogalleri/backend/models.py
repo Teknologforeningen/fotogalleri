@@ -51,7 +51,7 @@ class ImageMetadata(Model):
 class ImagePath(Model):
     # FIXME: refactor on_delete
     parent = ForeignKey('self', on_delete=CASCADE, blank=True, null=True)
-    path = CharField(max_length=256, blank=False, null=False, editable=False, unique=True)
+    path = CharField(max_length=256, blank=False, null=False, unique=True)
 
     def _get_full_path(self):
         return join(self.parent.full_path if self.parent else '', self.path)

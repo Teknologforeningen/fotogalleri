@@ -36,3 +36,9 @@ class ImageUploadForm(ModelForm):
 class CustomLoginForm(AuthenticationForm):
     username = CharField(widget=TextInput(attrs={'placeholder': 'Username'}))
     password = CharField(widget=PasswordInput(attrs={'placeholder': 'Password'}))
+
+
+class NewFolderForm(ModelForm):
+    class Meta:
+        model = ImagePath
+        fields = ['path']
