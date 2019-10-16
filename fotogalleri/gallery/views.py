@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import CreateView, ListView
 from django.views import View
 from django.http import JsonResponse
@@ -36,6 +36,11 @@ class ImageUploadView(CreateView):
     model = ImageMetadata
     form_class = ImageUploadForm
     template_name = 'upload_image.html'
+
+    def dispatch(self, request):
+        if not request.user.is_superuser:
+            return redirect('login')
+        return super().dispatch(request)
 
     def post(self, request, *args, **kwargs):
         form_class = self.get_form_class()

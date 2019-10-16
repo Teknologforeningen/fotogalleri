@@ -1,4 +1,6 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, CharField
+from django.forms.widgets import TextInput, PasswordInput
+from django.contrib.auth.forms import AuthenticationForm
 from backend.models import ImageMetadata
 from backend.thumbnail.thumbnail_queue_image_object import ThumbQueueImageObject
 
@@ -17,3 +19,8 @@ class ImageUploadForm(ModelForm):
             thumbnail_generator.generate_thumbnails()
 
         return instance
+
+
+class CustomLoginForm(AuthenticationForm):
+    username = CharField(widget=TextInput(attrs={'placeholder': 'Username'}))
+    password = CharField(widget=PasswordInput(attrs={'placeholder': 'Password'}))
