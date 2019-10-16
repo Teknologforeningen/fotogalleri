@@ -60,7 +60,7 @@ class ThumbQueueImageObject():
         save_thumbnail_to_path = self._init_save_thumbnail(filename, path)
         return filter(lambda thumbnail_object: save_thumbnail_to_path(thumbnail_object), thumbnail_objects)
 
-    def generate_thumbnails(self):
+    def generate_image_thumbnails(self):
         thumbnail_objects = self._create_thumbnail_objects()
         saved_thumbnails = self._save_thumbnails(thumbnail_objects)
         self.metadata.set_thumbnails([saved_thumbnail.get_dimensions() for saved_thumbnail in saved_thumbnails])

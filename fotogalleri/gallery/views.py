@@ -27,6 +27,11 @@ class ImageView(View):
     template = 'image.html'
     model = ImageMetadata
 
+    def dispatch(self, request, img_id):
+        if not request.user.is_authenticated:
+            return redirect('login')
+        return super().dispatch(request, img_id)
+
     def get(self, request, img_id):
         context = {'image': self.model.objects.get(pk=img_id)}
         return render(request, self.template, context)

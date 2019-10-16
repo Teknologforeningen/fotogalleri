@@ -16,5 +16,11 @@ deploy: bin/python
 	$(VENV)/bin/python fotogalleri/manage.py collectstatic -v0 --noinput
 	touch fotogalleri/fotogalleri/wsgi.py
 
+makemigrations: bin/python
+	$(VENV)/bin/python fotogalleri/manage.py makemigrations
+
+shell: bin/python
+	$(VENV)/bin/python fotogalleri/manage.py shell
+
 clean:
 	rm -rf build/ dist/ *.egg-info/ local/ $(VENV)/bin $(VENV)/lib $(VENV)/include
