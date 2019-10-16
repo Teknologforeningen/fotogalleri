@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block css %}
+  <link href="{% static 'css/card.css' %}" rel="stylesheet">
+  <link href="{% static 'css/folder.css' %}" rel="stylesheet">
+  <link href="{% static 'css/navigation.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
   <div id="all-images" class="img-grid">
     {% if not is_root %}
