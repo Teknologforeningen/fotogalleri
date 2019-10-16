@@ -1,13 +1,18 @@
 $(function() {
-    $(".js-upload-photos").click(function() {
-        $("#fileupload").click();
+    $('.js-upload-photos').click(function() {
+        $('#uploaded-file-path').val(
+            $('#uploaded-file-path').val()
+            || window.location.pathname.split('/').slice(2).join('/')
+        );
+
+        $('#fileupload').click();
     });
 
-    $("#fileupload").fileupload({
+    $('#fileupload').fileupload({
         dataType: 'json',
         sequentialUploads: true,
         formData: function() {
-            return $('#upload-form').serializeArray()
+            return $('#upload-form').serializeArray();
         },
         url: '/upload/',
         done: function(e, data) {
