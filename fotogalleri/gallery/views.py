@@ -1,11 +1,9 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.views.generic import CreateView, ListView
 from django.views import View
 from django.http import JsonResponse
-from backend.models import ImageMetadata, RootImage, ImagePath, RootPath
+from backend.models import ImageMetadata
 from gallery.forms import ImageUploadForm
-from os import sep
-from os.path import normpath
 
 
 class HomeView(View):
@@ -19,49 +17,10 @@ class HomeView(View):
 class ImageGalleryView(ListView):
     model = ImageMetadata
     template = 'view_images.html'
-    context = {'is_root': False}
-
-    def dispatch(self, request):
-        if not request.user.is_authenticated:
-            return redirect('login')
-        self.context = {'is_admin': request.user.is_superuser}
-        return super().dispatch(request)
-
-    def _render_root(self, request):
-        root_children = RootPath.objects.all()
-        root_images = RootImage.objects.all()
-        self.context['folders'] = [path.image_path for path in root_children]
-        self.context['images'] = [image.image_metadata for image in root_images]
-        self.context['is_root'] = True
-        return render(request, self.template, self.context)
-
-    def _render_path(self, request, parts):
-        root_name = parts[0]
-        root = get_object_or_404(RootPath, image_path__path=root_name)
-
-        current = root.image_path
-        for part in parts[1:]:
-            child = get_object_or_404(ImagePath, parent=current, path=part)
-            current = child
-
-        folders = ImagePath.objects.filter(parent=current)
-        images = ImageMetadata.objects.filter(path=current)
-
-        self.context['parent'] = current.parent
-        self.context['folders'] = folders
-        self.context['images'] = images
-        return render(request, self.template, self.context)
 
     def get(self, request):
-        full_url_path = request.get_full_path()
-        path = normpath(full_url_path)
-        parts = path.split(sep)
-
-        cleaned_parts = [part for part in parts if part.strip() and part != 'view']
-        if not cleaned_parts:  # User queries for root
-            return self._render_root(request)
-        else:
-            return self._render_path(request, cleaned_parts)
+        context = {'object_list': self.model.objects.all()}
+        return render(request, self.template, context)
 
 
 class ImageView(View):
@@ -93,13 +52,7 @@ class ImageUploadView(CreateView):
         form = self.get_form(form_class)
         if form.is_valid():
             image = form.save()
-            data = {
-                'is_valid': True,
-                'name': image.image.name,
-                'url': image.image.url,
-                'width': form.width,
-                'height': form.height,
-            }
+            data = {'is_valid': True, 'name': image.image.name, 'url': image.image.url}
         else:
             data = {'is_valid': False}
         return JsonResponse(data)

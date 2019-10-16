@@ -1,54 +1,16 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block css %}
-  <link href="{% static 'css/card.css' %}" rel="stylesheet">
-  <link href="{% static 'css/folder.css' %}" rel="stylesheet">
-  <link href="{% static 'css/navigation.css' %}" rel="stylesheet">
-{% endblock %}
-
 {% block content %}
-  <div id="all-images" class="img-grid">
-    {% if not is_root %}
-      <div class="view-card">
-        <a
-          href="/view/{{ parent.full_path }}"
-          class="navigation-link"
-        >
-          <div class="go-back">...</div>
-        </a>
-      </div>
-    {% endif %}
+<div class="img-grid">
+  {% for image in object_list %}
+  <a href="{{ image.id }}" class="img-link"
+    style="width:{% widthratio image.image.width image.image.height 300 %}px;flex-grow:{% widthratio image.image.width image.image.height 300 %}">
+    <i style="padding-bottom:{% widthratio image.image.height image.image.width 100 %}%"></i>
+    <img class="thumbnail-small" src="{{ image.image.url }}" alt="{{ image.filename }}" />
+  </a>
 
-    {% if is_admin %}
-      <div class="view-card">
-        {% include "upload_image.html" %}
-      </div>
-    {% endif %}
 
-    {% for folder in folders %}
-      <div class="view-card">
-        <a
-          href="/view/{{ folder.full_path }}"
-          class="folder-link"
-        >
-          <i class="fas fa-folder" aria-hidden="true"></i>
-          <div>{{ folder.path }}</div>
-        </a>
-      </div>
-    {% endfor %}
-
-    {% for image in images %}
-      <a
-        href="{{ image.image.url }}"
-        class="img-link"
-        style="width:{% widthratio image.image.width image.image.height 300 %}px;flex-grow:{% widthratio image.image.width image.image.height 300 %};"
-      >
-        <i style="padding-bottom:{% widthratio image.image.height image.image.width 100 %}%"></i>
-        <img class="thumbnail-small" src="{{ image.image.url }}" alt="{{ image.image.name }}" />
-      </a>
-    {% endfor %}
-
-    {# TODO: set upload button for admins #}
-  </div>
+  {% endfor %}
+</div>
 {% endblock %}

@@ -6,7 +6,8 @@ from backend.thumbnail.thumbnail_queue_image_object import ThumbQueueImageObject
 
 
 class ImageUploadForm(ModelForm):
-    filepath = CharField(required=False)
+    year = CharField()
+    event = CharField()
 
     class Meta:
         model = ImageMetadata
@@ -14,11 +15,6 @@ class ImageUploadForm(ModelForm):
 
     def save(self, commit=True):
         instance = super(ImageUploadForm, self).save(commit=False)
-
-        # Hack to save width and height,
-        # getting them in the view results in a ValueError
-        self.width = instance.image.width
-        self.height = instance.image.height
 
         if commit:
             instance.path = self._create_image_path()
@@ -28,16 +24,13 @@ class ImageUploadForm(ModelForm):
 
         return instance
 
+    def _get(self, key):
+        return self.cleaned_data.get(key)
+
     def _create_image_path(self):
-        path = self.cleaned_data.get('filepath')
-        parts = [part for part in path.split('/') if part.strip()]
-
-        current = None
-        for part in parts:
-            sub, _ = ImagePath.objects.get_or_create(path=part, parent=current)
-            current = sub
-
-        return current
+        year = ImagePath.create(self._get('year'), parent=None) if self._get('year') else None
+        event = ImagePath.create(self._get('event'), parent=year) if self._get('event') else None
+        return event
 
 
 class CustomLoginForm(AuthenticationForm):

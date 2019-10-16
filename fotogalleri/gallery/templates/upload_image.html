@@ -1,27 +1,23 @@
+{% extends "base.html" %}
 {% load static %}
 
-{% block javascript %}
+{% block content %}
   <script src="{% static 'javascript/jquery.ui.widget.js' %}"></script>
   <script src="{% static 'javascript/jquery.fileupload.js' %}"></script>
   <script src="{% static 'javascript/jquery.iframe-transport.js' %}"></script>
+
   <script src="{% static 'javascript/upload.js' %}"></script>
-{% endblock %}
-
-{% block css %}
-  <link href="{% static 'css/upload.css' %}" rel="stylesheet">
-{% endblock %}
-
-{% block content %}
-  <a href="javascript:;" class="js-upload-photos">
-    <i class="fas fa-file-upload" aria-hidden="true"></i>
-    <div>Upload photos</div>
-  </a>
 
   <form id="upload-form" method="POST">
     <!-- Send the CSRF Middelware Token as a part of the POST form -->
     <input name="csrfmiddlewaretoken" value="{{ csrf_token }}" type="hidden">
 
-    <input id="uploaded-file-path" name="filepath" value="" style="display: none;">
+    <input id="year" name="year" autocomplete="off">
+    <input id="event" name="event" autocomplete="off">
+
+    <button type="button" class="js-upload-photos">
+      Upload
+    </button>
 
     <input
       id="fileupload"
@@ -32,4 +28,5 @@
       data-url="{% url 'upload' %}"
     >
   </form>
+
 {% endblock %}

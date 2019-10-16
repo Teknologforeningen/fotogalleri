@@ -16,7 +16,7 @@ deploy: bin/python
 	$(VENV)/bin/python fotogalleri/manage.py collectstatic -v0 --noinput
 	touch fotogalleri/fotogalleri/wsgi.py
 
-migrations: bin/python
+makemigrations: bin/python
 	$(VENV)/bin/python fotogalleri/manage.py makemigrations
 
 shell: bin/python
