@@ -6,6 +6,7 @@ from backend.models import ImageMetadata, RootImage, ImagePath, RootPath
 from gallery.forms import ImageUploadForm, NewFolderForm
 from os import sep
 from os.path import normpath
+from gallery.featuregates import AlphaGate
 
 
 class HomeView(View):
@@ -16,7 +17,7 @@ class HomeView(View):
         return render(request, self.template, context)
 
 
-class ImageGalleryView(ListView):
+class ImageGalleryView(AlphaGate, ListView):
     model = ImageMetadata
     template = 'view_images.html'
     context = {'is_root': False}
@@ -64,7 +65,7 @@ class ImageGalleryView(ListView):
             return self._render_path(request, cleaned_parts)
 
 
-class ImageView(View):
+class ImageView(AlphaGate, View):
     template = 'image.html'
     model = ImageMetadata
 
@@ -78,7 +79,7 @@ class ImageView(View):
         return render(request, self.template, context)
 
 
-class ImageUploadView(CreateView):
+class ImageUploadView(AlphaGate, CreateView):
     model = ImageMetadata
     form_class = ImageUploadForm
     template_name = 'upload_image.html'
@@ -105,7 +106,7 @@ class ImageUploadView(CreateView):
         return JsonResponse(data)
 
 
-class NewFolderView(CreateView):
+class NewFolderView(AlphaGate, CreateView):
     model = ImagePath
     form_class = NewFolderForm
     template_name = 'new_folder.html'
