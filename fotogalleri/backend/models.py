@@ -70,6 +70,7 @@ class ImageMetadata(Model):
                 self.image.name = newfile
                 self.image.close()
                 self.image.storage.delete(oldfile)
+                self.save()
 
             if not self.path:
                 root_image, created = RootImage.objects.get_or_create(image_metadata=self)
