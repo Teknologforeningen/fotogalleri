@@ -25,7 +25,7 @@ class ImageGalleryView(AlphaGate, ListView):
     def dispatch(self, request):
         if not request.user.is_authenticated:
             return redirect('login')
-        self.context = {'is_admin': request.user.is_superuser}
+        self.context = {'is_admin': _is_admin(request.user)}
         return super().dispatch(request)
 
     def _render_root(self, request):
@@ -85,7 +85,7 @@ class ImageUploadView(AlphaGate, CreateView):
     template_name = 'upload_image.html'
 
     def dispatch(self, request):
-        if not request.user.is_superuser:
+        if not _is_admin(request.user):
             return redirect('login')
         return super().dispatch(request)
 
@@ -112,7 +112,7 @@ class NewFolderView(AlphaGate, CreateView):
     template_name = 'new_folder.html'
 
     def dispatch(self, request):
-        if not request.user.is_superuser:
+        if not _is_admin(request.user):
             return redirect('login')
         return super().dispatch(request)
 
@@ -129,3 +129,7 @@ class NewFolderView(AlphaGate, CreateView):
         else:
             data = {'is_valid': False}
         return JsonResponse(data)
+
+
+def _is_admin(user):
+    return user.is_staff or user.is_superuser
