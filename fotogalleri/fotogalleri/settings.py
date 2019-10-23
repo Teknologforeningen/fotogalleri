@@ -170,7 +170,6 @@ REST_FRAMEWORK = {
 
 # Confs necessary for ajax-select
 AJAX_SELECT_INLINES = 'staticfiles'
-# STATIC_ROOT = env("STATIC_ROOT", None)
 STATIC_ROOT = os.path.join(BASE_DIR, 'gallery/static')
 
 # Conf for thumbnail queue
