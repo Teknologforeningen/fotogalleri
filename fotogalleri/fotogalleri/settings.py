@@ -176,6 +176,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'gallery/static')
 # Conf for thumbnail queue
 THUMB_QUEUE_THREAD_COUNT = env('THUMB_QUEUE_THREAD_COUNT', 4)
 
+# Enable thumbnail generation
+ENABLE_THUMB_QUEUE = env('ENABLE_THUMB_QUEUE', False)
+
 # LDAP Stuff
 
 # Baseline configuration.
