@@ -1,6 +1,7 @@
 from django.forms import ModelForm, CharField
 from django.forms.widgets import TextInput, PasswordInput
 from django.contrib.auth.forms import AuthenticationForm
+from django.conf import settings
 from backend.models import ImageMetadata, ImagePath
 from backend.thumbnail.thumbnail_queue_image_object import ThumbQueueImageObject
 from backend.thumbnail.thumbnail_queue import ThumbQueue
@@ -24,8 +25,8 @@ class ImageUploadForm(ModelForm):
         if commit:
             instance.path = self._create_image_path()
             instance.save()
-            thumbnail_generator = ThumbQueueImageObject(instance)
-            ThumbQueue.add_image_obj(thumbnail_generator)
+            if settings.ENABLE_THUMB_QUEUE:
+                self._enqueue_thumbnail(instance)
 
         return instance
 
@@ -39,6 +40,10 @@ class ImageUploadForm(ModelForm):
             current = sub
 
         return current
+
+    def _enqueue_thumbnail(self, instance):
+        thumbnail_generator = ThumbQueueImageObject(instance)
+        ThumbQueue.add_image_obj(thumbnail_generator)
 
 
 class CustomLoginForm(AuthenticationForm):
