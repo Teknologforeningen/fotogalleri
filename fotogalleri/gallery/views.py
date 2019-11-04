@@ -10,7 +10,7 @@ from gallery.featuregates import AlphaGate
 
 
 class HomeView(View):
-    template = 'base.html'
+    template = 'landing_page.html'
 
     def get(self, request):
         context = {}
