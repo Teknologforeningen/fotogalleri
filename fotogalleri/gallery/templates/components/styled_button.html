@@ -1,0 +1,13 @@
+{% load static %}
+
+{% block css %}
+  <link href="{% static 'css/components/styled_button.css' %}" rel="stylesheet">
+{% endblock %}
+
+<div class="styled-button-container">
+  <button class="styled-button">
+    <p class="text-left-aligned is-size-4-tablet is-size-6-mobile">
+      {{ button_text }}
+    </p>
+  </button>
+</div>
