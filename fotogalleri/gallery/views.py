@@ -13,7 +13,9 @@ class HomeView(View):
     template = 'landing_page.html'
 
     def get(self, request):
-        context = {}
+        context = {
+            'logged_in': request.user.is_authenticated
+        }
         return render(request, self.template, context)
 
 
