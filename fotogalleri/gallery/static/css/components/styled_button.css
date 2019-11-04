@@ -17,6 +17,12 @@
 
     font-size: 150%;
     font-family: 'Montserrat';
+
+    cursor: pointer;
+}
+
+.styled-button:hover {
+    background-color: var(--grey);
 }
 
 .text-left-aligned {
