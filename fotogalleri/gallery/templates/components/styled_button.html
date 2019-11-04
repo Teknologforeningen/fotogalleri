@@ -5,9 +5,11 @@
 {% endblock %}
 
 <div class="styled-button-container">
-  <button class="styled-button">
-    <p class="text-left-aligned is-size-4-tablet is-size-6-mobile">
-      {{ button_text }}
-    </p>
-  </button>
+  <a href="{{ url_name }}">
+    <button class="styled-button">
+      <p class="text-left-aligned is-size-4-tablet is-size-6-mobile">
+        {{ button_text }}
+      </p>
+    </button>
+  </a>
 </div>
