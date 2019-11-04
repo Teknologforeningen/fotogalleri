@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load rev %}
 
 {% block css %}
   <link href="{% static 'css/landing_page.css' %}" rel="stylesheet">
@@ -27,8 +28,12 @@
         </div>
 
         <div class="navigation-buttons-style">
-          {% include 'components/styled_button.html' with button_text="Logga in" %}
-          {% include 'components/styled_button.html' with button_text="Fortsätt utan inloggning" %}
+          {% if logged_in %}
+            {% include 'components/styled_button.html' with button_text="Till bilderna" url_name="view"|rev only %}
+          {% else %}
+            {% include 'components/styled_button.html' with button_text="Logga in" url_name="login"|rev only  %}
+            {% include 'components/styled_button.html' with button_text="Fortsätt utan inloggning" url_name="view"|rev only %}
+          {% endif %}
         </div>
       </div>
     </div>
