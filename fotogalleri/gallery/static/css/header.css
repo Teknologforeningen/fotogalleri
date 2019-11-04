@@ -1,8 +1,8 @@
 @import "css/root.css";
 
-
 :root {
     --header-height: 70px;
+    --header-margin-bottom: 50px;
 }
 
 #header-top {
@@ -32,7 +32,7 @@ hr.page-divide {
     width: 100vw;
     position: relative;
     margin-top: 0px;
-    margin-bottom: 50px;
+    margin-bottom: var(--header-margin-bottom);
     margin-right: 0px;
     margin-left: -50vw;
     left: 50%;
