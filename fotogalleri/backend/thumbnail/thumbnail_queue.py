@@ -44,6 +44,7 @@ class ThumbQueue():
 
     for _ in range(settings.THUMB_QUEUE_THREAD_COUNT):
         thread = Thread(target=_WORKER.work)
+        thread.setDaemon(True)
         thread.start()
         _WORKER.add(thread)
 
