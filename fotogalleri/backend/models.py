@@ -40,8 +40,10 @@ class ImageMetadata(Model):
         thumbnails = self._get_thumbnails()
         for thumbnail in thumbnails:
             w, h = thumbnail
+            # TODO: fix this FFS
             if 300 - 5 <= w <= 300 + 5:
                 return thumbnail
+            # TODO: this as well
             if 300 - 5 <= h <= 300 + 5:
                 return thumbnail
         return None
