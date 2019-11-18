@@ -1,10 +1,13 @@
 from django.db.models import Model, CASCADE
 from django.db.models import CharField, ImageField, DateTimeField
 from django.db.models import ForeignKey, OneToOneField
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 from django.conf import settings
 from json import dumps, loads
-from os.path import join, splitext, normpath
-from os import sep
+from os.path import join, splitext, normpath, isfile
+from os import sep, remove
+from ntpath import split
 from backend.thumbnail.thumbnail_utils import create_thumbnail_name
 
 
@@ -111,3 +114,26 @@ class ImagePath(Model):
 
 class RootPath(Model):
     image_path = OneToOneField(ImagePath, on_delete=CASCADE, primary_key=True)
+
+
+@receiver(post_delete, sender=ImageMetadata)
+def auto_delete_image_on_delete(sender, instance, **kwargs):
+    if not instance.image:
+        return
+    image_metadata_path = instance.image.path
+
+    def commit_delete(filepath):
+        if isfile(filepath):
+            remove(filepath)
+
+    commit_delete(image_metadata_path)
+
+    for thumbnail in instance.thumbnails:
+        # TODO: unite with `_save_thumbnails(..)` in thumbnail_queue_image_object.py
+        raw_path, raw_filename = split(image_metadata_path)
+        path = join(raw_path, settings.THUMBNAILS_NAME)
+        filename, _ = splitext(raw_filename)
+
+        thumbnail_name = create_thumbnail_name(filename, *thumbnail)
+        thumbnail_file = join(path, thumbnail_name)
+        commit_delete(thumbnail_file)
