@@ -38,7 +38,7 @@ class ThumbQueueImageObject():
         return save_thumbnail
 
     def _save_thumbnails(self, thumbnail_objects):
-        raw_path, raw_filename = self._get_image_name_and_path()
+        raw_path, raw_filename = self._get_image_path_and_name()
         path = join(raw_path, settings.THUMBNAILS_NAME)
         filename, _ = splitext(raw_filename)
         save_thumbnail_to_path = self._init_save_thumbnail(filename, path)
@@ -52,10 +52,10 @@ class ThumbQueueImageObject():
     def get_full_image_path(self):
         return self.metadata.image.path
 
-    def _get_image_name_and_path(self):
+    def _get_image_path_and_name(self):
         '''
         Getter for the filename and path of this image.
-        :return: (filename, path)
+        :return: (path, filename)
         '''
         image_path = self.get_full_image_path()
         return split(image_path)
