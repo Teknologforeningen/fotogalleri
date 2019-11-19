@@ -42,11 +42,11 @@ class ThumbQueue():
     _THUMB_QUEUE = Queue()
     _WORKER = _ThumbWorker(_THUMB_QUEUE)
 
-    for _ in range(settings.THUMB_QUEUE_THREAD_COUNT):
-        thread = Thread(target=_WORKER.work)
-        thread.setDaemon(True)
-        thread.start()
-        _WORKER.add(thread)
+    if settings.ENABLE_THUMB_QUEUE:
+        for _ in range(settings.THUMB_QUEUE_THREAD_COUNT):
+            thread = Thread(target=_WORKER.work)
+            thread.start()
+            _WORKER.add(thread)
 
     @staticmethod
     def add_image_obj(image_obj):
