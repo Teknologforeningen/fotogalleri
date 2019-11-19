@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+{% load rev %}
+
+{% block css %}
+  <link href="{% static 'css/landing_page.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+  <div class="vertically-center">
+    <div class="card landing-card vertically-center">
+      <div class="card-content landing-card-content vertically-center">
+        <h2 class="is-size-2-desktop is-size-4-touch centered-text">
+          Välkommen till TFs fotogalleri
+        </h2>
+        <h4 class="is-size-4-desktop is-size-6-touch centered-text">
+          <strong>ELLER</strong>
+        </h4>
+        <h2 class="is-size-2-desktop is-size-4-touch centered-text">
+          FAFA Alternativt FotoAlbum
+        </h2>
+
+        <div class="centered-text landing-text-margin">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </div>
+
+        <div class="navigation-buttons-style">
+          {% if logged_in %}
+            {% include 'components/styled_button.html' with button_text="Till bilderna" url_name="view"|rev only %}
+          {% else %}
+            {% include 'components/styled_button.html' with button_text="Logga in" url_name="login"|rev only  %}
+            {% include 'components/styled_button.html' with button_text="Fortsätt utan inloggning" url_name="view"|rev only %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

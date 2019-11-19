@@ -1,0 +1,30 @@
+@import "css/root.css";
+
+.styled-button-container {
+    border-left: 4px solid var(--teknolog-rod);
+}
+
+.styled-button {
+    border: 2px solid var(--white);
+    border-left: none;
+
+    color: var(--black);
+    background-color: #fff;
+
+    height: 100%;
+    width: 100%;
+    padding: 5%;
+
+    font-size: 150%;
+    font-family: 'Montserrat';
+
+    cursor: pointer;
+}
+
+.styled-button:hover {
+    background-color: var(--grey);
+}
+
+.text-left-aligned {
+    text-align: center;
+}
