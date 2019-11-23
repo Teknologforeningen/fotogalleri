@@ -3,30 +3,33 @@ name: Fotogalleri - CI
 on: pull_request
 
 jobs:
-  setup:
+  lint:
     runs-on: ubuntu-16.04
     steps:
+      # Without the following action the Makefile won't be found
       - uses: actions/checkout@v1
+      - name: Install LDAP requirements
+        run: sudo apt-get install -y python-dev libldap2-dev libsasl2-dev libssl-dev
       - name: Set up Python 3.5
         uses: actions/setup-python@v1
         with:
           python-version: 3.5
-  lint:
-    runs-on: ubuntu-16.04
-    needs: setup
-    steps:
-      # Without the following action the Makefile won't be found
-      - uses: actions/checkout@v1
+      - name: Install virtualenv
+        run: pip install virtualenv
       - name: Lint with PEP8
-        run:
-          make test-pep8
+        run: make REQUIREMENTS_FILE=.github/requirements.github.txt test-pep8
   test:
     runs-on: ubuntu-16.04
-    needs: setup
     steps:
       # Without the following action the Makefile won't be found
       - uses: actions/checkout@v1
+      - name: Install LDAP requirements
+        run: sudo apt-get install -y python-dev libldap2-dev libsasl2-dev libssl-dev
+      - name: Set up Python 3.5
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.5
+      - name: Install virtualenv
+        run: pip install virtualenv
       - name: Run tests
-        run:
-          make test
-
+        run: make REQUIREMENTS_FILE=.github/requirements.github.txt test

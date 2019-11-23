@@ -1,7 +1,10 @@
+PYTHON_EXECUTABLE ?= /usr/bin/python3
+REQUIREMENTS_FILE ?= requirements.txt
+
 # Setup virtualenv if not already existing
 bin/python:
-	virtualenv -p /usr/bin/python .
-	bin/pip install -r requirements.txt
+	virtualenv -p $(PYTHON_EXECUTABLE) .
+	bin/pip install -r $(REQUIREMENTS_FILE)
 
 migrate: bin/python
 	bin/python fotogalleri/manage.py migrate
