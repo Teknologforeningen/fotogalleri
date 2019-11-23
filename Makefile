@@ -1,9 +1,9 @@
-REQUIREMENT_FILE ?= requirements.txt
+REQUIREMENTS_FILE ?= requirements.txt
 
 # Setup virtualenv if not already existing
 bin/python:
 	virtualenv -p /usr/bin/python3 .
-	bin/pip install -r $(REQUIREMENT_FILE)
+	bin/pip install -r $(REQUIREMENTS_FILE)
 
 migrate: bin/python
 	bin/python fotogalleri/manage.py migrate
