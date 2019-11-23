@@ -9,6 +9,7 @@
 
 {% block content %}
   <div id="all-images" class="img-grid">
+    {% include "components/toolbar.html" %}
     {% if not is_root %}
       <div class="view-card">
         <a
