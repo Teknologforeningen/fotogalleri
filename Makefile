@@ -1,26 +1,28 @@
-VENV=.
-
-install: $(VENV)/bin/python
-
+# Setup virtualenv if not already existing
 bin/python:
 	virtualenv -p /usr/bin/python .
-	$(VENV)/bin/pip install -r requirements.txt
+	bin/pip install -r requirements.txt
 
 migrate: bin/python
-	$(VENV)/bin/python fotogalleri/manage.py migrate
-
-serve: bin/python
-	$(VENV)/bin/python fotogalleri/manage.py runserver 8888
-
-deploy: bin/python
-	$(VENV)/bin/python fotogalleri/manage.py collectstatic -v0 --noinput
-	touch fotogalleri/fotogalleri/wsgi.py
+	bin/python fotogalleri/manage.py migrate
 
 migrations: bin/python
-	$(VENV)/bin/python fotogalleri/manage.py makemigrations
+	bin/python fotogalleri/manage.py makemigrations
+
+deploy: bin/python
+	bin/python fotogalleri/manage.py collectstatic -v0 --noinput
+	touch fotogalleri/fotogalleri/wsgi.py
+
+# Development specific
+serve: bin/python
+	bin/python fotogalleri/manage.py runserver 8888
 
 shell: bin/python
-	$(VENV)/bin/python fotogalleri/manage.py shell
+	bin/python fotogalleri/manage.py shell
 
 clean:
-	rm -rf build/ dist/ *.egg-info/ local/ $(VENV)/bin $(VENV)/lib $(VENV)/include
+	rm -rf build/ dist/ *.egg-info/ local/
+
+clean-all:
+	$(MAKE) clean
+	rm -rf bin lib include
