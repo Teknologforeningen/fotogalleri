@@ -24,7 +24,7 @@ shell: bin/python
 	bin/python fotogalleri/manage.py shell
 
 test: bin/python
-	bin/python fotogalleri/manage.py test
+	bin/python fotogalleri/manage.py test fotogalleri
 
 test-pep8: bin/python
 	bin/python fotogalleri/manage.py test test_pep8
