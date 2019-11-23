@@ -51,6 +51,7 @@ class ImageGalleryView(AlphaGate, ListView):
         images = ImageMetadata.objects.filter(path=current)
 
         self.context['parent'] = current.parent
+        self.context['folder'] = current
         self.context['folders'] = folders
         self.context['images'] = images
         return render(request, self.template, self.context)
