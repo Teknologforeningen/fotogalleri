@@ -13,13 +13,19 @@ jobs:
           python-version: 3.5
   lint:
     runs-on: ubuntu-16.04
+    needs: setup
     steps:
+      # Without the following action the Makefile won't be found
+      - uses: actions/checkout@v1
       - name: Lint with PEP8
         run:
           make test-pep8
   test:
     runs-on: ubuntu-16.04
+    needs: setup
     steps:
+      # Without the following action the Makefile won't be found
+      - uses: actions/checkout@v1
       - name: Run tests
         run:
           make test
