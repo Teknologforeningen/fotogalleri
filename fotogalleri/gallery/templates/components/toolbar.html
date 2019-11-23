@@ -1,0 +1,24 @@
+{% load static %}
+
+{% block css %}
+  <link href="{% static 'css/components/toolbar.css' %}" rel="stylesheet">
+{% endblock %}
+
+<div class="card toolbar-outer">
+  <nav id="toolbar-breadcrumb" class="breadcrumb" aria-label="breadcrumbs">
+    <ul>
+      <li id="{% if not folder %}current-breadcrumb{% endif %}">
+        <a href="{% url 'view' %}">Galleri</a>
+      </li>
+
+      {% if folder %}
+        {% for parent in folder.parent %}
+          <li><a href="{{ parent.full_path }}">{{ parent.path }}</a></li>
+        {% endfor %}
+        <li id="current-breadcrumb">
+          <a href="{{ folder.full_path }}">{{ folder.path }}</a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+</div>

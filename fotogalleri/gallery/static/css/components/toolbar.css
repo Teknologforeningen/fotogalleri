@@ -1,0 +1,32 @@
+@import "css/root.css";
+
+.toolbar-outer {
+    width: 100%;
+    margin: 10px;
+    padding: 10px;
+}
+
+#toolbar-breadcrumb {
+    border-left: thick solid var(--teknolog-rod);
+    padding-left: 10px;
+}
+
+#toolbar-breadcrumb a {
+    color: var(--black);
+}
+
+#toolbar-breadcrumb a:hover {
+    color: var(--teknolog-rod);
+}
+
+#current-breadcrumb a {
+    color: var(--teknolog-rod);
+}
+
+#current-breadcrumb a:hover {
+    color: var(--black);
+}
+
+.breadcrumb li + li::before {
+    color: var(--black);
+}
