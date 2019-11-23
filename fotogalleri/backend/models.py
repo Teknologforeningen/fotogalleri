@@ -100,6 +100,14 @@ class ImagePath(Model):
 
     full_path = property(_get_full_path)
 
+    def _get_parents(self):
+        paths = [self]
+        while paths[0].parent:
+            paths.insert(0, paths[0].parent)
+        return paths
+
+    parents = property(_get_parents)
+
     def save(self, *args, **kwargs):
         is_saved = self.pk is not None
         super(ImagePath, self).save(*args, **kwargs)
