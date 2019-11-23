@@ -225,3 +225,9 @@ AUTHENTICATION_BACKENDS = (
 AUTH_LDAP_GLOBAL_OPTIONS = {
     OPT_X_TLS_REQUIRE_CERT: OPT_X_TLS_NEVER
 }
+
+# PEP8 settings
+TEST_PEP8_DIRS = [os.path.dirname(PROJECT_DIR)]
+TEST_PEP8_EXCLUDE = ['migrations']
+TEST_PEP8_IGNORE = []
+TEST_PEP8_CONFIG_FILE = os.path.join(os.path.dirname(BASE_DIR), 'setup.cfg')
