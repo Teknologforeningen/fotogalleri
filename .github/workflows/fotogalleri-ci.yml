@@ -3,9 +3,10 @@ name: Fotogalleri - CI
 on: pull_request
 
 jobs:
-  setup:
+  lint:
     runs-on: ubuntu-16.04
     steps:
+      # Without the following action the Makefile won't be found
       - uses: actions/checkout@v1
       - name: Set up Python 3.5
         uses: actions/setup-python@v1
@@ -13,22 +14,18 @@ jobs:
           python-version: 3.5
       - name: Install virtualenv
         run: pip install virtualenv
-  lint:
-    runs-on: ubuntu-16.04
-    needs: setup
-    steps:
-      # Without the following action the Makefile won't be found
-      - uses: actions/checkout@v1
       - name: Lint with PEP8
-        run:
-          make test-pep8
+        run: make test-pep8
   test:
     runs-on: ubuntu-16.04
-    needs: setup
     steps:
       # Without the following action the Makefile won't be found
       - uses: actions/checkout@v1
+      - name: Set up Python 3.5
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.5
+      - name: Install virtualenv
+        run: pip install virtualenv
       - name: Run tests
-        run:
-          make test
-
+        run: make test
