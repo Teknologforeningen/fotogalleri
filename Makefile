@@ -1,6 +1,6 @@
 # Setup virtualenv if not already existing
 bin/python:
-	virtualenv -p /usr/bin/python .
+	virtualenv -p /usr/bin/python3 .
 	bin/pip install -r requirements.txt
 
 migrate: bin/python
