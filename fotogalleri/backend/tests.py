@@ -1,8 +1,9 @@
 from django.test import TestCase
 from backend.models import ImageMetadata, RootImage
 from backend.models import ImagePath, RootPath
-from fotogalleri.settings import BASE_DIR
-from os.path import join
+from fotogalleri.settings import BASE_DIR, MEDIA_ROOT
+from os.path import join, isfile, exists
+from shutil import copyfile
 
 
 class ImageMetadataTest(TestCase):
@@ -47,3 +48,22 @@ class ImagePathTest(TestCase):
     def test_child_root_path(self):
         with self.assertRaises(RootPath.DoesNotExist):
             RootPath.objects.get(image_path=self.child)
+
+
+class ImageMetadataDeleteTest(TestCase):
+    def create_test_image(self):
+        fixture_image = join(BASE_DIR, 'backend', 'fixtures', 'test.png')
+        image_path = join(MEDIA_ROOT, '__test_image.png')
+        copyfile(fixture_image, image_path)
+        return image_path
+
+    def setUp(self):
+        self.image_path = self.create_test_image()
+        self.image = ImageMetadata.objects.create(image=self.image_path)
+
+    def test_delete_receiver(self):
+        self.assertTrue(isfile(self.image_path))
+        self.image.delete()
+
+        self.assertFalse(isfile(self.image_path))
+        self.assertFalse(exists(self.image_path))
