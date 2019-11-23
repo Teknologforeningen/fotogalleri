@@ -29,9 +29,6 @@ test: bin/python
 test-pep8: bin/python
 	bin/python fotogalleri/manage.py test test_pep8
 
-test-all: bin/python
-	$(MAKE) test
-	$(MAKE) test-pep8
 
 clean:
 	rm -rf build/ dist/ *.egg-info/ local/
