@@ -26,12 +26,8 @@ shell: bin/python
 test: bin/python
 	bin/python fotogalleri/manage.py test fotogalleri
 
-test-pep8: bin/python
-	bin/python fotogalleri/manage.py test test_pep8
-
-test-all: bin/python
-	$(MAKE) test
-	$(MAKE) test-pep8
+lint: bin/python
+	bin/python -m pycodestyle --exclude=migrations fotogalleri
 
 clean:
 	rm -rf build/ dist/ *.egg-info/ local/

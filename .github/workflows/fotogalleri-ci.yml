@@ -17,7 +17,7 @@ jobs:
       - name: Install virtualenv
         run: pip install virtualenv
       - name: Lint with PEP8
-        run: make REQUIREMENTS_FILE=.github/requirements.github.txt test-pep8
+        run: make REQUIREMENTS_FILE=.github/requirements.github.txt lint
   test:
     runs-on: ubuntu-16.04
     steps:
