@@ -104,7 +104,7 @@ class ImagePath(Model):
         paths = [self]
         while paths[0].parent:
             paths.insert(0, paths[0].parent)
-        return paths
+        return paths[:-1]
 
     parents = property(_get_parents)
 
