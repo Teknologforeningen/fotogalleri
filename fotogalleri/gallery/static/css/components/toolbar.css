@@ -7,7 +7,7 @@
 }
 
 #toolbar-breadcrumb {
-    border-left: thick solid var(--teknolog-rod);
+    border-left: 4px solid var(--teknolog-rod);
     padding-left: 10px;
 }
 
