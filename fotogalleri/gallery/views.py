@@ -22,7 +22,7 @@ class HomeView(View):
 class ImageGalleryView(AlphaGate, ListView):
     model = ImageMetadata
     template = 'view_images.html'
-    context = {'is_root': False}
+    context = {}
 
     def dispatch(self, request):
         if not request.user.is_authenticated:
@@ -35,7 +35,6 @@ class ImageGalleryView(AlphaGate, ListView):
         root_images = RootImage.objects.all()
         self.context['folders'] = [path.image_path for path in root_children]
         self.context['images'] = [image.image_metadata for image in root_images]
-        self.context['is_root'] = True
         return render(request, self.template, self.context)
 
     def _render_path(self, request, parts):
@@ -50,7 +49,6 @@ class ImageGalleryView(AlphaGate, ListView):
         folders = ImagePath.objects.filter(parent=current)
         images = ImageMetadata.objects.filter(path=current)
 
-        self.context['parent'] = current.parent
         self.context['folder'] = current
         self.context['folders'] = folders
         self.context['images'] = images

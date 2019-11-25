@@ -10,16 +10,6 @@
 {% block content %}
   <div id="all-images" class="img-grid">
     {% include "components/toolbar.html" %}
-    {% if not is_root %}
-      <div class="view-card">
-        <a
-          href="/view/{{ parent.full_path }}"
-          class="navigation-link"
-        >
-          <div class="go-back">...</div>
-        </a>
-      </div>
-    {% endif %}
 
     {% if is_admin %}
       <div class="view-card">
