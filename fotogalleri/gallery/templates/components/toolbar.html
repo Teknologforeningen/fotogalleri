@@ -24,9 +24,11 @@
     </ul>
   </nav>
 
-  {% if folder %}
-    {% with folder.parent.full_path as parent_path %}
-      {% include 'components/styled_button.html' with button_text="Tillbaka" url_name=parent_path|view only %}
-    {% endwith %}
-  {% endif %}
+  <div id="toolbar-buttons">
+    {% if folder %} {# i.e. if root #}
+      {% with folder.parent.full_path as parent_path %}
+        {% include 'components/styled_button.html' with button_text="Tillbaka" url_name=parent_path|view sizes="is-size-6" only %}
+      {% endwith %}
+    {% endif %}
+  </div>
 </div>
