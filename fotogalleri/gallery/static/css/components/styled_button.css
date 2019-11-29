@@ -21,6 +21,17 @@
     cursor: pointer;
 }
 
+.button-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.button-content > i {
+    padding-right: 10px;
+    color: var(--teknolog-rod);
+}
+
 .styled-button:hover {
     background-color: var(--grey);
 }
