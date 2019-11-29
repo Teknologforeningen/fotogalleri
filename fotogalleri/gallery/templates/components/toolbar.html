@@ -32,7 +32,9 @@
     {% endif %}
 
     {% if is_admin %}
+      {% include 'components/styled_button.html' with button_text="Upload" url_name="javascript:;" sizes="is-size-6" only %}
       {% include 'components/styled_button.html' with button_text="New folder" url_name="javascript:;" sizes="is-size-6" only %}
+      {% include 'components/styled_button.html' with button_text="Select & Delete" url_name="javascript:;" sizes="is-size-6" only %}
     {% endif %}
   </div>
 </div>
