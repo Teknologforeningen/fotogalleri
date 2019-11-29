@@ -27,14 +27,14 @@
   <div id="toolbar-buttons">
     {% if folder %} {# i.e. if root #}
       {% with folder.parent.full_path as parent_path %}
-        {% include 'components/styled_button.html' with button_text="Tillbaka" url_name=parent_path|view sizes="is-size-6" only %}
+        {% include 'components/styled_button.html' with button_text="Tillbaka" fa_icon_class="fa-reply" url_name=parent_path|view sizes="is-size-6" only %}
       {% endwith %}
     {% endif %}
 
     {% if is_admin %}
-      {% include 'components/styled_button.html' with button_text="Upload" url_name="javascript:;" sizes="is-size-6" only %}
-      {% include 'components/styled_button.html' with button_text="New folder" url_name="javascript:;" sizes="is-size-6" only %}
-      {% include 'components/styled_button.html' with button_text="Select & Delete" url_name="javascript:;" sizes="is-size-6" only %}
+      {% include 'components/styled_button.html' with button_text="Upload" fa_icon_class="fa-upload" url_name="javascript:;" sizes="is-size-6" only %}
+      {% include 'components/styled_button.html' with button_text="New folder" fa_icon_class="fa-plus" url_name="javascript:;" sizes="is-size-6" only %}
+      {% include 'components/styled_button.html' with button_text="Select & Delete" fa_icon_class="" url_name="javascript:;" sizes="is-size-6" only %}
     {% endif %}
   </div>
 </div>
