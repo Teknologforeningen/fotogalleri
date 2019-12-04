@@ -32,12 +32,13 @@
     {% endif %}
 
     {% if is_admin %}
-      {# Image upload specific components #}
       {% include 'components/image_upload_form.html' %}
-      {% include 'components/styled_button.html' with button_text="Upload" fa_icon_class="fa-upload" url_name="javascript:;" button_link_id="js-upload-photos" sizes="is-size-6" only %}
+      <div id="js-upload-photos">
+        {% include 'components/styled_button.html' with button_text="Upload" fa_icon_class="fa-upload" sizes="is-size-6" only %}
+      </div>
 
       {% include 'components/styled_button.html' with button_text="New folder" fa_icon_class="fa-plus" url_name="javascript:;" sizes="is-size-6" only %}
-      {% include 'components/styled_button.html' with button_text="Select & Delete" fa_icon_class="" url_name="javascript:;" sizes="is-size-6" only %}
+      {% include 'components/styled_button.html' with button_text="Select & Delete" fa_icon_class="" sizes="is-size-6" only %}
     {% endif %}
   </div>
 </div>

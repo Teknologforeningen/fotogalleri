@@ -5,7 +5,7 @@
 {% endblock %}
 
 <div class="styled-button-container">
-  <a href="{{ url_name }}" id="{{ button_link_id }}">
+  <a href="{{ url_name|default:"javascript:;" }}">
     <button class="styled-button">
       <div class="button-content">
         {% if fa_icon_class %}
