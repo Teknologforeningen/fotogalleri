@@ -1,0 +1,12 @@
+{% load static %}
+
+{% block javascript %}
+  <script src="{% static 'javascript/modal.js' %}"></script>
+{% endblock %}
+
+<div class="modal" id="{{ modalname }}">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    {% block modalcontent %}{% endblock %}
+  </div>
+</div>

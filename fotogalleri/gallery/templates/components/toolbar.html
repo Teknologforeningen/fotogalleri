@@ -37,7 +37,14 @@
         {% include 'components/styled_button.html' with button_text="Upload" fa_icon_class="fa-upload" sizes="is-size-6" only %}
       </div>
 
-      {% include 'components/styled_button.html' with button_text="New folder" fa_icon_class="fa-plus" url_name="javascript:;" sizes="is-size-6" only %}
+      {% with 'create-path' as modal_id %}
+        <div data-toggle="modal" data-target="{{ modal_id }}">
+          {% include 'components/styled_button.html' with button_text="New folder" fa_icon_class="fa-plus" sizes="is-size-6" only %}
+        </div>
+
+        {% include "modals/create_path.html" with modalname=modal_id only %}
+      {% endwith %}
+
       {% include 'components/styled_button.html' with button_text="Select & Delete" fa_icon_class="" sizes="is-size-6" only %}
     {% endif %}
   </div>

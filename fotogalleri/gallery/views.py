@@ -110,7 +110,7 @@ class ImageUploadView(AlphaGate, CreateView):
 class NewFolderView(AlphaGate, CreateView):
     model = ImagePath
     form_class = NewFolderForm
-    template_name = 'new_folder.html'
+    template_name = 'new_path.html'
 
     def dispatch(self, request):
         if not _is_admin(request.user):
