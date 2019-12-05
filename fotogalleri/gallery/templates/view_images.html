@@ -12,7 +12,7 @@
     {% include "components/toolbar.html" %}
 
     {% for folder in folders %}
-      <div class="view-card">
+      <div class="view-card selectable">
         <a
           href="/view/{{ folder.full_path }}"
           class="folder-link"
@@ -27,7 +27,7 @@
       {% with width=image.image.width height=image.image.height %}
         <a
           href="{{ image.image.url }}"
-          class="img-link"
+          class="img-link selectable"
           style="width:{% widthratio width height 300 %}px;flex-grow:{% widthratio width height 300 %};"
         >
           <i style="padding-bottom:{% widthratio height width 100 %}%"></i>
