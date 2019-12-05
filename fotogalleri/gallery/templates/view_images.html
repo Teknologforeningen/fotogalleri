@@ -24,14 +24,16 @@
     {% endfor %}
 
     {% for image in images %}
-      <a
-        href="{{ image.image.url }}"
-        class="img-link"
-        style="width:{% widthratio image.image.width image.image.height 300 %}px;flex-grow:{% widthratio image.image.width image.image.height 300 %};"
-      >
-        <i style="padding-bottom:{% widthratio image.image.height image.image.width 100 %}%"></i>
-        <img class="thumbnail-small" src="{{ image.preview }}" alt="{{ image.image.name }}" />
-      </a>
+      {% with width=image.image.width height=image.image.height %}
+        <a
+          href="{{ image.image.url }}"
+          class="img-link"
+          style="width:{% widthratio width height 300 %}px;flex-grow:{% widthratio width height 300 %};"
+        >
+          <i style="padding-bottom:{% widthratio height width 100 %}%"></i>
+          <img class="thumbnail-small" src="{{ image.preview }}" alt="{{ image.image.name }}" />
+        </a>
+      {% endwith %}
     {% endfor %}
   </div>
 {% endblock %}
