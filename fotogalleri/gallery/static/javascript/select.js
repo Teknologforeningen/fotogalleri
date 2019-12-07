@@ -7,6 +7,9 @@ function selectViewCard(component) {}
 
 $(function() {
     $('#select-objects-button').click(function() {
+        const deleteButton = $('#delete-button');
+        deleteButton.toggle();
+
         $('[selectable="true"]').each(function(index, selectable) {
             const classNames = selectable.className.split(' ');
             const filteredNames = classNames.filter(function(className) {
