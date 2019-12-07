@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, DeleteView
 from django.views import View
 from django.http import JsonResponse
 from backend.models import ImageMetadata, RootImage, ImagePath, RootPath
-from gallery.forms import ImageUploadForm, NewFolderForm
+from gallery.forms import ImageUploadForm, NewFolderForm, DeleteForm
 from os import sep
 from os.path import normpath
 from gallery.featuregates import AlphaGate
@@ -130,6 +130,31 @@ class NewFolderView(AlphaGate, CreateView):
         else:
             data = {'is_valid': False}
         return JsonResponse(data)
+
+
+class DeleteObject(DeleteView):
+    form_class = DeleteForm
+
+    def dispatch(self, request):
+        if not _is_admin(request.user):
+            return redirect('login')
+        return super().dispatch(request)
+
+    def post(self, request, *args, **kwargs):
+        form = DeleteForm(request.POST)
+        is_form_valid = form.is_valid()
+
+        object_id = form.cleaned_data['objectId']
+        object_type = form.cleaned_data['objectType']
+        deleted = self._delete_object(object_id, object_type)
+
+        data = {'success': is_form_valid and deleted, 'objectId': object_id}
+        return JsonResponse(data)
+
+    def _delete_object(self, object_id, object_type):
+        if object_type == 'image':
+            return ImageMetadata.objects.get(pk=object_id).delete()
+        return False
 
 
 def _is_admin(user):
