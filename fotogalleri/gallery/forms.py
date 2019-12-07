@@ -1,4 +1,4 @@
-from django.forms import ModelForm, CharField
+from django.forms import ModelForm, CharField, Form, ChoiceField
 from django.forms.widgets import TextInput, PasswordInput
 from django.contrib.auth.forms import AuthenticationForm
 from django.conf import settings
@@ -55,3 +55,10 @@ class NewFolderForm(ModelForm):
     class Meta:
         model = ImagePath
         fields = ['path']
+
+
+class DeleteForm(Form):
+    object_type_choices = [('image', 'image')]
+
+    objectId = CharField(required=True)
+    objectType = ChoiceField(choices=object_type_choices, required=True)
