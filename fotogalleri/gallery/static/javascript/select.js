@@ -1,12 +1,13 @@
-function selectImgLink(component) {}
+function selectImgLink(component) {
+    const checkbox = $(component).children('[type="checkbox"]');
+    checkbox.toggle();
+}
 
 function selectViewCard(component) {}
 
 $(function() {
     $('#select-objects-button').click(function() {
-        const selectables = $('.selectable');
-        selectables.each(function(index) {
-            const selectable = selectables.get(index);
+        $('[selectable="true"]').each(function(index, selectable) {
             const classNames = selectable.className.split(' ');
             const filteredNames = classNames.filter(function(className) {
                 return className !== 'selectable';

@@ -12,7 +12,7 @@
     {% include "components/toolbar.html" %}
 
     {% for folder in folders %}
-      <div class="view-card selectable">
+      <div class="view-card">
         <a
           href="/view/{{ folder.full_path }}"
           class="folder-link"
@@ -24,16 +24,7 @@
     {% endfor %}
 
     {% for image in images %}
-      {% with width=image.image.width height=image.image.height %}
-        <a
-          href="{{ image.image.url }}"
-          class="img-link selectable"
-          style="width:{% widthratio width height 300 %}px;flex-grow:{% widthratio width height 300 %};"
-        >
-          <i style="padding-bottom:{% widthratio height width 100 %}%"></i>
-          <img class="thumbnail-small" src="{{ image.preview }}" alt="{{ image.image.name }}" />
-        </a>
-      {% endwith %}
+      {% include "components/image.html" with image=image %}
     {% endfor %}
   </div>
 {% endblock %}
