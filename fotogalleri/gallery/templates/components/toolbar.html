@@ -5,6 +5,10 @@
   <link href="{% static 'css/components/toolbar.css' %}" rel="stylesheet">
 {% endblock %}
 
+{% block javascript %}
+  <script src="{% static 'javascript/select.js' %}"></script>
+{% endblock %}
+
 <div class="card toolbar-outer">
   <nav id="toolbar-breadcrumb" class="breadcrumb" aria-label="breadcrumbs">
     <ul>
@@ -45,7 +49,9 @@
         {% include "modals/create_path.html" with modalname=modal_id only %}
       {% endwith %}
 
-      {% include 'components/styled_button.html' with button_text="Select & Delete" fa_icon_class="" sizes="is-size-6" only %}
+      <div id="select-objects-button">
+        {% include 'components/styled_button.html' with button_text="Select & Delete" fa_icon_class="" sizes="is-size-6" only %}
+      </div>
     {% endif %}
   </div>
 </div>

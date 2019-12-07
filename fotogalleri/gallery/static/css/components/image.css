@@ -1,0 +1,12 @@
+@import "css/root.css";
+
+a.img-link {
+    position: relative;
+}
+
+a.img-link > input {
+    display: none;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}

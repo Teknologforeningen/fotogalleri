@@ -1,0 +1,24 @@
+{% load static %}
+
+{% block css %}
+  <link href="{% static 'css/components/image.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block javascript %}
+  <script src="{% static 'javascript/image.js' %}"></script>
+{% endblock %}
+
+{% with width=image.image.width height=image.image.height %}
+  <a
+    onClick="imgLinkOnClick(this)"
+    class="img-link selectable"
+    style="width:{% widthratio width height 300 %}px;flex-grow:{% widthratio width height 300 %};"
+    selectable="true"
+    data-url="{{ image.image.url }}"
+    data-id="{{ image.pk }}"
+  >
+    <i style="padding-bottom:{% widthratio height width 100 %}%"></i>
+    <img class="thumbnail-small" src="{{ image.preview }}" alt="{{ image.image.name }}" />
+    <input type="checkbox" />
+  </a>
+{% endwith %}
