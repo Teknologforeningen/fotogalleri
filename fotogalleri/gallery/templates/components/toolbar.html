@@ -7,6 +7,7 @@
 
 {% block javascript %}
   <script src="{% static 'javascript/select.js' %}"></script>
+  <script src="{% static 'javascript/delete.js' %}"></script>
 {% endblock %}
 
 <div class="card toolbar-outer">
@@ -51,6 +52,10 @@
 
       <div id="select-objects-button">
         {% include 'components/styled_button.html' with button_text="Select & Delete" fa_icon_class="" sizes="is-size-6" only %}
+      </div>
+
+      <div id="delete-button">
+        {% include 'components/styled_button.html' with button_text="DELETE" fa_icon_class="fa-exclamation-triangle" sizes="is-size-6" only %}
       </div>
     {% endif %}
   </div>
