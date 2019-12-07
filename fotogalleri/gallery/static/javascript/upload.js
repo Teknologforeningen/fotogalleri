@@ -1,5 +1,5 @@
 $(function() {
-    $('.js-upload-photos').click(function() {
+    $('#js-upload-photos').click(function() {
         $('#uploaded-file-path').val(
             $('#uploaded-file-path').val()
             || window.location.pathname.split('/').slice(2).join('/')

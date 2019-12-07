@@ -1,0 +1,51 @@
+{% load static %}
+{% load view %}
+
+{% block css %}
+  <link href="{% static 'css/components/toolbar.css' %}" rel="stylesheet">
+{% endblock %}
+
+<div class="card toolbar-outer">
+  <nav id="toolbar-breadcrumb" class="breadcrumb" aria-label="breadcrumbs">
+    <ul>
+      <li id="{% if not folder %}current-breadcrumb{% endif %}">
+        <a href="{% url 'view' %}">Galleri</a>
+      </li>
+
+      {% if folder %}
+        {% for parent in folder.parents %}
+          <li><a href="/view/{{ parent.full_path }}">{{ parent.path }}</a></li>
+        {% endfor %}
+
+        <li id="current-breadcrumb">
+          <a href="/view/{{ folder.full_path }}">{{ folder.path }}</a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+
+  <div id="toolbar-buttons">
+    {% if folder %} {# i.e. if root #}
+      {% with folder.parent.full_path as parent_path %}
+        {% include 'components/styled_button.html' with button_text="Tillbaka" fa_icon_class="fa-reply" url_name=parent_path|view sizes="is-size-6" only %}
+      {% endwith %}
+    {% endif %}
+
+    {% if is_admin %}
+      {% include 'components/image_upload_form.html' %}
+      <div id="js-upload-photos">
+        {% include 'components/styled_button.html' with button_text="Upload" fa_icon_class="fa-upload" sizes="is-size-6" only %}
+      </div>
+
+      {% with 'create-path' as modal_id %}
+        <div data-toggle="modal" data-target="{{ modal_id }}">
+          {% include 'components/styled_button.html' with button_text="New folder" fa_icon_class="fa-plus" sizes="is-size-6" only %}
+        </div>
+
+        {% include "modals/create_path.html" with modalname=modal_id only %}
+      {% endwith %}
+
+      {% include 'components/styled_button.html' with button_text="Select & Delete" fa_icon_class="" sizes="is-size-6" only %}
+    {% endif %}
+  </div>
+</div>

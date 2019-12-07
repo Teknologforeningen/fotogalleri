@@ -49,6 +49,10 @@ class ImagePathTest(TestCase):
         with self.assertRaises(RootPath.DoesNotExist):
             RootPath.objects.get(image_path=self.child)
 
+    def test_get_parents(self):
+        expected_parents = [self.parent]
+        self.assertEqual(self.child.parents, expected_parents)
+
 
 class ImageMetadataDeleteTest(TestCase):
     def create_test_image(self):
