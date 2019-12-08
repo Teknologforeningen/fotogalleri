@@ -1,6 +1,11 @@
+{% load static %}
+
 <a
+  onClick="selectLinkOnClick(this)"
   class="folder-link"
   selectable="true"
+  data-url="/view/{{ folder.full_path }}"
+  data-id="{{ folder.pk }}"
 >
   <i class="fas fa-folder" aria-hidden="true"></i>
   <input type="checkbox" style="display: none;" />
