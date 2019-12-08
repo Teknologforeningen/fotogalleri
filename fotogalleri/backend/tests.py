@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.db.utils import IntegrityError
 from backend.models import ImageMetadata, RootImage
 from backend.models import ImagePath, RootPath
 from fotogalleri.settings import BASE_DIR, MEDIA_ROOT
@@ -52,6 +53,14 @@ class ImagePathTest(TestCase):
     def test_get_parents(self):
         expected_parents = [self.parent]
         self.assertEqual(self.child.parents, expected_parents)
+
+    def test_unique_constraint(self):
+        with self.assertRaises(IntegrityError):
+            ImagePath.objects.create(path=ImagePathTest.CHILD_PATH, parent=self.parent)
+
+    def test_unique_constraint_root(self):
+        with self.assertRaises(IntegrityError):
+            ImagePath.objects.create(path=ImagePathTest.PARENT_PATH)
 
 
 class ImageMetadataDeleteTest(TestCase):
