@@ -9,6 +9,7 @@ from os.path import join, splitext, normpath, isfile
 from os import sep, remove
 from ntpath import split
 from backend.thumbnail.thumbnail_utils import create_thumbnail_name
+from gallery.validators import validate_path_name
 
 
 def new_image_path(instance, filename):
@@ -93,7 +94,7 @@ class RootImage(Model):
 class ImagePath(Model):
     # FIXME: refactor on_delete
     parent = ForeignKey('self', on_delete=CASCADE, blank=True, null=True)
-    path = CharField(max_length=256, blank=False, null=False, unique=True)
+    path = CharField(max_length=256, blank=False, null=False, unique=True, validators=[validate_path_name])
 
     def _get_full_path(self):
         return join(self.parent.full_path if self.parent else '', self.path)

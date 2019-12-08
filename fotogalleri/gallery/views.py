@@ -110,7 +110,6 @@ class ImageUploadView(AlphaGate, CreateView):
 class NewFolderView(AlphaGate, CreateView):
     model = ImagePath
     form_class = NewFolderForm
-    template_name = 'new_path.html'
 
     def dispatch(self, request):
         if not _is_admin(request.user):
@@ -128,7 +127,10 @@ class NewFolderView(AlphaGate, CreateView):
                 'full_path': path.full_path,
             }
         else:
-            data = {'is_valid': False}
+            data = {
+                'is_valid': False,
+                'error_msg': list(form.errors.values())
+            }
         return JsonResponse(data)
 
 
