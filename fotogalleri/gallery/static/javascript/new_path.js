@@ -23,12 +23,16 @@ $(function () {
         if (!!$('#new-path').val()) {
             // TODO: error message is only removed when a valid folder name is posted.
             // It should be removed when the modal is closed
-            $("#error-msg").remove();
+            $('#error-msg').remove();
             const crsfToken = getCookie('csrftoken');
             const [{ name, value } = {}] = $('#new-path-form').serializeArray();
+            var pathname = window.location.pathname;
 
-            const postData = { csrfmiddlewaretoken: crsfToken };
-            postData[name] = value;
+            const postData = {
+                csrfmiddlewaretoken: crsfToken,
+                name: value,
+                pathname: pathname,
+            };
 
             $.post('/newfolder/', postData)
                 .done(function (data) {

@@ -5,6 +5,7 @@ from django.conf import settings
 from backend.models import ImageMetadata, ImagePath
 from backend.thumbnail.thumbnail_queue_image_object import ThumbQueueImageObject
 from backend.thumbnail.thumbnail_queue import ThumbQueue
+from gallery.validators import validate_path_parent, validate_path_name
 
 
 class ImageUploadForm(ModelForm):
@@ -51,10 +52,23 @@ class CustomLoginForm(AuthenticationForm):
     password = CharField(widget=PasswordInput(attrs={'placeholder': 'Password'}))
 
 
-class NewFolderForm(ModelForm):
-    class Meta:
-        model = ImagePath
-        fields = ['path']
+class NewFolderForm(Form):
+    pathname = CharField(required=True, validators=[validate_path_parent])
+    name = CharField(required=True, validators=[validate_path_name])
+
+    def save(self, commit=True):
+        pathname = self.cleaned_data['pathname']
+        pathname = pathname[:-1] if pathname[-1] == '/' else pathname
+        parents = pathname.split('/')[2:]
+        name = self.cleaned_data['name']
+
+        # It is assumed that a parent exists (validated earlier)
+        parent = None
+        for current in parents:
+            parent = ImagePath.objects.get(path=current, parent=parent)
+
+        instance = ImagePath.objects.create(path=name, parent=parent)
+        return instance
 
 
 class DeleteForm(Form):
