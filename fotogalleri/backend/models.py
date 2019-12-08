@@ -1,4 +1,4 @@
-from django.db.models import Model, CASCADE, UniqueConstraint
+from django.db.models import Model, CASCADE, UniqueConstraint, Q
 from django.db.models import CharField, ImageField, DateTimeField
 from django.db.models import ForeignKey, OneToOneField
 from django.db.models.signals import post_delete
@@ -97,7 +97,8 @@ class ImagePath(Model):
 
     class Meta:
         constraints = [
-            UniqueConstraint(fields=['parent', 'path'], name='unique_path')
+            UniqueConstraint(fields=['parent', 'path'], name='unique_path'),
+            UniqueConstraint(fields=['path'], condition=Q(parent=None), name='unique_root_path')
         ]
 
     def _get_full_path(self):
