@@ -1,18 +1,5 @@
 @import "css/root.css";
 
-.navigation-link {
-    width: 100%;
-    height: 100%;
-
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.go-back {
-    font-size: 600%;
-}
-
 .card-title {
     color: var(--black);
 
