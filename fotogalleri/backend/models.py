@@ -1,4 +1,4 @@
-from django.db.models import Model, CASCADE
+from django.db.models import Model, CASCADE, UniqueConstraint
 from django.db.models import CharField, ImageField, DateTimeField
 from django.db.models import ForeignKey, OneToOneField
 from django.db.models.signals import post_delete
@@ -93,7 +93,12 @@ class RootImage(Model):
 class ImagePath(Model):
     # FIXME: refactor on_delete
     parent = ForeignKey('self', on_delete=CASCADE, blank=True, null=True)
-    path = CharField(max_length=256, blank=False, null=False, unique=True)
+    path = CharField(max_length=256, blank=False, null=False)
+
+    class Meta:
+        constraints = [
+            UniqueConstraint(fields=['parent', 'path'], name='unique_path')
+        ]
 
     def _get_full_path(self):
         return join(self.parent.full_path if self.parent else '', self.path)
