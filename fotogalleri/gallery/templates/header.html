@@ -1,18 +1,24 @@
 {% load static %}
 
-<div id="header-top" class="">
-  <a id="header-logo-container" href="https://foto.tf.fi">
-    <img
-      id="header-tf-logo"
-      class="img-fluid"
-      src="{% static "images/logo_black.svg" %}"
-      alt="Teknologföreningens logo"
-    >
-  </a>
+<div id="header-top">
+  <div id="header-information">
+    <a id="header-logo-container" href="https://foto.tf.fi">
+      <img
+        id="header-tf-logo"
+        class="img-fluid"
+        src="{% static "images/logo_black.svg" %}"
+        alt="Teknologföreningens logo"
+      >
+    </a>
 
-  <h1 id="header-text">
-    FOTOGALLERI
-  </h1>
+    <h1 id="header-text">
+      FOTOGALLERI
+    </h1>
+  </div>
+
+  <div id="header-meta">
+    <span class="button is-static">BETA</span>
+  </div>
 </div>
 
 <hr class="page-divide" />
