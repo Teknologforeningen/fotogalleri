@@ -33,15 +33,13 @@ $(function() {
 
                     if (is_valid) {
                         $('#all-folders').append(`
-                            <div class="view-card">
-                              <a
-                                href="/view/${full_path}"
-                                class="folder-link"
-                              >
-                                <i class="fas fa-folder" aria-hidden="true"></i>
-                                <div>${path}</div>
-                              </a>
-                            </div>
+                            <a
+                              href="/view/${full_path}"
+                              class="folder-link"
+                            >
+                              <i class="fas fa-folder" aria-hidden="true"></i>
+                              <div>${path}</div>
+                            </a>
                         `);
                     }
                 })

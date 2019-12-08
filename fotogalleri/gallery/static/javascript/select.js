@@ -3,8 +3,6 @@ function selectImgLink(component) {
     checkbox.toggle();
 }
 
-function selectViewCard(component) {}
-
 $(function() {
     $('#select-objects-button').click(function() {
         const deleteButton = $('#delete-button');
@@ -20,9 +18,6 @@ $(function() {
                 switch (className) {
                     case 'img-link':
                         selectImgLink(selectable);
-                        return;
-                    case 'view-card':
-                        selectViewCard(selectable);
                         return;
                     default:
                         break;
