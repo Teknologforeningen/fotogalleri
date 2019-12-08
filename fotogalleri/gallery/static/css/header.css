@@ -2,7 +2,7 @@
 
 :root {
     --header-height: 70px;
-    --header-margin-bottom: 50px;
+    --header-margin-bottom: 0px;
 }
 
 #header-top {
