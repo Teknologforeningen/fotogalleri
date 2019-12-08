@@ -18,18 +18,21 @@ function getCookie(name) {
     return cookieValue;
 }
 
-$(function() {
-    $('#new-path-button').click(function() {
+$(function () {
+    $('#new-path-button').click(function () {
         if (!!$('#new-path').val()) {
+            // TODO: error message is only removed when a valid folder name is posted.
+            // It should be removed when the modal is closed
+            $("#error-msg").remove();
             const crsfToken = getCookie('csrftoken');
             const [{ name, value } = {}] = $('#new-path-form').serializeArray();
 
-            const postData = { csrfmiddlewaretoken: crsfToken };
+            const postData = { csrfmiddlewaretoken: crsfToken };
             postData[name] = value;
 
             $.post('/newfolder/', postData)
-                .done(function(data) {
-                    const { is_valid, path, full_path } = data;
+                .done(function (data) {
+                    const { is_valid, path, full_path, error_msg } = data;
 
                     if (is_valid) {
                         $('#all-images').append(`
@@ -43,9 +46,17 @@ $(function() {
                               </a>
                             </div>
                         `);
+                    } else {
+                        $("#new-path").parent().append(
+                            `
+                            <p id="error-msg" class="has-text-danger is-size-7">
+                                ${error_msg}
+                            </p>
+                            `
+                        );
                     }
                 })
-                .fail(function(error) {
+                .fail(function (error) {
                     alert('Creating new path failed.');
                 });
 
