@@ -2,7 +2,7 @@
 
 :root {
     --header-height: 70px;
-    --header-margin-bottom: 50px;
+    --header-margin-bottom: 0px;
 }
 
 #header-top {
@@ -22,9 +22,10 @@ img#header-tf-logo {
 }
 
 #header-text {
-    font-size: 2em;
-    font-weight: 600;
-    letter-spacing: 0.15em;
+    font-size: 1em;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: var(--black);
 }
 
 hr.page-divide {
@@ -36,4 +37,9 @@ hr.page-divide {
     margin-right: 0px;
     margin-left: -50vw;
     left: 50%;
+}
+
+#header-logo-container {
+    display: flex;
+    align-items: center;
 }

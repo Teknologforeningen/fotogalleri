@@ -32,16 +32,14 @@ $(function() {
                     const { is_valid, path, full_path } = data;
 
                     if (is_valid) {
-                        $('#all-images').append(`
-                            <div class="view-card">
-                              <a
-                                href="/view/${full_path}"
-                                class="folder-link"
-                              >
-                                <i class="fas fa-folder" aria-hidden="true"></i>
-                                <div>${path}</div>
-                              </a>
-                            </div>
+                        $('#all-folders').append(`
+                            <a
+                              href="/view/${full_path}"
+                              class="folder-link"
+                            >
+                              <i class="fas fa-folder" aria-hidden="true"></i>
+                              <div>${path}</div>
+                            </a>
                         `);
                     }
                 })
