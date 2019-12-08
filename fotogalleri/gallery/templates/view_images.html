@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-  <div id="all-images" class="img-grid">
+  <div>
     {% include "components/toolbar.html" %}
 
     <div
@@ -25,10 +25,20 @@
       {% for folder in folders %}
         {% include "components/folder.html" with folder=folder %}
       {% endfor %}
+    </div>
+
+    <div
+      id="all-images"
+      class="card image-card"
+      style="{% if not images %}display: none;{% endif %}"
+    >
+      <div class="card-title">
+        Bilder
       </div>
 
-    {% for image in images %}
-      {% include "components/image.html" with image=image %}
-    {% endfor %}
+      {% for image in images %}
+        {% include "components/image.html" with image=image %}
+      {% endfor %}
+    </div>
   </div>
 {% endblock %}
