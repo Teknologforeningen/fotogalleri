@@ -8,23 +8,37 @@
 {% endblock %}
 
 {% block content %}
-  <div id="all-images" class="img-grid">
+  <div>
     {% include "components/toolbar.html" %}
 
-    {% for folder in folders %}
-      <div class="view-card">
-        <a
-          href="/view/{{ folder.full_path }}"
-          class="folder-link"
-        >
-          <i class="fas fa-folder" aria-hidden="true"></i>
-          <div>{{ folder.path }}</div>
-        </a>
-      </div>
-    {% endfor %}
+    <div
+      id="all-folders"
+      class="card folders-card"
+      style="{% if not folders %}display: none;{% endif %}"
+    >
+      {% if folder %}
+        <div class="card-title">
+          Mappar
+        </div>
+      {% endif %}
 
-    {% for image in images %}
-      {% include "components/image.html" with image=image %}
-    {% endfor %}
+      {% for folder in folders %}
+        {% include "components/folder.html" with folder=folder %}
+      {% endfor %}
+    </div>
+
+    <div
+      id="all-images"
+      class="card image-card"
+      style="{% if not images %}display: none;{% endif %}"
+    >
+      <div class="card-title">
+        Bilder
+      </div>
+
+      {% for image in images %}
+        {% include "components/image.html" with image=image %}
+      {% endfor %}
+    </div>
   </div>
 {% endblock %}

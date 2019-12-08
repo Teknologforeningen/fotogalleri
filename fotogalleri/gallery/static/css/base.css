@@ -1,15 +1,5 @@
 @import "css/root.css";
 
-.img-grid {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.img-grid::after {
-    content: '';
-    flex-grow: 999999999;
-}
-
 a.img-link {
     margin: 2px;
     position: relative;
