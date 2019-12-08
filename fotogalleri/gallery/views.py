@@ -148,15 +148,31 @@ class DeleteObject(DeleteView):
 
         object_id = form.cleaned_data['objectId']
         object_type = form.cleaned_data['objectType']
-        deleted = self._delete_object(object_id, object_type)
 
-        data = {'success': is_form_valid and deleted, 'objectId': object_id}
+        try:
+            self._delete_object(object_id, object_type)
+        except Exception as error:
+            data = {
+                'success': False,
+                'objectId': object_id,
+                'errorMessage': str(error)
+            }
+        else:
+            data = {
+                'success': is_form_valid,
+                'objectId': object_id
+            }
+
         return JsonResponse(data)
 
     def _delete_object(self, object_id, object_type):
         if object_type == 'image':
-            return ImageMetadata.objects.get(pk=object_id).delete()
-        return False
+            ImageMetadata.objects.get(pk=object_id).delete()
+        elif object_type == 'folder':
+            path = ImagePath.objects.get(pk=object_id)
+            if not path.is_empty:
+                raise Exception('Only empty folders can be deleted.')
+            path.delete()
 
 
 def _is_admin(user):

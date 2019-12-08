@@ -72,7 +72,7 @@ class NewFolderForm(Form):
 
 
 class DeleteForm(Form):
-    object_type_choices = [('image', 'image')]
+    object_type_choices = [('image', 'image'), ('folder', 'folder')]
 
     objectId = CharField(required=True)
     objectType = ChoiceField(choices=object_type_choices, required=True)

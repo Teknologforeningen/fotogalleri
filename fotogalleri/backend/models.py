@@ -116,6 +116,13 @@ class ImagePath(Model):
             if created:
                 root_path.save()
 
+    def _is_empty(self):
+        path_children = ImagePath.objects.filter(parent=self)
+        image_children = ImageMetadata.objects.filter(path=self)
+        return len(path_children) == 0 and len(image_children) == 0
+
+    is_empty = property(_is_empty)
+
     def __str__(self):
         return self.full_path
 

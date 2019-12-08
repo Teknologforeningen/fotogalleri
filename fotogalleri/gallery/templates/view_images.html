@@ -7,6 +7,11 @@
   <link href="{% static 'css/navigation.css' %}" rel="stylesheet">
 {% endblock %}
 
+{% block javascript %}
+  {{ block.super }}
+  <script src="{% static 'javascript/select.js' %}"></script>
+{% endblock %}
+
 {% block content %}
   <div>
     {% include "components/toolbar.html" %}

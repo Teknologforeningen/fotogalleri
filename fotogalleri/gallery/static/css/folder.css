@@ -22,6 +22,6 @@
     background-color: var(--white);
 }
 
-i.fa-folder {
-    margin-right: 5px;
+.folder-text {
+    margin-left: 5px;
 }
