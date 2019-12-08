@@ -1,6 +1,30 @@
-function selectImgLink(component) {
+function selectLinkOnClick(link) {
+    const checkbox = $(link).children('[type="checkbox"]');
+    const checkboxIsHidden = checkbox.is(':hidden');
+
+    if (checkboxIsHidden) {
+        const linkUrl = $(link).attr('data-url');
+        window.location.href = linkUrl;
+    } else {
+        const checkboxIsChecked = checkbox.is(':checked');
+        if (checkboxIsChecked) {
+            checkbox.removeAttr('checked');
+        } else {
+            checkbox.attr('checked', 'checked');
+        }
+    }
+}
+
+function selectCommon(component) {
     const checkbox = $(component).children('[type="checkbox"]');
     checkbox.toggle();
+}
+
+function selectFolderLink(component) {
+    selectCommon(component);
+
+    const folderIcon = $(component).children('i.fa-folder');
+    folderIcon.toggle();
 }
 
 $(function() {
@@ -17,7 +41,10 @@ $(function() {
             filteredNames.forEach(function(className) {
                 switch (className) {
                     case 'img-link':
-                        selectImgLink(selectable);
+                        selectCommon(selectable);
+                        return;
+                    case 'folder-link':
+                        selectFolderLink(selectable);
                         return;
                     default:
                         break;

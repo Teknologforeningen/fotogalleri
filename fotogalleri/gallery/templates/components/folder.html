@@ -1,7 +1,8 @@
 <a
-  href="/view/{{ folder.full_path }}"
   class="folder-link"
+  selectable="true"
 >
   <i class="fas fa-folder" aria-hidden="true"></i>
-  <div>{{ folder.path }}</div>
+  <input type="checkbox" style="display: none;" />
+  <div class="folder-text">{{ folder.path }}</div>
 </a>
