@@ -11,17 +11,21 @@
   <div id="all-images" class="img-grid">
     {% include "components/toolbar.html" %}
 
-    {% for folder in folders %}
-      <div class="view-card">
-        <a
-          href="/view/{{ folder.full_path }}"
-          class="folder-link"
-        >
-          <i class="fas fa-folder" aria-hidden="true"></i>
-          <div>{{ folder.path }}</div>
-        </a>
+    <div
+      id="all-folders"
+      class="card folder-card"
+      style="{% if not folders %}display: none;{% endif %}"
+    >
+      {% if folder %}
+        <div class="card-title">
+          Mappar
+        </div>
+      {% endif %}
+
+      {% for folder in folders %}
+        {% include "components/folder.html" with folder=folder %}
+      {% endfor %}
       </div>
-    {% endfor %}
 
     {% for image in images %}
       {% include "components/image.html" with image=image %}

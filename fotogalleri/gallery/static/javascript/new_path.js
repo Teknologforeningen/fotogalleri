@@ -32,7 +32,7 @@ $(function() {
                     const { is_valid, path, full_path } = data;
 
                     if (is_valid) {
-                        $('#all-images').append(`
+                        $('#all-folders').append(`
                             <div class="view-card">
                               <a
                                 href="/view/${full_path}"

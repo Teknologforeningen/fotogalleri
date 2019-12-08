@@ -18,3 +18,11 @@ i.fa-folder {
     font-size: 300%;
     margin-bottom: 10px;
 }
+
+.folder-card {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+}
