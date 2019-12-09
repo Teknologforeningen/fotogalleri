@@ -7,7 +7,6 @@ from backend.models import ImageMetadata, RootImage, ImagePath, RootPath
 from gallery.forms import ImageUploadForm, NewFolderForm, DeleteForm, FeedbackForm
 from os import sep
 from os.path import normpath
-from gallery.featuregates import AlphaGate
 from gallery.mailutils import mail_feedback
 
 
@@ -21,7 +20,7 @@ class HomeView(View):
         return render(request, self.template, context)
 
 
-class ImageGalleryView(AlphaGate, ListView):
+class ImageGalleryView(ListView):
     model = ImageMetadata
     template = 'view_images.html'
     context = {}
@@ -68,7 +67,7 @@ class ImageGalleryView(AlphaGate, ListView):
             return self._render_path(request, cleaned_parts)
 
 
-class ImageView(AlphaGate, View):
+class ImageView(View):
     template = 'image.html'
     model = ImageMetadata
 
@@ -82,7 +81,7 @@ class ImageView(AlphaGate, View):
         return render(request, self.template, context)
 
 
-class ImageUploadView(AlphaGate, CreateView):
+class ImageUploadView(CreateView):
     model = ImageMetadata
     form_class = ImageUploadForm
     template_name = 'upload_image.html'
@@ -109,7 +108,7 @@ class ImageUploadView(AlphaGate, CreateView):
         return JsonResponse(data)
 
 
-class NewFolderView(AlphaGate, CreateView):
+class NewFolderView(CreateView):
     model = ImagePath
     form_class = NewFolderForm
 
