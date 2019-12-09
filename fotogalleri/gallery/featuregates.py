@@ -14,7 +14,3 @@ class FeatureGateView():
         if self.is_feature_gated(request.user):
             return super().dispatch(request)
         return redirect('home')
-
-
-class AlphaGate(FeatureGateView):
-    feature_gate_name = 'alpha'
