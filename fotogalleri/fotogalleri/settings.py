@@ -178,6 +178,16 @@ THUMB_QUEUE_THREAD_COUNT = env('THUMB_QUEUE_THREAD_COUNT', 4)
 # Enable thumbnail generation
 ENABLE_THUMB_QUEUE = env('ENABLE_THUMB_QUEUE', False)
 
+# Email conf
+EMAIL_HOST = env("EMAIL_HOST", "smtp.gmail.com")
+EMAIL_PORT = env("EMAIL_PORT", 587)
+EMAIL_HOST_USER = env("EMAIL_HOST_USER", None)
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", None)
+EMAIL_USE_TLS = env("EMAIL_USE_TLS", True)
+# Email address of feedback sender and receiver
+FEEDBACK_EMAIL_SENDER = env('FEEDBACK_EMAIL_SENDER', '')
+FEEDBACK_EMAIL_RECEIVER = env('FEEDBACK_EMAIL_RECEIVER', '')
+
 # LDAP Stuff
 
 # Baseline configuration.

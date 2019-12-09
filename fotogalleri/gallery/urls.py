@@ -2,7 +2,7 @@ from django.urls import path, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import LoginView, LogoutView
-from .views import HomeView, ImageGalleryView, ImageView, ImageUploadView, NewFolderView, DeleteObject
+from .views import HomeView, ImageGalleryView, ImageView, ImageUploadView, NewFolderView, DeleteObject, Feedback
 from .forms import CustomLoginForm
 
 urlpatterns = [
@@ -12,6 +12,7 @@ urlpatterns = [
     re_path(r'^upload/$', ImageUploadView.as_view(), name='upload'),
     re_path(r'^newfolder/$', NewFolderView.as_view(), name='newfolder'),
     re_path(r'^delete/$', DeleteObject.as_view(), name='delete'),
+    re_path(r'^feedback/$', Feedback.as_view(), name='feedback'),
     path('login/',
          LoginView.as_view(template_name='login.html', authentication_form=CustomLoginForm),
          name='login'),

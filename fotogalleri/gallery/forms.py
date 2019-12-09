@@ -1,5 +1,5 @@
-from django.forms import ModelForm, CharField, Form, ChoiceField
-from django.forms.widgets import TextInput, PasswordInput
+from django.forms import ModelForm, CharField, Form, ChoiceField, EmailField
+from django.forms.widgets import TextInput, PasswordInput, Textarea
 from django.contrib.auth.forms import AuthenticationForm
 from django.conf import settings
 from backend.models import ImageMetadata, ImagePath
@@ -76,3 +76,9 @@ class DeleteForm(Form):
 
     objectId = CharField(required=True)
     objectType = ChoiceField(choices=object_type_choices, required=True)
+
+
+class FeedbackForm(Form):
+    title = CharField(required=True, widget=TextInput(attrs={'class': 'input', 'type': 'text'}))
+    text = CharField(max_length=8192, required=True, widget=Textarea(attrs={'class': 'textarea'}))
+    email = EmailField(required=False, widget=TextInput(attrs={'class': 'input', 'type': 'email'}))

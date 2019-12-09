@@ -2,11 +2,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import CreateView, ListView, DeleteView
 from django.views import View
 from django.http import JsonResponse
+from django.conf import settings
 from backend.models import ImageMetadata, RootImage, ImagePath, RootPath
-from gallery.forms import ImageUploadForm, NewFolderForm, DeleteForm
+from gallery.forms import ImageUploadForm, NewFolderForm, DeleteForm, FeedbackForm
 from os import sep
 from os.path import normpath
 from gallery.featuregates import AlphaGate
+from gallery.mailutils import mail_feedback
 
 
 class HomeView(View):
@@ -173,6 +175,35 @@ class DeleteObject(DeleteView):
             if not path.is_empty:
                 raise Exception('Only empty folders can be deleted.')
             path.delete()
+
+
+class Feedback(View):
+    form_class = FeedbackForm
+    template = 'feedback.html'
+
+    def dispatch(self, request):
+        if not request.user.is_authenticated:
+            return redirect('login')
+
+        self.context = {
+            'email': settings.FEEDBACK_EMAIL_RECEIVER
+        }
+        return super().dispatch(request)
+
+    def get(self, request):
+        self.context['form'] = self.form_class
+        return render(request, self.template, self.context)
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            self.context['thanks'] = True
+            mail_feedback(form.cleaned_data)
+            self.context['form'] = self.form_class
+            return render(request, self.template, self.context)
+        else:
+            self.context['form'] = form
+            return render(request, self.template, self.context, status=400)
 
 
 def _is_admin(user):
