@@ -1,5 +1,5 @@
 from django.db.models import Model, CASCADE, UniqueConstraint, Q
-from django.db.models import CharField, ImageField, DateTimeField
+from django.db.models import CharField, ImageField, DateTimeField, BooleanField
 from django.db.models import ForeignKey, OneToOneField
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
@@ -24,6 +24,7 @@ class ImageMetadata(Model):
     path = ForeignKey('ImagePath', on_delete=CASCADE, blank=True, null=True)
     image = ImageField(upload_to=new_image_path)
     upload_time = DateTimeField(auto_now_add=True, blank=True)
+    hidden = BooleanField(default=False)
     # JSON array formatted as a string for containing all thumbnails
     thumbnails_json = CharField(max_length=256, blank=False, null=False, default='[]')
 
@@ -94,6 +95,7 @@ class ImagePath(Model):
     # FIXME: refactor on_delete
     parent = ForeignKey('self', on_delete=CASCADE, blank=True, null=True)
     path = CharField(max_length=256, blank=False, null=False)
+    hidden = BooleanField(default=False)
 
     class Meta:
         constraints = [

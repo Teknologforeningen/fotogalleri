@@ -31,11 +31,21 @@ class ImageGalleryView(ListView):
         self.context = {'is_admin': _is_admin(request.user)}
         return super().dispatch(request)
 
+    def _exclude_hidden(self, object_list):
+        return [object for object in object_list if not object.hidden]
+
     def _render_root(self, request):
         root_children = RootPath.objects.all()
         root_images = RootImage.objects.all()
-        self.context['folders'] = [path.image_path for path in root_children]
-        self.context['images'] = [image.image_metadata for image in root_images]
+        folders = [path.image_path for path in root_children]
+        images = [image.image_metadata for image in root_images]
+
+        if not self.context['is_admin']:
+            folders = self._exclude_hidden(folders)
+            images = self._exclude_hidden(images)
+
+        self.context['folders'] = folders
+        self.context['images'] = images
         return render(request, self.template, self.context)
 
     def _render_path(self, request, parts):
@@ -49,6 +59,10 @@ class ImageGalleryView(ListView):
 
         folders = ImagePath.objects.filter(parent=current)
         images = ImageMetadata.objects.filter(path=current)
+
+        if not self.context['is_admin']:
+            folders = self._exclude_hidden(folders)
+            images = self._exclude_hidden(images)
 
         self.context['folder'] = current
         self.context['folders'] = folders
