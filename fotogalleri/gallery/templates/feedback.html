@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+  <link href="{% static 'css/feedback.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+  <div
+    id="feedback-thanks"
+    class="card"
+    style="{% if not thanks %}display: none;{% endif %}"
+  >
+    <strong>Tack för din feedback!</strong>
+  </div>
+
+  <div id="feedback-information" class="card">
+    <div>
+      <strong>Eftersom Fotogalleriet är i BETA för ögonblicket så är all er feedback ytterst viktig!</strong>
+    </div>
+
+    <div>
+      All feedback som fylls i nedan skickas automatiskt per email till {{ email }}, vart man även kan skicka email direkt ifall man har något på hjärta.
+      Skriv gärna så tydligt som möjligt och beskriv gärna i detalj vad du gjorde ifall du hittat en bug, detta hjälper oss att fixa problemet så snabbt som möjligt.
+      Skapa dessutom en rubrik för feedbacken (t.ex. <em>"BUG: bilder syns inte"</em> eller <em>"FÖRSLAG: mera knappar"</em>) så att det är enklare för oss att sortera feedbacken.
+      Om man bara kan så ge även en emailadress som vi kan kontakta er med, detta kan behövas ifall vi har frågor kring feedbacken.
+      Ifall man inte ger en emailadress så är all feedback anonym.
+    </div>
+
+    <div>
+      Det är också möjligt att skriva Issues eller annors bara följa med projektet på <a href="https://github.com/Teknologforeningen/fotogalleri/">GitHub</a>!
+    </div>
+  </div>
+
+  <form
+    id="feedback-card"
+    class="card"
+    method="POST"
+    action="{% url 'feedback' %}"
+  >
+    {% csrf_token %}
+
+    <div class="feedback-form-section feedback-required">
+      <label for="{{ form.title.id_for_label }}">Rubrik</label>
+      {% if form.title.errors %}
+        <div>{{ form.title.errors }}</div>
+      {% endif %}
+      {{ form.title }}
+    </div>
+
+    <div class="feedback-form-section feedback-required">
+      <label for="{{ form.text.id_for_label }}">Feedback</label>
+      {% if form.text.errors %}
+        <div>{{ form.text.errors }}</div>
+      {% endif %}
+      {{ form.text }}
+    </div>
+
+    <div class="feedback-form-section">
+      <label for="{{ form.text.id_for_label }}">Email</label>
+      {% if form.email.errors %}
+        <div>{{ form.email.errors }}</div>
+      {% endif %}
+      {{ form.email }}
+    </div>
+
+    <div id="feedback-submit-button">
+      {% include 'components/styled_button.html' with button_text="Skicka" type="submit" sizes="is-size-6" only %}
+    </div>
+  </form>
+{% endblock %}
