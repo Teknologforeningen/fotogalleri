@@ -57,3 +57,7 @@ hr.page-divide {
     display: flex;
     align-items: center;
 }
+
+#header-meta > span {
+    margin-left: 4px;
+}
