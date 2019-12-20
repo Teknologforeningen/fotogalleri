@@ -35,8 +35,8 @@ class ImageGalleryView(ListView):
         return [object for object in object_list if not object.hidden]
 
     def _render_root(self, request):
-        root_children = RootPath.objects.all()
-        root_images = RootImage.objects.all()
+        root_children = RootPath.objects.all().order_by('image_path__path')
+        root_images = RootImage.objects.all().order_by('image_metadata__image')
         folders = [path.image_path for path in root_children]
         images = [image.image_metadata for image in root_images]
 
@@ -57,8 +57,8 @@ class ImageGalleryView(ListView):
             child = get_object_or_404(ImagePath, parent=current, path=part)
             current = child
 
-        folders = ImagePath.objects.filter(parent=current)
-        images = ImageMetadata.objects.filter(path=current)
+        folders = ImagePath.objects.filter(parent=current).order_by('path')
+        images = ImageMetadata.objects.filter(path=current).order_by('image')
 
         if not self.context['is_admin']:
             folders = self._exclude_hidden(folders)
