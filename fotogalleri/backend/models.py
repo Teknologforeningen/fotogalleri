@@ -60,7 +60,7 @@ class ImageMetadata(Model):
         raw_filepath, _ = splitext(self.image.name)
         raw_filename = normpath(raw_filepath).split(sep)[-1]
         thumbnail_filename = create_thumbnail_name(raw_filename, *thumbnail)
-        return join(settings.MEDIA_URL, self.path.path, settings.THUMBNAILS_NAME, thumbnail_filename)
+        return join(settings.MEDIA_URL, self.path.full_path, settings.THUMBNAILS_NAME, thumbnail_filename)
 
     preview = property(_get_preview_thumbnail)
 
