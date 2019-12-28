@@ -19,10 +19,12 @@ function getCookie(name) {
 }
 
 $(function () {
+    $('#new-path-form-close').click(function() {
+        $('#error-msg').remove();
+    });
+
     $('#new-path-button').click(function () {
         if (!!$('#new-path').val()) {
-            // TODO: error message is only removed when a valid folder name is posted.
-            // It should be removed when the modal is closed
             $('#error-msg').remove();
             const crsfToken = getCookie('csrftoken');
             const [{ name, value } = {}] = $('#new-path-form').serializeArray();
