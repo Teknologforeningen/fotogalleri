@@ -23,7 +23,16 @@ $(function () {
         $('#error-msg').remove();
     });
 
-    $('#new-path-button').click(function () {
+    $('#new-path-form').keydown(function (event) {
+        if (event.keyCode === 13) {
+            $('#new-path-form').submit();
+            event.preventDefault();
+        }
+    });
+
+    $('#new-path-form').submit(function (event) {
+        event.preventDefault();
+
         if (!!$('#new-path').val()) {
             $('#error-msg').remove();
             const crsfToken = getCookie('csrftoken');
