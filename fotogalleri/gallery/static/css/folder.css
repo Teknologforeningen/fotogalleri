@@ -19,7 +19,7 @@
 }
 
 .folder-link:hover {
-    background-color: var(--white);
+    background-color: var(--light-grey);
 }
 
 .folder-text {

@@ -24,11 +24,11 @@
 
         <div class="navigation-buttons-style">
           {% if logged_in %}
-            {% include 'components/styled_button.html' with button_text="Till bilderna" url_name="view"|rev sizes="is-size-4-table is-size-6-mobile" only %}
+            {% include 'components/styled_button.html' with button_text="Till bilderna" style="primary" url_name="view"|rev sizes="is-size-4-table is-size-6-mobile" only %}
           {% else %}
-            {% include 'components/styled_button.html' with button_text="Logga in" url_name="login"|rev sizes="is-size-4-table is-size-6-mobile" only  %}
+            {% include 'components/styled_button.html' with button_text="Logga in" style="primary" url_name="login"|rev sizes="is-size-4-table is-size-6-mobile" only  %}
             {# TODO: uncheck this once public images are supported #}
-            {# include 'components/styled_button.html' with button_text="Fortsätt utan inloggning" url_name="view"|rev only #}
+            {# include 'components/styled_button.html' with button_text="Fortsätt utan inloggning" style="secondary" url_name="view"|rev only #}
           {% endif %}
         </div>
       </div>

@@ -31,30 +31,30 @@
   <div id="toolbar-buttons">
     {% if folder %} {# i.e. if root #}
       {% with folder.parent.full_path as parent_path %}
-        {% include 'components/styled_button.html' with button_text="Tillbaka" fa_icon_class="fa-reply" url_name=parent_path|view sizes="is-size-6" only %}
+        {% include 'components/styled_button.html' with button_text="Tillbaka" style="primary" url_name=parent_path|view sizes="is-size-6" only %}
       {% endwith %}
     {% endif %}
 
     {% if is_admin %}
       {% include 'components/image_upload_form.html' %}
       <div id="js-upload-photos">
-        {% include 'components/styled_button.html' with button_text="Upload" fa_icon_class="fa-upload" sizes="is-size-6" only %}
+        {% include 'components/styled_button.html' with button_text="Upload" style="admin" sizes="is-size-6" only %}
       </div>
 
       {% with 'create-path' as modal_id %}
         <div data-toggle="modal" data-target="{{ modal_id }}">
-          {% include 'components/styled_button.html' with button_text="New folder" fa_icon_class="fa-plus" sizes="is-size-6" only %}
+          {% include 'components/styled_button.html' with button_text="New folder" style="admin" sizes="is-size-6" only %}
         </div>
 
         {% include "modals/create_path.html" with modalname=modal_id only %}
       {% endwith %}
 
       <div id="select-objects-button">
-        {% include 'components/styled_button.html' with button_text="Select & Delete" fa_icon_class="" sizes="is-size-6" only %}
+        {% include 'components/styled_button.html' with button_text="Select & Delete" style="admin" sizes="is-size-6" only %}
       </div>
 
       <div id="delete-button">
-        {% include 'components/styled_button.html' with button_text="DELETE" fa_icon_class="fa-exclamation-triangle" sizes="is-size-6" only %}
+        {% include 'components/styled_button.html' with button_text="DELETE" style="admin" sizes="is-size-6" only %}
       </div>
     {% endif %}
   </div>
