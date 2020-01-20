@@ -1,0 +1,24 @@
+{% load static %}
+{% load view %}
+
+{% block css %}
+  <link href="{% static 'css/components/breadcrumb.css' %}" rel="stylesheet">
+{% endblock %}
+
+<nav class="breadcrumb" aria-label="breadcrumbs">
+    <ul>
+      <li class="{% if not folder %}current-breadcrumb{% endif %}">
+        <a href="{% url 'view' %}">Galleri</a>
+      </li>
+
+      {% if folder %}
+        {% for parent in folder.parents %}
+          <li><a href="/view/{{ parent.full_path }}">{{ parent.path }}</a></li>
+        {% endfor %}
+
+        <li class="current-breadcrumb">
+          <a href="">{{ folder.path }}</a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>

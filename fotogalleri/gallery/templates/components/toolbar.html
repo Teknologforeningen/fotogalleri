@@ -10,25 +10,7 @@
 {% endblock %}
 
 <div class="card toolbar-outer">
-  <nav id="toolbar-breadcrumb" class="breadcrumb" aria-label="breadcrumbs">
-    <ul>
-      <li id="{% if not folder %}current-breadcrumb{% endif %}">
-        <a href="{% url 'view' %}">Galleri</a>
-      </li>
-
-      {% if folder %}
-        {% for parent in folder.parents %}
-          <li><a href="/view/{{ parent.full_path }}">{{ parent.path }}</a></li>
-        {% endfor %}
-
-        <li id="current-breadcrumb">
-          <a href="/view/{{ folder.full_path }}">{{ folder.path }}</a>
-        </li>
-      {% endif %}
-    </ul>
-  </nav>
-
-  <div id="toolbar-buttons">
+  <div class="buttons">
     {% if folder %} {# i.e. if root #}
       {% with folder.parent.full_path as parent_path %}
         {% include 'components/styled_button.html' with button_text="Tillbaka" style="primary" url_name=parent_path|view sizes="is-size-6" only %}

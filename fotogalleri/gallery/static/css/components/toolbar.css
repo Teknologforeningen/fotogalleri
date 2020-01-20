@@ -6,45 +6,6 @@
     padding: 10px;
 }
 
-#toolbar-breadcrumb {
-    border-left: 4px solid var(--teknolog-rod);
-    padding-left: 10px;
-}
-
-#toolbar-breadcrumb a {
-    color: var(--black);
-}
-
-#toolbar-breadcrumb a:hover {
-    color: var(--teknolog-rod);
-}
-
-#current-breadcrumb a {
-    color: var(--teknolog-rod);
-}
-
-#current-breadcrumb a:hover {
-    color: var(--black);
-}
-
-.breadcrumb li + li::before {
-    color: var(--black);
-}
-
-#toolbar-buttons {
-    display: flex;
-    flex-direction: row;
-}
-
-#toolbar-buttons > .styled-button-container {
-    margin-right: 10px;
-}
-
-#toolbar-buttons .styled-button {
-    padding-right: 20px;
-    padding-left: 20px;
-}
-
 #delete-button {
     display: none;
 }
