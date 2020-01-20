@@ -1,21 +1,27 @@
+.breadcrumb-container {
+    display: flex;
+}
+
 .breadcrumb a {
-    color: var(--black);
-    font-weight: 600;
+    color: var(--teknolog-rod);
+    font-weight: 300;
     letter-spacing: 0.03em;
 }
 
 .breadcrumb a:hover {
-    color: var(--teknolog-rod);
+    color: var(--black);
 }
-/* 
-.current-breadcrumb a {
-    color: var(--teknolog-rod);
-    font-weight: 700;
-} */
 
+.current-breadcrumb a {
+    color: var(--black);
+}
 
 /* This modifies the breadcrumb divider */
 .breadcrumb li + li::before {
     color: var(--black);
-    font-weight: 600;
+}
+
+.back-icon {
+    margin-right: 25px;
+    margin-left: 5px;
 }

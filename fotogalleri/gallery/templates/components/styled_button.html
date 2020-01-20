@@ -5,6 +5,7 @@
 {% endblock %}
 
 <a href="{{ url_name|default:"javascript:;" }}">
+  {{url_name}}
   {# style should be: primary | secondary | admin #}
   <button class="button styled-button-{{style}}" type="{{ button_type }}">
     {{ button_text }}

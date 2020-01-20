@@ -5,20 +5,25 @@
   <link href="{% static 'css/components/breadcrumb.css' %}" rel="stylesheet">
 {% endblock %}
 
-<nav class="breadcrumb" aria-label="breadcrumbs">
-    <ul>
-      <li class="{% if not folder %}current-breadcrumb{% endif %}">
-        <a href="{% url 'view' %}">Galleri</a>
-      </li>
+<div class="breadcrumb-container">
+  {% if folder %} {# i.e. if not root #}
+    <a class="back-icon" href="{{folder.parent.full_path|view}}"><i class="fas fa-arrow-left is-size-6"></i></a>
+  {% endif %}
 
-      {% if folder %}
-        {% for parent in folder.parents %}
-          <li><a href="/view/{{ parent.full_path }}">{{ parent.path }}</a></li>
-        {% endfor %}
-
-        <li class="current-breadcrumb">
-          <a href="">{{ folder.path }}</a>
+  <nav class="breadcrumb is-centered" aria-label="breadcrumbs">
+      <ul>
+        <li class="{% if not folder %}current-breadcrumb{% endif %}">
+          <a href="{% url 'view' %}">Galleri</a>
         </li>
-      {% endif %}
-    </ul>
-  </nav>
+        {% if folder %}
+          {% for parent in folder.parents %}
+            <li><a href="/view/{{ parent.full_path }}">{{ parent.path }}</a></li>
+          {% endfor %}
+
+          <li class="current-breadcrumb">
+            <a href="">{{ folder.path }}</a>
+          </li>
+        {% endif %}
+      </ul>
+    </nav>
+</div>

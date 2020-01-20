@@ -28,9 +28,11 @@ function selectFolderLink(component) {
 }
 
 $(function() {
-    $('#select-objects-button').click(function() {
+    const selectButton = $('#select-objects-button')
+    selectButton.click(function() {
         const deleteButton = $('#delete-button');
         deleteButton.toggle();
+        selectButton.find("button").toggleClass("styled-button-admin-selected")
 
         $('[selectable="true"]').each(function(index, selectable) {
             const classNames = selectable.className.split(' ');

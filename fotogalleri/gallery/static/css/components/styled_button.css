@@ -33,6 +33,12 @@
     color: var(--teal);
 }
 
+.styled-button-admin-selected {
+    color: var(--white);
+    border-color: var(--teal);
+    background-color: var(--teal);
+}
+
 .styled-button-admin:hover {
     color: var(--white);
     border-color: var(--teal);
