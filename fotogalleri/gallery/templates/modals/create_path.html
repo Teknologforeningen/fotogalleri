@@ -7,15 +7,14 @@
 {% endblock %}
 
 {% block modalcontent %}
+<form id="new-path-form">
   <div class="modal-card">
     <header class="modal-card-head">
       <p class="modal-card-title">Add path</p>
       <button id="new-path-form-close" class="delete" aria-label="close"></button>
     </header>
     <section class="modal-card-body">
-      <form id="new-path-form" method="POST">
-        <input id="new-path" name="path" placeholder="Insert new path">
-      </form>
+      <input id="new-path" name="path" placeholder="Insert new path">
     </section>
     <footer class="modal-card-foot">
       <div id="new-path-button">
@@ -23,4 +22,5 @@
       </div>
     </footer>
   </div>
+</form>
 {% endblock %}
