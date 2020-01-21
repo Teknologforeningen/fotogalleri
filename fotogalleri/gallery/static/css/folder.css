@@ -6,7 +6,7 @@
 
     width: 100%;
 
-    margin: 5rem 0;
+    margin: 3rem 0;
     padding: 1.5rem 0;
 
     border-top: 1px solid var(--grey);
@@ -17,12 +17,10 @@
     display: flex;
     align-items: center;
     width: 100%;
-    padding: 0.2em 0.5em 0.2em 0;
+    padding: 8px 1em 8px 0;
 
-    font-weight: 800;
-    font-size: 0.9em;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: 0.03em;
     color: var(--black);
 }
 
@@ -37,3 +35,6 @@
     color: var(--teknolog-rod);
 }
 
+.folder-link:hover::before {
+    color: rgb(255, 153, 161);
+}

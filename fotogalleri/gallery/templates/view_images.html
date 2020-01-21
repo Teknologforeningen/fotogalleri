@@ -53,8 +53,15 @@
       style="{% if not images %}display: none;{% endif %}"
     >
       {% for image in images %}
-        {% include "components/image.html" with image=image %}
+        {% include "components/thumbnail.html" with image=image %}
       {% endfor %}
     </div>
   </div>
+
+  {# Display some placeholder text for an empty page #}
+  {% if not images and not folders %}
+  <h2 class="is-size-4 has-text-centered is-italic">
+    Här var det visst tomt...
+  </h2>
+  {% endif %}
 {% endblock %}

@@ -1,7 +1,7 @@
 @import "css/root.css";
 
 .album-title {
-    margin: 5rem 10px 1.5rem 10px;
+    margin: 3rem 10px 1.5rem 10px;
 }
 
 .title-text {
@@ -12,7 +12,7 @@
     text-transform: uppercase;
     word-wrap: break-word;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     
 }
 
