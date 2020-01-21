@@ -33,9 +33,11 @@
           <a href="{% url 'feedback' %}" class="button styled-button-primary">
             BETA – Ge feedback!
           </a>
-          <a class="button styled-button-secondary">
+          {% if user.is_authenticated %}
+          <a class="button styled-button-secondary" href="{% url 'logout' %}?next={{ request.build_absolute_uri }}">
             Logga ut
           </a>
+          {% endif %}
         </div>
       </div>
     </div>
