@@ -2,7 +2,7 @@
 
 /* Small (inline) line element used in titles before the text. Scales with font size */
 .vertical-line {
-    border-left: 0.25em solid var(--teknolog-rod);
+    border-left: 0.3em solid var(--teknolog-rod);
     height: 0.75em;
     display: inline-flex;
     vertical-align: baseline;

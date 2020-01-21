@@ -1,0 +1,10 @@
+@import "css/root.css";
+
+.hero-text {
+    text-align: center;
+}
+
+.hero-title {
+    font-weight: 500;
+    letter-spacing: 0.05em;
+}
