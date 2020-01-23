@@ -38,3 +38,14 @@
 .folder-link:hover::before {
     color: rgb(255, 153, 161);
 }
+
+.hidden-folder-tag {
+    border-color: var(--dark-red);
+    color: var(--dark-red);
+    border-width: 1px;
+    border-style: solid;
+}
+
+.has-margin-left-10 {
+    margin-left: 10px;
+}
