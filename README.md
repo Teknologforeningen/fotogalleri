@@ -1,4 +1,4 @@
-# fotogalleri
+# Fotogalleri - FAFA
 
 <p align="center">
     <img
