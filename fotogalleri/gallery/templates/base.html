@@ -3,14 +3,16 @@
 
 {% block base %}
   {% include "header.html" %}
-
-  <div class="columns">
-    <div class="column is-10 is-offset-1">
-      {% block content %}
-        <h3 class="is-size-3">
-          Välkommen till Teknologföreningens fotogalleri!
-        </h3>
-      {% endblock %}
+  <div class="section">
+    <div class="columns">
+      <div class="column is-10 is-offset-1">
+        {% block content %}
+          <h3 class="is-size-3">
+            Välkommen till Teknologföreningens fotogalleri!
+          </h3>
+        {% endblock %}
+      </div>
     </div>
   </div>
+  
 {% endblock %}

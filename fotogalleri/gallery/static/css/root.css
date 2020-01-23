@@ -2,10 +2,13 @@
 
 :root {
     --teknolog-rod: #b20738;
-    --dark-red: #490318;
+    --dark-red: #3f0214;
+    --teal: #3fb5b0;
+    --dark-teal: #2d8580;
     --black: #000;
     --grey: #ddd;
-    --white: #f4f4f4;
+    --light-grey: #f4f4f4;
+    --white: #fff;
 
     --transition-time: 0.4s;
     --rounding-radius: 10px;
@@ -21,6 +24,27 @@ html {
 }
 
 body {
-    background-color: var(--white);
+    background-color: var(--light-grey);
     min-height: 100%;
+}
+
+.title {
+    color: var(--black);
+    font-size: 2em;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    word-wrap: break-word;
+    text-align: center;
+    margin-bottom: 10px;
+    
+}
+
+.title::before {
+    content: "";
+    border-left: 0.3em solid var(--teknolog-rod);
+    height: 0.75em;
+    display: inline-flex;
+    vertical-align: baseline;
+    margin-right: 0.5em;
 }

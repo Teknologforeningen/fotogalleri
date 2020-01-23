@@ -4,17 +4,9 @@
   <link href="{% static 'css/components/styled_button.css' %}" rel="stylesheet">
 {% endblock %}
 
-<div class="styled-button-container">
-  <a href="{{ url_name|default:"javascript:;" }}">
-    <button class="styled-button" type="{{ button_type }}">
-      <div class="button-content">
-        {% if fa_icon_class %}
-          <i class="fas {{ fa_icon_class }}"></i>
-        {% endif %}
-        <p class="text-left-aligned {{ sizes }}">
-          {{ button_text }}
-        </p>
-      </div>
-    </button>
-  </a>
-</div>
+<a href="{{ url_name|default:"javascript:;" }}">
+  {# style should be: primary | secondary | admin #}
+  <button class="button styled-button-{{ style }}" type="{{ button_type }}">
+    {{ button_text }}
+  </button>
+</a>

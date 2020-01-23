@@ -1,0 +1,29 @@
+.breadcrumb-container {
+    display: flex;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--grey);
+}
+
+.breadcrumb a {
+    color: var(--teknolog-rod);
+    font-weight: 400;
+    letter-spacing: 0.03em;
+}
+
+.breadcrumb a:hover {
+    color: var(--black);
+}
+
+.current-breadcrumb a {
+    color: var(--black);
+}
+
+/* This modifies the breadcrumb divider */
+.breadcrumb li + li::before {
+    color: var(--black);
+}
+
+.back-icon {
+    margin-right: 25px;
+    margin-left: 5px;
+}

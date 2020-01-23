@@ -1,11 +1,44 @@
-{% extends "base.html" %}
+{% extends "root.html" %}
 {% load static %}
+{% load rev %}
 
-{% block content %}
-  {# TODO: styling #}
-  <form method="POST" action="{% url 'login' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Login">
-  </form>
+{% block css %}
+  <link href="{% static 'css/login.css' %}" rel="stylesheet">
+  <link href="{% static 'css/components/styled_button.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block base %}
+  {% block content %}
+  {% include "header.html" %}
+  <section class="hero is-light" >
+    <div class="hero-body">
+      <div class="columns">
+        <div class="column"></div>
+        <div class="column is-6-desktop is-10-tablet is-12-mobile is-centered">
+          <div class="container hero-text has-text-centered">
+            <img
+              class="img-fluid hero-logo is-hidden-mobile"
+              src="{% static "images/logo_rod.svg" %}"
+              alt="Fotogalleriets logo"
+            >
+            <h1 class="title hero-title ">
+              Välkommen till TF:s fotogalleri
+            </h1>
+            <h2 class="subtitle">
+              eller FAFA Alternativt FotoAlbum
+            </h2>
+          </div>
+          {% include "login_form.html" %}
+          {# TODO: uncomment this once public images are supported #}
+          <!-- <a href="/view/">
+            <button type="button" class="button styled-button-secondary" style="margin-top: 20px;">
+              Fortsätt utan inloggning
+            </button>
+          </a> -->  
+        </div>
+        <div class="column"></div>
+      </div>
+    </div>
+  </section>
+  {% endblock %}
 {% endblock %}

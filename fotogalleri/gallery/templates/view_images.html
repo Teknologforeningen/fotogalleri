@@ -2,9 +2,11 @@
 {% load static %}
 
 {% block css %}
-  <link href="{% static 'css/card.css' %}" rel="stylesheet">
+  <link href="{% static 'css/image_grid.css' %}" rel="stylesheet">
   <link href="{% static 'css/folder.css' %}" rel="stylesheet">
   <link href="{% static 'css/navigation.css' %}" rel="stylesheet">
+  <link href="{% static 'css/title.css' %}" rel="stylesheet">
+  <link href="{% static 'css/components/vertical_line.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block javascript %}
@@ -14,36 +16,53 @@
 
 {% block content %}
   <div>
+    {% if folder %} {# display banner instead of breadcrumb if in gallery root #}
+      {% include "components/breadcrumb.html" %}
+    {% endif %}
     {% include "components/toolbar.html" %}
 
-    <div
-      id="all-folders"
-      class="card folders-card"
-      style="{% if not folders %}display: none;{% endif %}"
-    >
-      {% if folder %}
-        <div class="card-title">
-          Mappar
-        </div>
-      {% endif %}
-
-      {% for folder in folders %}
-        {% include "components/folder.html" with folder=folder %}
-      {% endfor %}
+    {# RUBRIK #}
+    <div class="content album-title">
+      <div class="title-text">
+        {{ folder.path|default:"Galleri" }}
+      </div>
+      <div class="description-text">
+        {# Uncomment this if we start supporting descriptions #}
+        <!-- Vi kunde till och med ha en beskrivning här... -->
+      </div>
     </div>
 
+    {# MAPPAR #}
+    <div
+      id="all-folders"
+      class="content folders-content"
+      style="{% if not folders %}display: none;{% endif %}"
+    >
+    <div>
+      {% for folder in folders %}
+      <div>
+        {% include "components/folder.html" with folder=folder %}
+      </div>
+      {% endfor %}
+      </div>
+    </div>
+
+    {# BILDER #}
     <div
       id="all-images"
-      class="card image-card"
+      class="content image-grid-content"
       style="{% if not images %}display: none;{% endif %}"
     >
-      <div class="card-title">
-        Bilder
-      </div>
-
       {% for image in images %}
-        {% include "components/image.html" with image=image %}
+        {% include "components/thumbnail.html" with image=image %}
       {% endfor %}
     </div>
   </div>
+
+  {# Display some placeholder text for an empty page #}
+  {% if not images and not folders %}
+  <h2 class="is-size-4 has-text-centered is-italic">
+    Här var det visst tomt...
+  </h2>
+  {% endif %}
 {% endblock %}

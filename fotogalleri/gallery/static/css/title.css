@@ -1,0 +1,32 @@
+@import "css/root.css";
+
+.album-title {
+    margin: 3rem 10px 1.5rem 10px;
+}
+
+.title-text {
+    color: var(--black);
+    font-size: 2em;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    word-wrap: break-word;
+    text-align: center;
+    margin-bottom: 10px;
+    
+}
+
+.title-text::before {
+    content: "";
+    border-left: 0.3em solid var(--teknolog-rod);
+    height: 0.75em;
+    display: inline-flex;
+    vertical-align: baseline;
+    margin-right: 0.5em;
+}
+
+.description-text {
+    font-style: italic;
+    font-weight: 400;
+    text-align: center;
+}

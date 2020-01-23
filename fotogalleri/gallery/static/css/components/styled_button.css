@@ -1,40 +1,50 @@
 @import "css/root.css";
 
-.styled-button-container {
-    border-left: 4px solid var(--teknolog-rod);
+.button {
+    background-color: var(--white);
+    font-weight: 600;
+    border: 1px solid;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin: 5px;
 }
 
-.styled-button {
-    border: 2px solid var(--white);
-    border-left: none;
-
-    color: var(--black);
-    background-color: #fff;
-
-    height: 100%;
-    width: 100%;
-    padding: 5%;
-
-    font-size: 150%;
-    font-family: 'Montserrat';
-
-    cursor: pointer;
-}
-
-.button-content {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-
-.button-content > i {
-    padding-right: 10px;
+.styled-button-primary, .styled-button-primary-inverse:hover {
     color: var(--teknolog-rod);
+    border-color: var(--teknolog-rod);
+    background-color: var(--white);
 }
 
-.styled-button:hover {
-    background-color: var(--grey);
+.styled-button-primary-inverse, .styled-button-primary:hover {
+    color: var(--white);
+    border-color: var(--teknolog-rod);
+    background-color: var(--teknolog-rod);
+}
+
+.styled-button-secondary {
+    color: var(--black);
+}
+
+.styled-button-secondary:hover {
+    color: var(--white);
+    border-color: var(--black);
+    background-color: var(--black);
+}
+
+.styled-button-admin {
+    color: var(--teal);
+}
+
+.styled-button-admin-selected {
+    color: var(--white);
+    border-color: var(--teal);
+    background-color: var(--teal);
+}
+
+.styled-button-admin:hover {
+    color: var(--white);
+    border-color: var(--teal);
+    background-color: var(--teal);
 }
 
 .text-left-aligned {

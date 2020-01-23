@@ -7,7 +7,6 @@
   data-url="/view/{{ folder.full_path }}"
   data-id="{{ folder.pk }}"
 >
-  <i class="fas fa-folder" aria-hidden="true"></i>
-  <input type="checkbox" style="display: none;" />
-  <div class="folder-text">{{ folder.path }}</div>
+{{ folder.path }}
+  <input type="checkbox" style="display: none; margin-left: 10px;" />  
 </a>

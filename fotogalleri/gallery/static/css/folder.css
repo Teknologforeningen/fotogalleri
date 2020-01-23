@@ -1,27 +1,40 @@
 @import "css/root.css";
 
-.folders-card {
+.folders-content {
     display: flex;
     flex-wrap: wrap;
 
     width: 100%;
 
-    margin-top: 10px;
-    padding: 10px;
+    margin: 3rem 0;
+    padding: 1.5rem 0;
+
+    border-top: 1px solid var(--grey);
+    border-bottom: 1px solid var(--grey);
 }
 
 .folder-link {
     display: flex;
     align-items: center;
-
     width: 100%;
-    padding: 8px;
+    padding: 8px 1em 8px 0;
+
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    color: var(--black);
+}
+
+.folder-link::before {
+    content: '►';
+    color: var(--teknolog-rod);
+    font-size: 0.8em;
+    margin-right: 0.5em;
 }
 
 .folder-link:hover {
-    background-color: var(--white);
+    color: var(--teknolog-rod);
 }
 
-.folder-text {
-    margin-left: 5px;
+.folder-link:hover::before {
+    color: rgb(255, 153, 161);
 }

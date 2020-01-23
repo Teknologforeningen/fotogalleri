@@ -11,13 +11,8 @@ from gallery.mailutils import mail_feedback
 
 
 class HomeView(View):
-    template = 'landing_page.html'
-
     def get(self, request):
-        context = {
-            'logged_in': request.user.is_authenticated
-        }
-        return render(request, self.template, context)
+        return redirect('/view/')
 
 
 class ImageGalleryView(ListView):

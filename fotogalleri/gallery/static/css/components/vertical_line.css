@@ -1,0 +1,14 @@
+@import "css/root.css";
+
+/* Small (inline) line element used in titles before the text. Scales with font size */
+.vertical-line {
+    border-left: 0.3em solid var(--teknolog-rod);
+    height: 0.75em;
+    display: inline-flex;
+    vertical-align: baseline;
+    margin-right: 0.5em;
+}
+
+.line-is-admin {
+    border-color: var(--teal);
+}

@@ -1,33 +1,51 @@
 {% load static %}
 
-<div id="header-top">
-  <div id="header-information">
-    <a id="header-logo-container" href="https://foto.tf.fi">
+{% block css %}
+  <link href="{% static 'css/components/styled_button.css' %}" rel="stylesheet">
+{% endblock %}
+
+<nav class="navbar" role="navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://foto.tf.fi">
       <img
-        id="header-tf-logo"
-        class="img-fluid"
+        class="img-fluid header-logo"
         src="{% static "images/logo_black.svg" %}"
         alt="Teknologföreningens logo"
       >
+      <h1 class="navbar-item header-logo-text">
+        FOTOGALLERI
+      </h1>
     </a>
-
-    <h1 id="header-text">
-      FOTOGALLERI
-    </h1>
+    <a 
+      role="button"
+      class="navbar-burger"
+      data-target="navMenu"
+      aria-label="menu"
+      aria-expanded="false"
+      data-target="navbarEnd"
+      >
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
   </div>
+  <div class="navbar-menu">
+    <div class="navbar-start"></div>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        {% if user.is_authenticated %}
+        <div class="buttons">
+          <a href="{% url 'feedback' %}" class="button styled-button-primary">
+            BETA – Ge feedback!
+          </a>
+          <a class="button styled-button-secondary" href="{% url 'logout' %}?next={{ request.build_absolute_uri }}">
+            Logga ut
+          </a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>  
+</nav>
 
-  <div id="header-meta">
-    <span class="button is-light">
-      <a href="https://github.com/Teknologforeningen/fotogalleri/">
-        BETA
-      </a>
-    </span>
-    <span class="button">
-      <a href="{% url 'feedback' %}">
-        Ge feedback!
-      </a>
-    </span>
-  </div>
-</div>
-
-<hr class="page-divide" />
+<script src="{% static 'javascript/header_menu.js' %}"></script>
