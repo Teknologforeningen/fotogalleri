@@ -2,22 +2,24 @@
 
 <p align="center">
     <img
-        src="https://raw.githubusercontent.com/Teknologforeningen/fotogalleri/master/.github/logo_black.svg"
+        src="https://raw.githubusercontent.com/Teknologforeningen/fotogalleri/master/.github/logo_black.svg?sanitize=true"
         alt="Fotogalleri Logo"
-        style="max-width: 100%;"
+        style="width: 200px;"
     />
 </p>
 
 Photo Gallery for [Teknologföreningen](https://tf.fi)
 
-See live version at: [https://foto.tf.fi](https://foto.tf.fi)
+See live version of the latest release at: [https://foto.tf.fi](https://foto.tf.fi)
+
+---
 
 ## Development
 
 The development tool heavily used is [Make](https://www.gnu.org/software/make/manual/make.html).
 You may find all the commands and variables specified here in the `Makefile`.
 
-### Rules
+### Make Rules
 
 To run the development server:
 
