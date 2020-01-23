@@ -1,6 +1,6 @@
 # Fotogalleri - FAFA
 
-<p align="center">
+<p align="center" style="max-width: 200px">
     <img
         src="https://raw.githubusercontent.com/Teknologforeningen/fotogalleri/master/.github/logo_black.svg?sanitize=true"
         alt="Fotogalleri Logo"
@@ -22,7 +22,7 @@ You may find all the commands and variables specified here in the `Makefile`.
 ### Environmental variables
 
 There are _two_ ways to change environmental variables:
-1. Copy the file `.env.example` to `.env` and change values in the `.env` file.
+1. Copy the file `fotogalleri/.env.example` as `fotogalleri/.env` and change values as needed in the newly copied `fotogalleri/.env` file.
 2. Change the default values for environmental variables in `fotogalleri/fotogalleri/settings.py`
     - E.g. to enable thumbnail generation in production do the following change
     ```
