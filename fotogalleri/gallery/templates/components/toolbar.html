@@ -2,43 +2,43 @@
 {% load view %}
 
 {% if is_admin %}
-{% block css %}
-  <link href="{% static 'css/components/toolbar.css' %}" rel="stylesheet">
-{% endblock %}
+  {% block css %}
+    <link href="{% static 'css/components/toolbar.css' %}" rel="stylesheet">
+  {% endblock %}
 
-{% block javascript %}
-  <script src="{% static 'javascript/delete.js' %}"></script>
-{% endblock %}
+  {% block javascript %}
+    <script src="{% static 'javascript/delete.js' %}"></script>
+  {% endblock %}
 
-<div class="content toolbar-outer">
-  <div class="toolbar-title is-size-5">
-  
-    <i class="vertical-line line-is-admin"></i>
-    Adminverktyg
-  </div>
-  <div class="buttons">
+  <div class="content toolbar-outer">
+    <div class="toolbar-title is-size-5">
+    
+      <i class="vertical-line line-is-admin"></i>
+      Adminverktyg
+    </div>
+    <div class="buttons">
 
-      {% include 'components/image_upload_form.html' %}
-      <div id="js-upload-photos">
-        {% include 'components/styled_button.html' with button_text="Upload" style="admin" sizes="is-size-6" only %}
-      </div>
-
-      {% with 'create-path' as modal_id %}
-        <div data-toggle="modal" data-target="{{ modal_id }}">
-          {% include 'components/styled_button.html' with button_text="New folder" style="admin" sizes="is-size-6" only %}
+        {% include 'components/image_upload_form.html' %}
+        <div id="js-upload-photos">
+          {% include 'components/styled_button.html' with button_text="Upload" style="admin" sizes="is-size-6" only %}
         </div>
 
-        {% include "modals/create_path.html" with modalname=modal_id only %}
-      {% endwith %}
+        {% with 'create-path' as modal_id %}
+          <div data-toggle="modal" data-target="{{ modal_id }}">
+            {% include 'components/styled_button.html' with button_text="New folder" style="admin" sizes="is-size-6" only %}
+          </div>
 
-      <div id="select-objects-button">
-        {% include 'components/styled_button.html' with button_text="Select & Delete" style="admin" sizes="is-size-6" only %}
-      </div>
+          {% include "modals/create_path.html" with modalname=modal_id only %}
+        {% endwith %}
 
-      <div id="delete-button">
-        {% include 'components/styled_button.html' with button_text="DELETE" style="secondary" sizes="is-size-6" only %}
-      </div>
-    
+        <div id="select-objects-button">
+          {% include 'components/styled_button.html' with button_text="Select & Delete" style="admin" sizes="is-size-6" only %}
+        </div>
+
+        <div id="delete-button">
+          {% include 'components/styled_button.html' with button_text="DELETE" style="secondary" sizes="is-size-6" only %}
+        </div>
+      
+    </div>
   </div>
-</div>
 {% endif %}
