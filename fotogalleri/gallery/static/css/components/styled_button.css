@@ -4,16 +4,18 @@
     background-color: var(--white);
     font-weight: 600;
     border: 1px solid;
-    margin: 5px;
     padding-left: 1em;
     padding-right: 1em;
+    margin: 5px;
 }
 
-.styled-button-primary {
+.styled-button-primary, .styled-button-primary-inverse:hover {
     color: var(--teknolog-rod);
+    border-color: var(--teknolog-rod);
+    background-color: var(--white);
 }
 
-.styled-button-primary:hover {
+.styled-button-primary-inverse, .styled-button-primary:hover {
     color: var(--white);
     border-color: var(--teknolog-rod);
     background-color: var(--teknolog-rod);

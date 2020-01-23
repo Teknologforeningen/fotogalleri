@@ -1,0 +1,31 @@
+{% load static %}
+
+{% block css %}
+  <link href="{% static 'css/login_form.css' %}" rel="stylesheet">
+  <link href="{% static 'css/components/styled_button.css' %}" rel="stylesheet">
+{% endblock %}
+
+<form method="POST" action="{% url 'login' %}" class="login-form">
+  <div class="field">
+    <div class="control">
+      <input class="input" id="id_username" name="username" type="text" required placeholder="Användarnamn" maxlength="254"/>
+    </div>
+  </div>
+  <div class="field">
+    <div class="control">
+      <input class="input" id="id_password" name="password" type="password" required placeholder="Lösenord"/>
+      
+    </div>
+  </div>
+  
+  <div class="has-text-danger form-error">
+    {% if form.non_field_errors %}
+    Fel användarnamn eller lösenord
+    {% endif %}
+  </div>
+  
+  <div class="field has-text-centered is-marginless">
+      {% csrf_token %}
+      <button type="submit" class="button styled-button-primary-inverse form-button">Logga in</button>
+  </div>
+</form>

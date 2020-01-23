@@ -1,0 +1,21 @@
+@import "css/header.css";
+
+.vertically-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-logo {
+    height: 7rem;
+    margin-bottom: 1.5rem;
+}
+
+.hero-text {
+    text-align: left;
+}
+
+.hero-title {
+    padding-bottom: 0.5em;
+}
+

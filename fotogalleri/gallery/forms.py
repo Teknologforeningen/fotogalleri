@@ -48,8 +48,8 @@ class ImageUploadForm(ModelForm):
 
 
 class CustomLoginForm(AuthenticationForm):
-    username = CharField(widget=TextInput(attrs={'placeholder': 'Username'}))
-    password = CharField(widget=PasswordInput(attrs={'placeholder': 'Password'}))
+    username = CharField(widget=TextInput(attrs={'placeholder': 'Username', 'class': 'input'}))
+    password = CharField(widget=PasswordInput(attrs={'placeholder': 'Password', 'class': 'input'}))
 
 
 class NewFolderForm(Form):
