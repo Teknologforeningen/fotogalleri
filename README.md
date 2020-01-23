@@ -19,6 +19,22 @@ See live version of the latest release at: [https://foto.tf.fi](https://foto.tf.
 The development tool heavily used is [Make](https://www.gnu.org/software/make/manual/make.html).
 You may find all the commands and variables specified here in the `Makefile`.
 
+### Environmental variables
+
+There are _two_ ways to change environmental variables:
+1. Copy the file `.env.example` to `.env` and change values in the `.env` file.
+2. Change the default values for environmental variables in `fotogalleri/fotogalleri/settings.py`
+    - E.g. to enable thumbnail generation in production do the following change
+    ```
+    ENABLE_THUMB_QUEUE = env('ENABLE_THUMB_QUEUE', True) -> ENABLE_THUMB_QUEUE = env('ENABLE_THUMB_QUEUE', False)
+    ```
+
+##### Enable thumbnail generation
+
+If one wishes to run thumbnail generation when in development one has to set the `ENABLE_THUMB_QUEUE` environmental variable to true.
+The variable is false by default to avoid accidental thumbnail generations during production.
+
+
 ### Make Rules
 
 To run the development server:
