@@ -4,7 +4,7 @@
     <img
         src="https://raw.githubusercontent.com/Teknologforeningen/fotogalleri/master/.github/logo_black.svg?sanitize=true"
         alt="Fotogalleri Logo"
-        style="width: 200px;"
+        width="200"
     />
 </p>
 
