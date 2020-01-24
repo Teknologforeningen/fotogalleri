@@ -28,10 +28,35 @@ function selectFolderLink(component) {
 }
 
 $(function() {
+    const selectAllButton = $('#select-all-objects-button');
+    selectAllButton.click(function() {
+        const isPressed = selectAllButton.attr('pressed');
+
+        $('[selectable="true"]').each(function(index, selectable) {
+            const classNames = selectable.className.split(' ');
+            const filteredNames = classNames.filter(function(className) {
+                return className !== 'selectable';
+            });
+
+            filteredNames.forEach(function() {
+                const checkbox = $(selectable).children('[type="checkbox"]');
+                checkbox.prop('checked', !isPressed);
+            });
+        });
+
+        selectAllButton.attr('pressed', !!isPressed ? '' : 'true')
+        selectAllButton.find('button').text(
+            !!isPressed
+            ? 'Select all'
+            : 'Disselect all'
+        );
+    });
+
     const selectButton = $('#select-objects-button')
     selectButton.click(function() {
         const deleteButton = $('#delete-button');
         deleteButton.toggle();
+        selectAllButton.toggle();
         selectButton.find("button").toggleClass("styled-button-admin-selected")
 
         $('[selectable="true"]').each(function(index, selectable) {
