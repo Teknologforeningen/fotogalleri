@@ -13,6 +13,10 @@
     font-weight: 600;
 }
 
+#select-all-objects-button {
+    display: none;
+}
+
 #delete-button {
     display: none;
 }
