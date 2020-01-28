@@ -48,7 +48,7 @@ $(function() {
         selectAllButton.find('button').text(
             !!isPressed
             ? 'Select all'
-            : 'Disselect all'
+            : 'Deselect all'
         );
     });
 
