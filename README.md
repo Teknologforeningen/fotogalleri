@@ -12,7 +12,7 @@ Photo Gallery for [Teknologföreningen](https://tf.fi)
 
 See live version of the latest release at: [https://foto.tf.fi](https://foto.tf.fi)
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 ## Development
 
