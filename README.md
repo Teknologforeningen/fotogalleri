@@ -121,3 +121,14 @@ Run the following snippet and your code will be tested and checked for linting e
 
     # Run lint-check
     make lint
+
+------------------------------------------------------------------------------------------------------------------------
+
+## Production
+
+*Note: these production configurations have had the production environment of TF in mind, note that your environment might be setup differently (e.g. deployment).*
+
+###### Note about the ENABLE_THUMB_QUEUE environmental variable
+
+The `ENABLE_THUMB_QUEUE` variable cannot be set dynamically.
+To change the variable (and thus enabling thumbnail generation) one has to temporarily turn off the production application while changing the variable.
