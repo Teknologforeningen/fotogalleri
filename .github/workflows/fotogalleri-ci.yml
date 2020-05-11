@@ -8,6 +8,8 @@ jobs:
     steps:
       # Without the following action the Makefile won't be found
       - uses: actions/checkout@v1
+      - name: Update Ubuntu archives
+        run: sudo apt-get update --yes
       - name: Install LDAP requirements
         run: sudo apt-get install -y python-dev libldap2-dev libsasl2-dev libssl-dev
       - name: Set up Python 3.5
@@ -23,6 +25,8 @@ jobs:
     steps:
       # Without the following action the Makefile won't be found
       - uses: actions/checkout@v1
+      - name: Update Ubuntu archives
+        run: sudo apt-get update --yes
       - name: Install LDAP requirements
         run: sudo apt-get install -y python-dev libldap2-dev libsasl2-dev libssl-dev
       - name: Set up Python 3.5
