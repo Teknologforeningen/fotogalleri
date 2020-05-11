@@ -132,3 +132,112 @@ Run the following snippet and your code will be tested and checked for linting e
 
 The `ENABLE_THUMB_QUEUE` variable cannot be set dynamically.
 To change the variable (and thus enabling thumbnail generation) one has to temporarily turn off the production application while changing the variable.
+
+
+### First time setup
+
+First and foremost you have to deploy the repository to your server.
+There are multiple ways to do this, one way would be to have a production Git remote on your server, to which you can push every release and automate deployment through a `post-receive` hook.
+
+The deployment strategy below assumes you have deployed the application to `/var/www/fotogalleri` and that you've setup a Python virtual environment in the root the of the application directory.
+
+
+#### Running Fotogalleri
+
+Before starting the production application, check whether your desired and required options are set in `fotogaller/.env`.
+An example configuration can be found under `fotogaller/.env.example`.
+
+Anything that spins up a Django application should work, however, only `WSGI` through [Gunicorn](https://gunicorn.org/) has been tested.
+
+
+#### WSGI
+
+The application is pre-configured to run with `WSGI`, the accompanying file can be found under `fotogalleri/fotogalleri/fotogalleri/wsgi.py`.
+To run the `WSGI` application use a `WSGI HTTP server`, in this deployment strategy we use [Gunicorn](https://gunicorn.org/).
+You can spin up a Gunicorn instance with, e.g., a `SystemD` service and socket file, and then configure a proxy to this instance from your webserver.
+
+##### Example SystemD service file:
+
+```
+[Unit]
+Description=gunicorn3 daemon for fotogalleri
+Requires=fotogalleri.socket
+After=network.target
+
+[Service]
+PermissionsStartOnly=True
+RuntimeDirectory=fotogalleri
+PIDFile=/run/fotogalleri/pid
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/fotogalleri/fotogalleri
+Environment=PYTHONPATH=/var/www/fotogalleri/lib/python3.5/site-packages
+ExecStart=/usr/bin/gunicorn3 --pid /run/fotogalleri/pid --timeout 90 fotogalleri.wsgi:application
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+```
+
+##### Example SystemD socket file:
+
+```
+[Unit]
+Description=gunicorn3 socket for fotogalleri
+
+[Socket]
+ListenStream=/run/fotogalleri/socket
+ListenStream=0.0.0.0:8888
+
+[Install]
+WantedBy=sockets.target
+```
+
+*Note the port you set for* `ListenStream`.
+
+#### Static files and serving images
+
+In production mode Django does not serve static files nor images.
+The distinction this project uses is that static files are files for the interface itself (e.g. CSS and icons) while images are the images that the gallery actually serves.
+This makes the whole project less cluttered and enables you have separation of concerns regarding static images and served images.
+
+##### Static files
+
+The root of all static files are assumed to be under `fotogalleri/gallery/static/`.
+Thus move all static files there if you have additional ones, or you have, e.g., a new app with static files that you want served as well.
+
+*Note: this could be circumvented if one configured the* `STATICFILES_DIRS` *variable in the project settings.*
+*Currently, however, we only have one app, so this is not used.*
+
+##### Images
+
+As this project is a interface for a flat-file directory of images (the Django models are only concerned with metadata) you have to setup a server for serving images.
+The project is agnostic to how this is done, the only thing assumed is that the images can be found under the endpoint `/images` as a directory structure.
+
+###### Apache2 with symlinking of images
+
+One solution for serving images could be symlinking the images directory to the root of the application (i.e. `/images`) and serving this directory with [Apache2](https://httpd.apache.org/).
+This would allow you to use the images directory itself for other tasks (e.g. having an `ftp` server).
+
+###### Example:
+
+For symlinking you could do this (replacing `<IMAGE_DIRECTORY_PATH>` with the path to your image directory):
+
+```
+ln --symbolic --relative <IMAGE_DIRECTORY_PATH> /var/www/fotogalleri/images
+```
+
+And then append this to you Apache site configuration:
+
+```
+Alias /images/ /var/www/fotogalleri/images/
+<Directory /var/www/fotogalleri/images>
+  Require all granted
+  Options -Indexes
+</Directory>
+
+ProxyPass "/images" !
+ProxyPassReverse "/images" !
+```
