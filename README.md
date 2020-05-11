@@ -241,3 +241,17 @@ Alias /images/ /var/www/fotogalleri/images/
 ProxyPass "/images" !
 ProxyPassReverse "/images" !
 ```
+
+
+### Deploying a new release
+
+*Note: this deployment strategy assumes that the project is setup according to* First time setup.
+
+Deploying a release is quite simple once the application is setup once:
+1. Deploy the new version code to your server.
+   This can, again, be done with, e.g., a Git solution: push the new version to the server.
+2. Check that code deployment went as expected.
+    - Check that your environmental variables are setup as you want them.
+    - Check that images are still available through the setup directory.
+    - Move any needed static files to `fotogalleri/gallery/static/`.
+5. Restart the `SystemD` service (e.g. `systemctl restart fotogalleri.service`).
