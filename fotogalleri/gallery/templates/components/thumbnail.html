@@ -7,6 +7,7 @@
 {% with width=image.image.width height=image.image.height %}
   <a
     onClick="selectLinkOnClick(this)"
+    href="{{ image.image.url }}"
     class="img-link selectable"
     style="width:{% widthratio width height 300 %}px;flex-grow:{% widthratio width height 300 %};"
     selectable="true"
