@@ -3,15 +3,13 @@ function selectLinkOnClick(link) {
     const checkboxIsHidden = checkbox.is(':hidden');
 
     if (checkboxIsHidden) {
-        const linkUrl = $(link).attr('data-url');
-        window.location.href = linkUrl;
+        return
+    }
+    const checkboxIsChecked = checkbox.is(':checked');
+    if (checkboxIsChecked) {
+        checkbox.removeAttr('checked');
     } else {
-        const checkboxIsChecked = checkbox.is(':checked');
-        if (checkboxIsChecked) {
-            checkbox.removeAttr('checked');
-        } else {
-            checkbox.attr('checked', 'checked');
-        }
+        checkbox.attr('checked', 'checked');
     }
 }
 
@@ -64,6 +62,12 @@ $(function() {
             const filteredNames = classNames.filter(function(className) {
                 return className !== 'selectable';
             });
+
+            if ($(selectable).attr("href")) {
+                $(selectable).removeAttr("href")
+            } else {
+                $(selectable).attr("href", $(selectable).attr("data-url"))
+            }
 
             filteredNames.forEach(function(className) {
                 switch (className) {
